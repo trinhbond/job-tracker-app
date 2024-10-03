@@ -10,13 +10,13 @@ const root = ReactDOM.createRoot(
 );
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAObGMTlQhtDzdDiO8ygNMDd7rXYkuaXI0",
-  authDomain: "test-project-96455.firebaseapp.com",
-  projectId: "test-project-96455",
-  storageBucket: "test-project-96455.appspot.com",
-  messagingSenderId: "325982930563",
-  appId: "1:325982930563:web:f6b9c1c35c33baf5d3bdb6",
-  measurementId: "G-LTH4VFETKQ",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
