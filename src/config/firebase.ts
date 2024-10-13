@@ -24,8 +24,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const db = getFirestore(app);
-
 export const signInUser = async (email: string, password: string) => {
   if (!email && !password) return;
 
@@ -58,3 +56,5 @@ export const updateUser = (
 };
 
 export const auth = getAuth(app);
+
+export const db = getFirestore(app);
