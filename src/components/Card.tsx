@@ -45,11 +45,8 @@ export default function Card({
       </div>
       <div className="flex flex-row gap-1 self-auto place-self-end justify-self-start text-sm">
         <span>
-          {new Date(props.date.seconds * 1000).getDay()}
-          {new Date(props.date.seconds * 1000).getDay() === 1
-            ? " day"
-            : " days"}{" "}
-          ago
+          {new Date().getDate() - new Date(props.date.seconds * 1000).getDate()}
+          {"d ago"}
         </span>
       </div>
     </div>
