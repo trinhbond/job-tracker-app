@@ -1,15 +1,8 @@
-import {
-  Outlet,
-  Route,
-  Routes,
-  useNavigate,
-  useLocation,
-  Navigate,
-} from "react-router-dom";
+import { Outlet, Route, Routes, Navigate } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import { useContext, useEffect, useState } from "react";
+import { Suspense, useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Content from "./pages/Content";
 
@@ -24,26 +17,6 @@ function Layout() {
 
 function App() {
   const { user } = useContext(AuthContext);
-  const location = useLocation();
-  const { pathname } = location;
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    setLoading(true);
-
-    if (!user || pathname === "/") {
-      setLoading(false);
-      return;
-    }
-    if (user) {
-      setLoading(false);
-    } else {
-      navigate("/");
-    }
-  }, [user, pathname, navigate]);
-
-  if (loading) return <>loading...</>;
 
   return (
     <Routes>
@@ -52,7 +25,14 @@ function App() {
         index
         element={user ? <Navigate to="user/profile" /> : <Home />}
       />
-      <Route path="user" element={<Layout />}>
+      <Route
+        path="user"
+        element={
+          <Suspense fallback={<>loading...</>}>
+            <Layout />
+          </Suspense>
+        }
+      >
         <Route path="profile" element={<Profile />} />
         <Route path="content" element={<Content />} />
         <Route path="*" element={<>Not Found</>} />
