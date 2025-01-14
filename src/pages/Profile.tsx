@@ -7,15 +7,13 @@ export default function Profile() {
 
   useEffect(() => {
     setLoading(true);
-
     if (user) setLoading(false);
-    console.log(user);
   }, [user]);
 
   if (loading) return <>loading...</>;
 
   return (
-    <div className="py-6 px-8 flex flex-col gap-8 min-w-3.5">
+    <div className="py-6 px-8 flex flex-col gap-8 min-w-3.5 text-white">
       <div>
         <h1 className="font-semibold text-white text-3xl mb-1">Profile</h1>
         <div className="w-full border border-[#ffffff18]" />
