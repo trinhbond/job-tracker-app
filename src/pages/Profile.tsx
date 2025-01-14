@@ -1,16 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    if (user) setLoading(false);
-  }, [user]);
-
-  if (loading) return <>loading...</>;
 
   return (
     <div className="py-6 px-8 flex flex-col gap-8 min-w-3.5 text-white">
@@ -20,36 +12,42 @@ export default function Profile() {
       </div>
       <div className="w-auto">
         <form>
-          <div className="flex flex-col w-auto max-w-64 mb-4">
-            <label className="text-md">Preferred name</label>
-            <input
-              contentEditable={false}
-              disabled
-              className="rounded-md text-[#000] text-md p-1"
-              type="text"
-              placeholder={user?.displayName || ""}
-            />
-          </div>
-          <div className="flex flex-col w-auto max-w-64 mb-4">
-            <label className="text-md">Email</label>
-            <input
-              contentEditable={false}
-              disabled
-              className="rounded-md text-[#000] text-md p-1"
-              type="text"
-              placeholder={user?.email || ""}
-            />
-          </div>
-          <div className="flex flex-col w-auto max-w-64 mb-4">
-            <label className="text-md">Account created</label>
-            <input
-              contentEditable={false}
-              disabled
-              className="rounded-md text-[#000] text-md p-1"
-              type="text"
-              placeholder={user?.metadata.creationTime || ""}
-            />
-          </div>
+          {user?.displayName && (
+            <div className="flex flex-col w-auto max-w-64 mb-4">
+              <label className="text-md">Preferred name</label>
+              <input
+                contentEditable={false}
+                disabled
+                className="rounded-md text-[#000] text-md p-1"
+                type="text"
+                placeholder={user.displayName}
+              />
+            </div>
+          )}
+          {user?.email && (
+            <div className="flex flex-col w-auto max-w-64 mb-4">
+              <label className="text-md">Email</label>
+              <input
+                contentEditable={false}
+                disabled
+                className="rounded-md text-[#000] text-md p-1"
+                type="text"
+                placeholder={user.email}
+              />
+            </div>
+          )}
+          {user?.metadata && (
+            <div className="flex flex-col w-auto max-w-64 mb-4">
+              <label className="text-md">Account created</label>
+              <input
+                contentEditable={false}
+                disabled
+                className="rounded-md text-[#000] text-md p-1"
+                type="text"
+                placeholder={user.metadata.creationTime}
+              />
+            </div>
+          )}
         </form>
       </div>
     </div>
