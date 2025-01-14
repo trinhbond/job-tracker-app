@@ -17,16 +17,19 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
     const unsubscribe = userStateListener((user) => {
       if (user) {
         setUser(user);
+      } else {
+        navigate("/");
       }
     });
 
     return unsubscribe;
-  }, [setUser]);
+  }, [user, setUser, navigate]);
 
   const signOut = () => {
     signOutUser();
     setUser(null);
     navigate("/");
+    window.location.reload();
   };
 
   const value = {
