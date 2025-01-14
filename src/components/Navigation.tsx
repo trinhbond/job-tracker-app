@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Link from "./Link";
 import AccountsCircle from "./icons/AccountsCircle";
