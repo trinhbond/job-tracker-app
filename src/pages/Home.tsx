@@ -62,6 +62,11 @@ export default function Home() {
 
   return (
     <div className="relative h-dvh place-content-center top-0 bottom-0">
+      <div className="fixed top-0 bg-white text-black w-full p-6 shadow-lg">
+        <strong>DEMO account:</strong>{" "}
+        <span className="font-medium">email: </span> test@user.com{" "}
+        <span className="font-medium">password: </span> password1
+      </div>
       <div className="max-w-[500px] flex flex-col justify-center items-center py-4 px-3 m-auto">
         <div className="rounded-md w-full h-[500px] flex flex-col gap-6 px-6 py-8 place-content-center bg-white">
           <h1 className="text-black text-3xl font-semibold">
