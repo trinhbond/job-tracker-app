@@ -12,10 +12,11 @@ export default function Card({
   return (
     <div
       key={props.id}
-      className="relative p-4 bg-[#3d3d3d] text-white rounded-md select-none break-all flex flex-col gap-4"
+      onClick={onClick}
+      className="relative p-4 bg-[#3d3d3d] text-white rounded-md select-none cursor-pointer break-all flex flex-col gap-4"
     >
       <div className="flex flex-row justify-between gap-1 items-start">
-        <h2 className="font-semibold" onClick={onClick}>
+        <h2 className="font-semibold">
           {props.company} | {props.title}
         </h2>
         {props.status?.length > 0 && (
@@ -43,14 +44,14 @@ export default function Card({
           </div>
         )}
       </div>
-      <div className="flex flex-row gap-1 self-auto place-self-end justify-self-start text-sm">
-        <span>
-          {props.date &&
-            new Date().getDate() -
-              new Date(props.date.seconds * 1000).getDate()}
-          {"d ago"}
-        </span>
-      </div>
+      {props.date && (
+        <div className="flex flex-row gap-1 self-auto place-self-end justify-self-start text-sm">
+          <span>
+            {props.date &&
+              new Date(props.date.seconds * 1000).toLocaleDateString("en-NZ")}
+          </span>
+        </div>
+      )}
     </div>
   );
 }
