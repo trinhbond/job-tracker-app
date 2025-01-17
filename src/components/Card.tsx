@@ -13,7 +13,7 @@ export default function Card({
     <div
       key={props.id}
       onClick={onClick}
-      className="relative p-4 bg-[#3d3d3d] text-white rounded-md select-none cursor-pointer break-all flex flex-col gap-4"
+      className="relative p-4 border border-[#c6c6c6] rounded-md select-none cursor-pointer break-all flex flex-col gap-4"
     >
       <div className="flex flex-row justify-between gap-1 items-start">
         <h2 className="font-semibold">

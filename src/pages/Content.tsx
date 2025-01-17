@@ -109,24 +109,22 @@ export default function Content() {
   return (
     <div className="py-6 px-8 flex flex-col gap-4">
       <div>
-        <div className="flex flex-row justify-between items-center flex-wrap">
-          <h1 className="font-semibold text-white text-3xl mb-1">
-            Applications
-          </h1>
+        <div className="flex flex-row justify-between items-center mb-1 flex-wrap">
+          <h1 className="font-semibold text-2xl">Applications</h1>
           <button
             onClick={() => setModalOpened((cardOpened) => !cardOpened)}
-            className="font-semibold bg-white text-black rounded-md text-sm px-4 py-2 hover:shadow-md"
+            className="font-semibold bg-black text-white rounded-md text-sm px-4 py-2"
           >
             Create
           </button>
         </div>
-        <div className="border border-[#ffffff18]" />
+        <div className="border border-[#c6c6c6]" />
       </div>
       <div>
         {modalOpened && (
           <>
             <Backdrop />
-            <div className="p-4 bg-[#2d2d2d] text-white fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
+            <div className="p-4 border border-[#c6c6c6] shadow-lg bg-white text-black fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
               <div>
                 <h1 className="text-xl font-semibold mb-1">
                   Create application
@@ -166,7 +164,7 @@ export default function Content() {
                           message: "Company is required",
                         },
                       })}
-                      className={`w-full focus:outline-none bg-transparent border-b p-1 rounded-sm text-sm text-white`}
+                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
                     />
                   </div>
                   <div>
@@ -181,21 +179,16 @@ export default function Content() {
                           message: "Title is required",
                         },
                       })}
-                      className={`w-full focus:outline-none bg-transparent border-b p-1 rounded-sm text-sm text-white`}
+                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
                     />
                   </div>
                   <div>
                     <label className="p-1 font-medium text-sm">Status</label>
                     <select
                       {...register("status")}
-                      className={`w-full focus:outline-none bg-transparent border p-1 rounded-sm text-sm text-white`}
+                      className="w-full focus:outline-none bg-white border p-1 rounded-sm text-sm"
                     >
-                      <option
-                        selected
-                        disabled
-                        className="bg-black text-white"
-                        value=""
-                      >
+                      <option selected disabled className="bg-black" value="">
                         Choose
                       </option>
                       {[
@@ -217,7 +210,7 @@ export default function Content() {
                     <input
                       placeholder="Location"
                       {...register("location")}
-                      className={`w-full focus:outline-none bg-transparent border-b p-1 rounded-sm text-sm text-white`}
+                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
                     />
                   </div>
                   <div>
@@ -226,25 +219,25 @@ export default function Content() {
                       type="number"
                       placeholder="Salary"
                       {...register("salary")}
-                      className={`w-full focus:outline-none bg-transparent border-b p-1 rounded-sm text-sm text-white`}
+                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
                     />
                   </div>
                   <div>
                     <label className="p-1 font-medium text-sm">Notes</label>
                     <textarea
-                      className="resize-none focus:outline-none w-full h-auto p-1 bg-transparent rounded-sm text-sm text-white"
+                      className="resize-none focus:outline-none w-full h-auto p-1 bg-white rounded-sm text-sm"
                       placeholder="Notes"
                       {...register("notes")}
                     />
                   </div>
                   <div className="buttons flex items-center gap-3">
                     <input
-                      className="cursor-pointer	font-semibold bg-white text-black rounded-md text-xs px-4 py-2 hover:shadow-md"
+                      className="cursor-pointer	font-semibold bg-black text-white rounded-md text-xs px-4 py-2"
                       type="submit"
                       value="Confirm"
                     />
                     <input
-                      className="cursor-pointer	font-semibold bg-transparent text-white underline hover:no-underline rounded-md text-xs px-4 py-2"
+                      className="cursor-pointer	font-semibold bg-white text-black underline hover:no-underline rounded-md text-xs px-4 py-2"
                       type="button"
                       value="Cancel"
                       onClick={() => {
@@ -275,7 +268,7 @@ export default function Content() {
             {isCardClicked[props.id!] && (
               <>
                 <Backdrop />
-                <div className="p-4 bg-[#2d2d2d] text-white fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
+                <div className="p-4 border border-[#c6c6c6] shadow-lg bg-white text-black fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
                   <div>
                     <h1 className="text-xl font-semibold mb-1">
                       Edit application
@@ -320,7 +313,7 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-transparent border-b p-1 rounded-sm text-sm text-white"
+                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
                         />
                       </div>
                       <div>
@@ -335,7 +328,7 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-transparent border-b p-1 rounded-sm text-sm text-white"
+                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
                         />
                       </div>
                       <div>
@@ -349,7 +342,7 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-transparent border p-1 rounded-sm text-sm text-white"
+                          className="w-full focus:outline-none bg-white border p-1 rounded-sm text-sm"
                         >
                           <option
                             selected
@@ -388,7 +381,7 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-transparent border-b p-1 rounded-sm text-sm text-white"
+                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
                         />
                       </div>
                       <div>
@@ -396,7 +389,7 @@ export default function Content() {
                           Salary
                         </label>
                         <input
-                          className="w-full focus:outline-none bg-transparent border-b p-1 rounded-sm text-sm text-white"
+                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
                           type="number"
                           name="salary"
                           id="salary"
@@ -410,7 +403,7 @@ export default function Content() {
                       <div>
                         <label className="p-1 font-medium text-sm">Notes</label>
                         <textarea
-                          className="resize-none focus:outline-none w-full h-auto p-1 bg-transparent rounded-sm text-sm text-white"
+                          className="resize-none focus:outline-none w-full h-auto p-1 bg-white rounded-sm text-sm"
                           placeholder="Notes"
                           name="notes"
                           id="notes"
@@ -423,13 +416,13 @@ export default function Content() {
                       <div className="buttons flex items-center justify-between gap-3">
                         <div>
                           <input
-                            className="cursor-pointer	shadow-lg mr-2 font-semibold bg-white text-black rounded-md text-xs px-4 py-2"
+                            className="cursor-pointer mr-2 font-semibold bg-black text-white rounded-md text-xs px-4 py-2"
                             type="submit"
                             value="Confirm"
                             id="confirm"
                           />
                           <input
-                            className="cursor-pointer	font-semibold bg-transparent text-white underline hover:no-underline rounded-md text-xs px-4 py-2"
+                            className="cursor-pointer	font-semibold bg-white bg-black underline hover:no-underline rounded-md text-xs px-4 py-2"
                             type="button"
                             value="Cancel"
                             onClick={() => {
@@ -442,7 +435,7 @@ export default function Content() {
                           onClick={() =>
                             deleteApplication("applications", props.id!)
                           }
-                          className="flex flex-row items-center gap-1 shadow-lg font-semibold justify-between bg-white text-black rounded-md text-xs px-2.5 py-2 hover:shadow-md"
+                          className="flex flex-row items-center gap-1 font-semibold justify-between bg-black text-white rounded-md text-xs px-2.5 py-2"
                         >
                           <Trash />
                           <span>Delete</span>

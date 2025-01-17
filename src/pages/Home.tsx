@@ -67,7 +67,7 @@ export default function Home() {
         <span className="font-medium">email: </span> test@user.com{" "}
         <span className="font-medium">password: </span> password1
       </div>
-      <div className="max-w-[500px] flex flex-col justify-center items-center py-4 px-3 m-auto">
+      <div className="shadow-lg rounded-md border border-[#c6c6c6] max-w-[500px] flex flex-col justify-center items-center py-4 px-3 m-auto">
         <div className="rounded-md w-full h-[500px] flex flex-col gap-6 px-6 py-8 place-content-center bg-white">
           <h1 className="text-black text-3xl font-semibold">
             {!userHasAccount ? "Sign up" : "Sign in"}
