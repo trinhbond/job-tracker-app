@@ -6,7 +6,7 @@ import SignOut from "./icons/SignOut";
 import { useMouse } from "../utils";
 
 export default function Navigation() {
-  const { user, signOut } = useContext(AuthContext);
+  const { user, signOutUser } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
   const firstLetter = user?.displayName?.substring(0, 1).toUpperCase();
   const { clicked, setClicked } = useMouse(ref);
