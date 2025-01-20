@@ -38,7 +38,7 @@ export default function Navigation() {
                 </Link>
                 <div
                   className="flex flex-row items-center gap-2 cursor-pointer p-3 border-t border-white hover:bg-[#7a7a7a]"
-                  onClick={signOut}
+                  onClick={signOutUser}
                 >
                   <SignOut />
                   <span>Sign out</span>

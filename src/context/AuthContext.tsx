@@ -1,12 +1,12 @@
-import { User } from "firebase/auth";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { signOutUser, userStateListener } from "../config/firebase";
+import { auth } from "../config/firebase";
 import { createContext, useState, useEffect, ReactNode } from "react";
 
 export const AuthContext = createContext({
   user: {} as User | null,
   setUser: (_user: User) => {},
-  signOut: () => {},
+  signOutUser: () => {},
 });
 
 export const AuthProvider = ({ children }: { children?: ReactNode }) => {
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = userStateListener((user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
       } else {
@@ -25,8 +25,8 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
     return unsubscribe;
   }, [user, setUser, navigate]);
 
-  const signOut = () => {
-    signOutUser();
+  const signOutUser = () => {
+    signOut(auth);
     setUser(null);
     navigate("/");
     window.location.reload();
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
   const value = {
     user,
     setUser,
-    signOut,
+    signOutUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

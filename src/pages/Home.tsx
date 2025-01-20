@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, signInUser, signUpUser } from "../config/firebase";
+import { auth } from "../config/firebase";
 import { FirebaseError } from "firebase/app";
 import { useForm } from "react-hook-form";
 import { IFormValues } from "../types";
 import "react-toastify/dist/ReactToastify.css";
-import { updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 
 export default function Home() {
   const {
@@ -22,9 +26,11 @@ export default function Home() {
     console.log(data);
 
     try {
-      await signInUser(data.email, data.password).then(() => {
-        navigate("user/profile");
-      });
+      await signInWithEmailAndPassword(auth, data.email, data.password).then(
+        () => {
+          navigate("user/profile");
+        }
+      );
       reset({ name: "", email: "", password: "" });
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
@@ -43,7 +49,11 @@ export default function Home() {
     console.log(data);
 
     try {
-      await signUpUser(auth, data.email, data.password).then(() => {
+      await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      ).then(() => {
         if (auth.currentUser)
           updateProfile(auth.currentUser, { displayName: data.name }).then(
             () => {
