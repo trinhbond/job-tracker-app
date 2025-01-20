@@ -1,6 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Backdrop from "../components/Backdrop";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useForm } from "react-hook-form";
 import { IFormAppValues } from "../types";
@@ -9,13 +16,16 @@ import { toast, TypeOptions } from "react-toastify";
 import Trash from "../components/icons/Trash";
 import "react-toastify/dist/ReactToastify.css";
 import Card from "../components/Card";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Content() {
+  const { user } = useContext(AuthContext);
   const toastId = useRef("toast");
   const [data, setData] = useState<IFormAppValues[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpened, setModalOpened] = useState(false);
   const [isCardClicked, setIsCardClicked] = useState<any>({});
+
   const {
     handleSubmit,
     reset,
@@ -53,39 +63,56 @@ export default function Content() {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-
     try {
-      await addDoc(collection(db, "applications"), {
-        ...data,
-        date: new Date(),
-      });
+      await addDoc(
+        collection(
+          db,
+          "applications",
+          "users",
+          "user/",
+          user?.uid!,
+          user?.displayName!
+        ),
+        {
+          ...data,
+          date: new Date(),
+        }
+      );
+
       displayToast("Application added", "success");
       setModalOpened((cardOpened) => !cardOpened);
       reset();
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error(e);
     }
   });
 
   useEffect(() => {
     const fetchData = async () => {
-      const query = await getDocs(collection(db, "applications"));
-      const docsData: any = [];
+      if (user) {
+        const { uid, displayName } = user;
 
-      setLoading(true);
-      try {
-        query.forEach((doc) => {
-          docsData.push({ id: doc.id, ...doc.data() });
-        });
-        setData(docsData);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
+        if (uid && displayName) {
+          const query = await getDocs(
+            collection(db, "applications", "users", "user/", uid, displayName)
+          );
+          const docsData: any = [];
+          setLoading(true);
+          try {
+            query.forEach((doc) => {
+              docsData.push({ id: doc.id, ...doc.data() });
+            });
+            setData(docsData);
+            setLoading(false);
+          } catch (error) {
+            console.log(error);
+          }
+        }
       }
     };
+
     fetchData();
-  }, [data]);
+  }, [data, user]);
 
   useEffect(() => {
     if (
@@ -291,13 +318,22 @@ export default function Content() {
                             );
                             return;
                           }
-                          updateApplication({
-                            ...prevData,
-                          });
+                          updateDoc(
+                            doc(
+                              db,
+                              "applications",
+                              "users",
+                              "user/",
+                              user?.uid!,
+                              user?.displayName!,
+                              props.id!
+                            ),
+                            { ...prevData }
+                          );
                           displayToast("Application updated", "success");
                           setIsCardClicked({});
                         } catch (e) {
-                          console.error("Error adding document: ", e);
+                          console.error(e);
                         }
                       }}
                     >
@@ -432,9 +468,19 @@ export default function Content() {
                           />
                         </div>
                         <button
-                          onClick={() =>
-                            deleteApplication("applications", props.id!)
-                          }
+                          onClick={() => {
+                            deleteDoc(
+                              doc(
+                                db,
+                                "applications",
+                                "users",
+                                "user/",
+                                user?.uid!,
+                                user?.displayName!,
+                                props.id!
+                              )
+                            );
+                          }}
                           className="flex flex-row items-center gap-1 font-semibold justify-between bg-black text-white rounded-md text-xs px-2.5 py-2"
                         >
                           <Trash />
