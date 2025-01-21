@@ -37,27 +37,27 @@ export default function Card({
           </div>
         )}
       </div>
-      <div className="h-full">
+      <div className="h-full text-sm">
         {!!props.location?.length && (
           <div className="flex flex-row gap-1 mb-2">
-            <Location />
-            <span className="w-11/12">{props.location}</span>
+            <Location className="shrink-0" />
+            <span className="text-[#808080]">{props.location}</span>
           </div>
         )}
         {props.salary > 0 && (
           <div className="flex flex-row gap-1 mb-2">
-            <Dollar />
-            <span className="w-11/12">{props.salary}</span>
+            <Dollar className="shrink-0" />
+            <span className="text-[#808080]">{props.salary}</span>
           </div>
         )}
         {props.notes?.length > 0 && (
           <div className="mt-4">
-            <p>{props.notes}</p>
+            <p className="text-[#808080]">{props.notes}</p>
           </div>
         )}
       </div>
       {props.date && (
-        <div className="flex flex-row gap-1 self-auto place-self-end justify-self-start text-sm">
+        <div className="flex flex-row gap-1 self-auto items-center place-self-end justify-self-start text-sm">
           <span>
             {props.date &&
               new Date(props.date.seconds * 1000).toLocaleDateString("en-NZ")}
