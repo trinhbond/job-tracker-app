@@ -1,6 +1,4 @@
 import { IFormAppValues } from "./types";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "./config/firebase";
 import { useEffect, useState } from "react";
 
 export const handleChange = (
@@ -12,17 +10,6 @@ export const handleChange = (
 ) => {
   const { name, value } = event.target;
   setData({ ...data, [name]: value });
-};
-
-export const deleteApplication = async (path: string, id: string) => {
-  await deleteDoc(doc(db, path, id));
-};
-
-export const updateApplication = async (props: any) => {
-  const ref = doc(db, "applications", props.id);
-  await updateDoc(ref, {
-    ...props,
-  });
 };
 
 export const useMouse = (ref: React.RefObject<HTMLElement>) => {
