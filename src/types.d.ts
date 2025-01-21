@@ -8,6 +8,7 @@ export interface IFormAppValues {
   id?: string | null;
   company: string;
   title: string;
+  link?: string;
   salary: number;
   status: "" | "applied" | "interview" | "offer" | "rejected" | "ghosted";
   notes: string;

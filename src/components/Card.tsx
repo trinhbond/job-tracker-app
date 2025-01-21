@@ -1,5 +1,6 @@
 import { IFormAppValues } from "../types";
 import Dollar from "./icons/Dollar";
+import Edit from "./icons/Edit";
 import Location from "./icons/Location";
 
 export default function Card({
@@ -12,13 +13,24 @@ export default function Card({
   return (
     <div
       key={props.id}
-      onClick={onClick}
-      className="relative p-4 border border-[#c6c6c6] rounded-md select-none cursor-pointer break-all flex flex-col gap-4"
+      className="relative p-4 border border-[#c6c6c6] rounded-md select-none break-all flex flex-col gap-4"
     >
       <div className="flex flex-row justify-between gap-1 items-start">
-        <h2 className="font-semibold">
-          {props.company} | {props.title}
-        </h2>
+        {props.link?.trim().length ? (
+          <a
+            href={props.link}
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold hover:underline"
+          >
+            {props.company} | {props.title}
+          </a>
+        ) : (
+          <h2 className="font-semibold">
+            {props.company} | {props.title}
+          </h2>
+        )}
+
         {props.status?.length > 0 && (
           <div className="whitespace-nowrap text-xs bg-black text-white rounded-full px-2 py-1 select-none font-medium">
             {props.status}
@@ -50,6 +62,10 @@ export default function Card({
             {props.date &&
               new Date(props.date.seconds * 1000).toLocaleDateString("en-NZ")}
           </span>
+          <Edit
+            onClick={onClick}
+            className="cursor-pointer absolute right-3.5"
+          />
         </div>
       )}
     </div>

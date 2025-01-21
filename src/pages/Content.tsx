@@ -11,7 +11,7 @@ import {
 import { db } from "../config/firebase";
 import { useForm } from "react-hook-form";
 import { IFormAppValues } from "../types";
-import { deleteApplication, handleChange, updateApplication } from "../utils";
+import { handleChange } from "../utils";
 import { toast, TypeOptions } from "react-toastify";
 import Trash from "../components/icons/Trash";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,6 +35,7 @@ export default function Content() {
   const [prevData, setPrevData] = useState<IFormAppValues>({
     company: "",
     title: "",
+    link: "",
     salary: 0,
     notes: "",
     date: new Date(),
@@ -210,6 +211,14 @@ export default function Content() {
                     />
                   </div>
                   <div>
+                    <label className="p-1 font-medium text-sm">Link</label>
+                    <input
+                      placeholder="Link"
+                      {...register("link")}
+                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                    />
+                  </div>
+                  <div>
                     <label className="p-1 font-medium text-sm">Status</label>
                     <select
                       {...register("status")}
@@ -361,6 +370,19 @@ export default function Content() {
                           value={prevData.title}
                           name="title"
                           id="title"
+                          onChange={(event) =>
+                            handleChange(event, prevData, setPrevData)
+                          }
+                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                        />
+                      </div>
+                      <div>
+                        <label className="p-1 font-medium text-sm">Link</label>
+                        <input
+                          placeholder="Link"
+                          value={prevData.link}
+                          name="link"
+                          id="link"
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
