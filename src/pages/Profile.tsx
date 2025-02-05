@@ -14,11 +14,11 @@ export default function Profile() {
         <form>
           {user?.displayName && (
             <div className="flex flex-col w-auto max-w-64 mb-4">
-              <label className="text-md text-black">Preferred name</label>
+              <label className="text-md">Preferred name</label>
               <input
                 contentEditable={false}
                 disabled
-                className="rounded-md border border-[#c6c6c6] text-[#000] text-md p-1"
+                className="rounded-md border border-[#c6c6c6] text-sm p-1"
                 type="text"
                 placeholder={user.displayName}
               />
@@ -26,11 +26,11 @@ export default function Profile() {
           )}
           {user?.email && (
             <div className="flex flex-col w-auto max-w-64 mb-4">
-              <label className="text-md text-black">Email</label>
+              <label className="text-md">Email</label>
               <input
                 contentEditable={false}
                 disabled
-                className="rounded-md border border-[#c6c6c6] text-[#000] text-md p-1"
+                className="rounded-md border border-[#c6c6c6] text-sm p-1"
                 type="text"
                 placeholder={user.email}
               />
@@ -38,11 +38,11 @@ export default function Profile() {
           )}
           {user?.metadata && (
             <div className="flex flex-col w-auto max-w-64 mb-4">
-              <label className="text-md text-black">Account created</label>
+              <label className="text-md">Account created</label>
               <input
                 contentEditable={false}
                 disabled
-                className="rounded-md border border-[#c6c6c6] text-[#000] text-md p-1"
+                className="rounded-md border border-[#c6c6c6] text-sm p-1"
                 type="text"
                 placeholder={user.metadata.creationTime}
               />
