@@ -25,7 +25,6 @@ export default function Content() {
   const [loading, setLoading] = useState(true);
   const [modalOpened, setModalOpened] = useState(false);
   const [isCardClicked, setIsCardClicked] = useState<any>({});
-
   const {
     handleSubmit,
     reset,
@@ -79,7 +78,6 @@ export default function Content() {
           date: new Date(),
         }
       );
-
       displayToast("Application added", "success");
       setModalOpened((cardOpened) => !cardOpened);
       reset();
@@ -141,7 +139,7 @@ export default function Content() {
           <h1 className="font-semibold text-2xl">Applications</h1>
           <button
             onClick={() => setModalOpened((cardOpened) => !cardOpened)}
-            className="font-semibold bg-black text-white rounded-md text-sm px-4 py-2"
+            className="font-semibold dark:bg-white dark:text-[#121212] rounded-md bg-black text-white text-sm px-4 py-2"
           >
             Create
           </button>
@@ -152,7 +150,7 @@ export default function Content() {
         {modalOpened && (
           <>
             <Backdrop />
-            <div className="p-4 border border-[#c6c6c6] shadow-lg bg-white text-black fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
+            <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
               <div>
                 <h1 className="text-xl font-semibold mb-1">
                   Create application
@@ -181,7 +179,7 @@ export default function Content() {
                   }}
                 >
                   <div>
-                    <label className="p-1 font-medium text-sm">
+                    <label className="font-medium text-sm">
                       Company <span className="text-red-600">*</span>
                     </label>
                     <input
@@ -192,11 +190,11 @@ export default function Content() {
                           message: "Company is required",
                         },
                       })}
-                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="p-1 font-medium text-sm">
+                    <label className="font-medium text-sm">
                       Title <span className="text-red-600">*</span>
                     </label>
                     <input
@@ -207,25 +205,27 @@ export default function Content() {
                           message: "Title is required",
                         },
                       })}
-                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="p-1 font-medium text-sm">Link</label>
+                    <label className="font-medium text-sm">Link</label>
                     <input
                       placeholder="Link"
                       {...register("link")}
-                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="p-1 font-medium text-sm">Status</label>
+                    <label className="font-medium text-sm dark:text-white text-black">
+                      Status
+                    </label>
                     <select
                       {...register("status")}
-                      className="w-full focus:outline-none bg-white border p-1 rounded-sm text-sm"
+                      className="w-full focus:outline-none bg-white border p-1 rounded-sm text-sm bg-white text-black dark:bg-inherit dark:text-white"
                     >
                       <option selected disabled className="bg-black" value="">
-                        Choose
+                        Select Status
                       </option>
                       {[
                         "applied",
@@ -242,38 +242,38 @@ export default function Content() {
                     </select>
                   </div>
                   <div>
-                    <label className="p-1 font-medium text-sm">Location</label>
+                    <label className="font-medium text-sm">Location</label>
                     <input
                       placeholder="Location"
                       {...register("location")}
-                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="p-1 font-medium text-sm">Salary</label>
+                    <label className="font-medium text-sm">Salary</label>
                     <input
                       type="number"
                       placeholder="Salary"
                       {...register("salary")}
-                      className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                     />
                   </div>
                   <div>
-                    <label className="p-1 font-medium text-sm">Notes</label>
+                    <label className="font-medium text-sm">Notes</label>
                     <textarea
-                      className="resize-none focus:outline-none w-full h-auto p-1 bg-white rounded-sm text-sm"
+                      className="resize-none focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm text-sm"
                       placeholder="Notes"
                       {...register("notes")}
                     />
                   </div>
                   <div className="buttons flex items-center gap-3">
                     <input
-                      className="cursor-pointer	font-semibold bg-black text-white rounded-md text-xs px-4 py-2"
+                      className="cursor-pointer	font-semibold dark:bg-white dark:text-[#121212] bg-black text-white rounded-md text-xs px-4 py-2"
                       type="submit"
                       value="Confirm"
                     />
                     <input
-                      className="cursor-pointer	font-semibold bg-white text-black underline hover:no-underline rounded-md text-xs px-4 py-2"
+                      className="cursor-pointer	font-semibold dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline rounded-md text-xs px-4 py-2"
                       type="button"
                       value="Cancel"
                       onClick={() => {
@@ -304,9 +304,9 @@ export default function Content() {
             {isCardClicked[props.id!] && (
               <>
                 <Backdrop />
-                <div className="p-4 border border-[#c6c6c6] shadow-lg bg-white text-black fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
+                <div className="dark:bg-[#121212] bg-white text-black p-4 shadow-lg fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
                   <div>
-                    <h1 className="text-xl font-semibold mb-1">
+                    <h1 className="text-xl font-semibold mb-1 dark:text-white text-black">
                       Edit application
                     </h1>
                     <div className="border border-[#ffffff18]" />
@@ -347,7 +347,7 @@ export default function Content() {
                       }}
                     >
                       <div>
-                        <label className="p-1 font-medium text-sm">
+                        <label className="font-medium text-sm dark:text-white text-black">
                           Company <span className="text-red-600">*</span>
                         </label>
                         <input
@@ -358,11 +358,11 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                         />
                       </div>
                       <div>
-                        <label className="p-1 font-medium text-sm">
+                        <label className="font-medium text-sm dark:text-white text-black">
                           Title <span className="text-red-600">*</span>
                         </label>
                         <input
@@ -373,11 +373,13 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                         />
                       </div>
                       <div>
-                        <label className="p-1 font-medium text-sm">Link</label>
+                        <label className="font-medium text-sm dark:text-white text-black">
+                          Link
+                        </label>
                         <input
                           placeholder="Link"
                           value={prevData.link}
@@ -386,11 +388,11 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                         />
                       </div>
                       <div>
-                        <label className="p-1 font-medium text-sm">
+                        <label className="font-medium text-sm dark:text-white text-black">
                           Status
                         </label>
                         <select
@@ -400,15 +402,15 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-white border p-1 rounded-sm text-sm"
+                          className="w-full focus:outline-none bg-white border p-1 rounded-sm text-sm bg-white text-black dark:bg-inherit dark:text-white"
                         >
                           <option
                             selected
                             disabled
-                            className="bg-black text-white"
+                            className="bg-black"
                             value=""
                           >
-                            Choose
+                            Select Status
                           </option>
                           {[
                             "applied",
@@ -428,7 +430,7 @@ export default function Content() {
                         </select>
                       </div>
                       <div>
-                        <label className="p-1 font-medium text-sm">
+                        <label className="font-medium text-sm dark:text-white text-black">
                           Location
                         </label>
                         <input
@@ -439,15 +441,15 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                         />
                       </div>
                       <div>
-                        <label className="p-1 font-medium text-sm">
+                        <label className="font-medium text-sm dark:text-white text-black">
                           Salary
                         </label>
                         <input
-                          className="w-full focus:outline-none bg-white border-b p-1 rounded-sm text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
                           type="number"
                           name="salary"
                           id="salary"
@@ -459,9 +461,11 @@ export default function Content() {
                         />
                       </div>
                       <div>
-                        <label className="p-1 font-medium text-sm">Notes</label>
+                        <label className="font-medium text-sm dark:text-white text-black">
+                          Notes
+                        </label>
                         <textarea
-                          className="resize-none focus:outline-none w-full h-auto p-1 bg-white rounded-sm text-sm"
+                          className="resize-none focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm text-sm"
                           placeholder="Notes"
                           name="notes"
                           id="notes"
@@ -474,13 +478,13 @@ export default function Content() {
                       <div className="buttons flex items-center justify-between gap-3">
                         <div>
                           <input
-                            className="cursor-pointer mr-2 font-semibold bg-black text-white rounded-md text-xs px-4 py-2"
+                            className="cursor-pointer mr-2 font-semibold dark:bg-white dark:text-[#121212] bg-black text-white rounded-md text-xs px-4 py-2"
                             type="submit"
                             value="Confirm"
                             id="confirm"
                           />
                           <input
-                            className="cursor-pointer	font-semibold bg-white bg-black underline hover:no-underline rounded-md text-xs px-4 py-2"
+                            className="cursor-pointer	font-semibold dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline rounded-md text-xs px-4 py-2"
                             type="button"
                             value="Cancel"
                             onClick={() => {
@@ -503,7 +507,7 @@ export default function Content() {
                               )
                             );
                           }}
-                          className="flex flex-row items-center gap-1 font-semibold justify-between bg-black text-white rounded-md text-xs px-2.5 py-2"
+                          className="flex flex-row items-center gap-1 font-semibold justify-between dark:bg-white dark:text-[#121212] bg-black text-white rounded-md text-xs px-2.5 py-2"
                         >
                           <Trash />
                           <span>Delete</span>
