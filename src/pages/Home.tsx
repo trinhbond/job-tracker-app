@@ -22,16 +22,14 @@ export default function Home() {
   const navigate = useNavigate();
   const [userHasAccount, setUserHasAccount] = useState(false);
 
-  const onSubmitLogin = handleSubmit(async (data) => {
-    console.log(data);
-
+  const handleLogin = handleSubmit(async (data) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password).then(
         () => {
           navigate("user/profile");
         }
       );
-      reset({ name: "", email: "", password: "" });
+      reset();
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         console.log({ error });
@@ -45,9 +43,7 @@ export default function Home() {
     }
   });
 
-  const onSubmitSignup = handleSubmit(async (data) => {
-    console.log(data);
-
+  const handleSignup = handleSubmit(async (data) => {
     try {
       await createUserWithEmailAndPassword(
         auth,
@@ -61,7 +57,7 @@ export default function Home() {
             }
           );
       });
-      reset({ name: "", email: "", password: "" });
+      reset();
     } catch (error: unknown) {
       console.log({ error });
       if (error instanceof FirebaseError) {
@@ -70,28 +66,31 @@ export default function Home() {
     }
   });
 
+  const handleClick = () => {
+    setUserHasAccount((userHasAccount) => !userHasAccount);
+    reset();
+  };
+
   return (
-    <div className="relative h-dvh place-content-center top-0 bottom-0">
-      <div className="fixed top-0 bg-white text-black w-full p-6 shadow-lg">
-        <strong>DEMO account:</strong>{" "}
-        <span className="font-medium">email: </span> test@user.com{" "}
-        <span className="font-medium">password: </span> password1
-      </div>
-      <div className="shadow-lg rounded-md border border-[#c6c6c6] max-w-[500px] flex flex-col justify-center items-center py-4 px-3 m-auto">
-        <div className="rounded-md w-full h-[500px] flex flex-col gap-6 px-6 py-8 place-content-center bg-white">
-          <h1 className="text-black text-3xl font-semibold">
-            {!userHasAccount ? "Sign up" : "Sign in"}
+    <div className="h-dvh place-content-center top-0 bottom-0 p-4">
+      <div className="max-w-[500px] m-auto">
+        <div className="rounded-md border border-[#c6c6c6] h-[500px] flex flex-col gap-6 p-6 place-content-center bg-white shadow-lg">
+          <h1 className="text-2xl font-semibold">
+            {!userHasAccount ? "Sign up" : "Sign in"} to Job Tracker
           </h1>
           {!userHasAccount ? (
             <form
-              className="flex flex-col gap-6 relative"
-              onSubmit={onSubmitSignup}
+              className="flex flex-col gap-4 text-sm"
+              onSubmit={handleSignup}
             >
-              <div className="flex flex-col">
-                <label className="text-black font-medium">Name</label>
+              <div className="flex flex-col gap-1">
+                <label>
+                  Name
+                  <sup>*</sup>
+                </label>
                 <input
                   type="text"
-                  className="text-black border-b border-black focus:outline-none"
+                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
                   placeholder="Name"
                   {...register("name", {
                     pattern: {
@@ -110,11 +109,13 @@ export default function Home() {
                   </p>
                 )}
               </div>
-              <div className="flex flex-col">
-                <label className="text-black font-medium">Email</label>
+              <div className="flex flex-col gap-1">
+                <label>
+                  Email<sup>*</sup>
+                </label>
                 <input
                   type="text"
-                  className="text-black border-b border-black focus:outline-none"
+                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
                   placeholder="Email"
                   {...register("email", {
                     required: {
@@ -133,11 +134,13 @@ export default function Home() {
                   </p>
                 )}
               </div>
-              <div className="flex flex-col">
-                <label className="text-black font-medium">Password</label>
+              <div className="flex flex-col gap-1">
+                <label>
+                  Password<sup>*</sup>
+                </label>
                 <input
                   type="password"
-                  className="text-black border-b border-black focus:outline-none"
+                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
                   placeholder="Password (6 or more characters)"
                   {...register("password", {
                     required: {
@@ -157,7 +160,7 @@ export default function Home() {
                 )}
               </div>
               <button
-                className="bg-black text-white py-4 px-1 rounded-md font-medium cursor-pointer"
+                className="bg-black text-white min-w-fit py-4 px-1 rounded-full font-medium cursor-pointer select-none"
                 type="submit"
               >
                 Continue
@@ -166,22 +169,22 @@ export default function Home() {
                 Have an account?{" "}
                 <button
                   className="underline text-[#0000EE]"
-                  onClick={() => {
-                    setUserHasAccount((userHasAccount) => !userHasAccount);
-                    reset();
-                  }}
+                  onClick={handleClick}
                 >
                   Sign in
                 </button>
               </div>
             </form>
           ) : (
-            <form className="flex flex-col gap-6" onSubmit={onSubmitLogin}>
-              <div className="flex flex-col">
-                <label className="text-black font-medium">Email</label>
+            <form
+              className="flex flex-col gap-4 text-sm"
+              onSubmit={handleLogin}
+            >
+              <div className="flex flex-col gap-1">
+                <label>Email</label>
                 <input
                   type="text"
-                  className="text-black border-b border-black focus:outline-none"
+                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
                   placeholder="Email"
                   {...register("email", {
                     required: {
@@ -200,11 +203,11 @@ export default function Home() {
                   </p>
                 )}
               </div>
-              <div className="flex flex-col">
-                <label className="text-black font-medium">Password</label>
+              <div className="flex flex-col gap-1">
+                <label>Password</label>
                 <input
                   type="password"
-                  className="text-black border-b border-black focus:outline-none"
+                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
                   placeholder="Password"
                   {...register("password", {
                     required: {
@@ -220,7 +223,7 @@ export default function Home() {
                 )}
               </div>
               <input
-                className="bg-black text-white py-4 px-1 rounded-md font-medium cursor-pointer"
+                className="bg-black text-white min-w-fit py-4 px-1 rounded-full font-medium cursor-pointer select-none"
                 type="submit"
                 value="Continue"
               />
@@ -228,10 +231,7 @@ export default function Home() {
                 Don't have an account?{" "}
                 <button
                   className="underline text-[#0000EE]"
-                  onClick={() => {
-                    setUserHasAccount((userHasAccount) => !userHasAccount);
-                    reset();
-                  }}
+                  onClick={handleClick}
                 >
                   Sign up
                 </button>
