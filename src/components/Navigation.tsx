@@ -12,7 +12,7 @@ export default function Navigation() {
   const { theme, switchTheme } = useToggle();
 
   return (
-    <div className="flex items-center justify-between flex-row items-center sticky top-0 dark:bg-[#121212] dark:text-white bg-white text-black z-10 py-4 px-8 shadow-md">
+    <div className="flex items-center justify-between flex-row items-center sticky top-0 dark:bg-[#121212] dark:text-white bg-white text-black z-10 py-4 px-4 lg:px-24 md:px-22 sm:px-16 xs:px-4 shadow-md">
       <span className="font-medium text-xl select-none">jobtracker</span>
       {user && (
         <div ref={ref}>

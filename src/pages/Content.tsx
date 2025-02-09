@@ -133,19 +133,16 @@ export default function Content() {
   if (loading) return <>loading...</>;
 
   return (
-    <div className="py-6 px-8 flex flex-col gap-4">
-      <div>
-        <div className="flex flex-row justify-between items-center mb-1 flex-wrap">
-          <h1 className="font-semibold text-2xl">Applications</h1>
-          <button
-            onClick={() => setModalOpened((cardOpened) => !cardOpened)}
-            className="font-semibold dark:bg-white dark:text-[#121212] rounded-md bg-black text-white text-sm px-4 py-2"
-          >
-            Create
-          </button>
-        </div>
-        <div className="border border-[#c6c6c6]" />
-      </div>
+    <div className="py-12 px-4 lg:px-24 md:px-22 sm:px-16 xs:px-4 flex flex-col gap-4 relative">
+      <h1 className="w-full inline-block font-medium text-xl border-b border-[#c6c6c6] pb-1">
+        Applications
+      </h1>
+      <button
+        onClick={() => setModalOpened((cardOpened) => !cardOpened)}
+        className="font-medium dark:bg-[#18181B] dark:hover:bg-[#2b2b2b] dark:text-white rounded-full bg-black text-white text-sm px-6 py-2 fixed right-6 bottom-6 z-20"
+      >
+        Create
+      </button>
       <div>
         {modalOpened && (
           <>
@@ -268,12 +265,12 @@ export default function Content() {
                   </div>
                   <div className="buttons flex items-center gap-3">
                     <input
-                      className="cursor-pointer	font-semibold dark:bg-white dark:text-[#121212] bg-black text-white rounded-md text-xs px-4 py-2"
+                      className="cursor-pointer	font-medium dark:bg-white dark:text-[#121212] bg-black text-white rounded-full text-xs px-6 py-2"
                       type="submit"
                       value="Confirm"
                     />
                     <input
-                      className="cursor-pointer	font-semibold dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline rounded-md text-xs px-4 py-2"
+                      className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline rounded-full text-xs px-6 py-2"
                       type="button"
                       value="Cancel"
                       onClick={() => {
@@ -289,7 +286,8 @@ export default function Content() {
         )}
       </div>
 
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 gap-4">
+      {/* <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4"> */}
+      <div className="grid lg:grid-cols-1 gap-4">
         {data.map((props: IFormAppValues) => (
           <>
             <Card
@@ -478,13 +476,13 @@ export default function Content() {
                       <div className="buttons flex items-center justify-between gap-3">
                         <div>
                           <input
-                            className="cursor-pointer mr-2 font-semibold dark:bg-white dark:text-[#121212] bg-black text-white rounded-md text-xs px-4 py-2"
+                            className="cursor-pointer mr-2font-medium dark:bg-white dark:text-[#121212] bg-black text-white rounded-full text-xs px-6 py-2"
                             type="submit"
                             value="Confirm"
                             id="confirm"
                           />
                           <input
-                            className="cursor-pointer	font-semibold dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline rounded-md text-xs px-4 py-2"
+                            className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline rounded-full text-xs px-6 py-2"
                             type="button"
                             value="Cancel"
                             onClick={() => {
@@ -507,7 +505,7 @@ export default function Content() {
                               )
                             );
                           }}
-                          className="flex flex-row items-center gap-1 font-semibold justify-between dark:bg-white dark:text-[#121212] bg-black text-white rounded-md text-xs px-2.5 py-2"
+                          className="flex flex-row items-center gap-1 font-medium justify-between dark:bg-white dark:text-[#121212] bg-black text-white rounded-full text-xs px-6 py-2"
                         >
                           <Trash />
                           <span>Delete</span>

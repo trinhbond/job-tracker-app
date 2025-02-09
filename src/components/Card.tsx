@@ -1,7 +1,5 @@
 import { IFormAppValues } from "../types";
-import Dollar from "./icons/Dollar";
-import Edit from "./icons/Edit";
-import Location from "./icons/Location";
+import { Elipsis } from "./icons/Elipsis";
 
 export default function Card({
   props,
@@ -32,27 +30,19 @@ export default function Card({
         )}
 
         {props.status?.length > 0 && (
-          <div className="whitespace-nowrap text-xs bg-black text-white rounded-full px-2 py-1 select-none font-medium">
+          <div className="whitespace-nowrap text-xs bg-black text-white rounded-full px-4 py-1 select-none font-semibold">
             {props.status}
           </div>
         )}
       </div>
       <div className="h-full text-sm">
-        {!!props.location?.length && (
-          <div className="flex flex-row gap-1 mb-2">
-            <Location className="shrink-0" />
-            <span className="text-[#808080]">{props.location}</span>
-          </div>
-        )}
-        {props.salary > 0 && (
-          <div className="flex flex-row gap-1 mb-2">
-            <Dollar className="shrink-0" />
-            <span className="text-[#808080]">{props.salary}</span>
-          </div>
-        )}
+        <div className="flex flex-col gap-1 mb-2">
+          {!!props.location?.length && <span>{props.location}</span>}
+          {props.salary > 0 && <span>&#36;{props.salary}</span>}
+        </div>
         {props.notes?.length > 0 && (
           <div className="mt-4">
-            <p className="text-[#808080]">{props.notes}</p>
+            <p className="text-[#5a6881] dark:text-[#808080]">{props.notes}</p>
           </div>
         )}
       </div>
@@ -62,9 +52,10 @@ export default function Card({
             {props.date &&
               new Date(props.date.seconds * 1000).toLocaleDateString("en-NZ")}
           </span>
-          <Edit
+          <Elipsis
             onClick={onClick}
-            className="cursor-pointer absolute right-3.5"
+            className="cursor-pointer absolute right-3.5 dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5] dark:text-white rounded-full"
+            // className="cursor-pointer absolute right-3.5 dark:hover:bg-[#18181B] dark:bg-[#2b2b2b] dark:text-white rounded-full"
           />
         </div>
       )}

@@ -5,7 +5,7 @@ export interface IFormValues {
 }
 
 export interface IFormAppValues {
-  id?: string | null;
+  id?: string;
   company: string;
   title: string;
   link?: string;
@@ -13,5 +13,5 @@ export interface IFormAppValues {
   status: "" | "applied" | "interview" | "offer" | "rejected" | "ghosted";
   notes: string;
   date?: Date | Timestamp;
-  location?: string | null;
+  location?: string;
 }
