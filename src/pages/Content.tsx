@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useForm } from "react-hook-form";
-import { IFormAppValues } from "../types";
+import { AppFormValues } from "../types";
 import { handleChange } from "../utils";
 import { toast, TypeOptions } from "react-toastify";
 import Trash from "../components/icons/Trash";
@@ -21,7 +21,7 @@ import { AuthContext } from "../context/AuthContext";
 export default function Content() {
   const { user } = useContext(AuthContext);
   const toastId = useRef("toast");
-  const [data, setData] = useState<IFormAppValues[]>([]);
+  const [data, setData] = useState<AppFormValues[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpened, setModalOpened] = useState(false);
   const [isCardClicked, setIsCardClicked] = useState<any>({});
@@ -30,8 +30,8 @@ export default function Content() {
     reset,
     register,
     formState: { errors },
-  } = useForm<IFormAppValues>();
-  const [prevData, setPrevData] = useState<IFormAppValues>({
+  } = useForm<AppFormValues>();
+  const [prevData, setPrevData] = useState<AppFormValues>({
     company: "",
     title: "",
     link: "",
@@ -288,7 +288,7 @@ export default function Content() {
 
       {/* <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4"> */}
       <div className="grid lg:grid-cols-1 gap-4">
-        {data.map((props: IFormAppValues) => (
+        {data.map((props: AppFormValues) => (
           <>
             <Card
               props={props}

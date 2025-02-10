@@ -1,4 +1,4 @@
-import { IFormAppValues } from "./types";
+import { AppFormValues } from "./types";
 import { useEffect, useState } from "react";
 
 export const handleChange = (
@@ -6,7 +6,7 @@ export const handleChange = (
     HTMLTextAreaElement | HTMLSelectElement | HTMLInputElement
   >,
   data: any,
-  setData: React.Dispatch<React.SetStateAction<IFormAppValues>>
+  setData: React.Dispatch<React.SetStateAction<AppFormValues>>
 ) => {
   const { name, value } = event.target;
   setData({ ...data, [name]: value });

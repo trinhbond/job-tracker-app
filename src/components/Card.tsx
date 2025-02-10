@@ -1,11 +1,11 @@
-import { IFormAppValues } from "../types";
+import { AppFormValues } from "../types";
 import { Elipsis } from "./icons/Elipsis";
 
 export default function Card({
   props,
   onClick,
 }: {
-  props: IFormAppValues;
+  props: AppFormValues;
   onClick: () => void;
 }) {
   return (
