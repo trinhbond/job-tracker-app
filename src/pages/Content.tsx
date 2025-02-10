@@ -258,7 +258,7 @@ export default function Content() {
                   <div>
                     <label className="font-medium text-sm">Notes</label>
                     <textarea
-                      className="resize-none focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm text-sm"
+                      className="resize-none min-h-28 focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm text-sm"
                       placeholder="Notes"
                       {...register("notes")}
                     />
@@ -463,7 +463,7 @@ export default function Content() {
                           Notes
                         </label>
                         <textarea
-                          className="resize-none focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm text-sm"
+                          className="resize-none min-h-28 focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm text-sm"
                           placeholder="Notes"
                           name="notes"
                           id="notes"
