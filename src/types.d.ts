@@ -1,10 +1,10 @@
-export interface IFormValues {
+export interface UserFormValues {
   name: string;
   email: string;
   password: string;
 }
 
-export interface IFormAppValues {
+export interface AppFormValues {
   id?: string;
   company: string;
   title: string;
