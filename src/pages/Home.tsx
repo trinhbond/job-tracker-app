@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
 import { FirebaseError } from "firebase/app";
 import { useForm } from "react-hook-form";
-import { IFormValues } from "../types";
-import "react-toastify/dist/ReactToastify.css";
+import { UserFormValues } from "../types";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
+import clsx from "clsx";
 
 export default function Home() {
   const {
@@ -18,7 +18,7 @@ export default function Home() {
     setError,
     reset,
     formState: { errors },
-  } = useForm<IFormValues>();
+  } = useForm<UserFormValues>();
   const navigate = useNavigate();
   const [userHasAccount, setUserHasAccount] = useState(false);
 
@@ -84,13 +84,13 @@ export default function Home() {
               onSubmit={handleSignup}
             >
               <div className="flex flex-col gap-1">
-                <label>
-                  Name
-                  <sup>*</sup>
-                </label>
+                <label>Name</label>
                 <input
                   type="text"
-                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  className={clsx(
+                    errors.name && "border-red-600",
+                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  )}
                   placeholder="Name"
                   {...register("name", {
                     pattern: {
@@ -110,12 +110,13 @@ export default function Home() {
                 )}
               </div>
               <div className="flex flex-col gap-1">
-                <label>
-                  Email<sup>*</sup>
-                </label>
+                <label>Email</label>
                 <input
                   type="text"
-                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  className={clsx(
+                    errors.email && "border-red-600",
+                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  )}
                   placeholder="Email"
                   {...register("email", {
                     required: {
@@ -135,12 +136,13 @@ export default function Home() {
                 )}
               </div>
               <div className="flex flex-col gap-1">
-                <label>
-                  Password<sup>*</sup>
-                </label>
+                <label>Password</label>
                 <input
                   type="password"
-                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  className={clsx(
+                    errors.password && "border-red-600",
+                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  )}
                   placeholder="Password (6 or more characters)"
                   {...register("password", {
                     required: {
@@ -166,7 +168,7 @@ export default function Home() {
                 Continue
               </button>
               <div>
-                Have an account?{" "}
+                Already have an account?{" "}
                 <button
                   className="underline text-[#0000EE]"
                   onClick={handleClick}
@@ -184,7 +186,10 @@ export default function Home() {
                 <label>Email</label>
                 <input
                   type="text"
-                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  className={clsx(
+                    errors.email && "border-red-600",
+                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  )}
                   placeholder="Email"
                   {...register("email", {
                     required: {
@@ -207,7 +212,10 @@ export default function Home() {
                 <label>Password</label>
                 <input
                   type="password"
-                  className="border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  className={clsx(
+                    errors.password && "border-red-600",
+                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                  )}
                   placeholder="Password"
                   {...register("password", {
                     required: {
