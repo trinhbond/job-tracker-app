@@ -21,11 +21,11 @@ export default function Card({
             rel="noreferrer"
             className="font-semibold hover:underline"
           >
-            {props.company} | {props.title}
+            {props.title} - {props.company}
           </a>
         ) : (
           <h2 className="font-semibold">
-            {props.company} | {props.title}
+            {props.title} - {props.company}
           </h2>
         )}
 
@@ -35,19 +35,19 @@ export default function Card({
           </div>
         )}
       </div>
-      <div className="h-full text-sm">
+      <div className="h-full text-sm text-[#5a6881] dark:text-[#808080]">
         <div className="flex flex-col gap-1 mb-2">
           {!!props.location?.length && <span>{props.location}</span>}
           {props.salary > 0 && <span>&#36;{props.salary}</span>}
         </div>
         {props.notes?.length > 0 && (
           <div className="mt-4">
-            <p className="text-[#5a6881] dark:text-[#808080]">{props.notes}</p>
+            <p>{props.notes}</p>
           </div>
         )}
       </div>
       {props.date && (
-        <div className="flex flex-row gap-1 self-auto items-center place-self-end justify-self-start text-sm">
+        <div className="flex flex-row gap-1 self-auto items-center place-self-end justify-self-start text-sm text-[#5a6881] dark:text-[#808080]">
           <span>
             {props.date &&
               new Date(props.date.seconds * 1000).toLocaleDateString("en-NZ")}
@@ -55,7 +55,6 @@ export default function Card({
           <Elipsis
             onClick={onClick}
             className="cursor-pointer absolute right-3.5 dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5] dark:text-white rounded-full"
-            // className="cursor-pointer absolute right-3.5 dark:hover:bg-[#18181B] dark:bg-[#2b2b2b] dark:text-white rounded-full"
           />
         </div>
       )}

@@ -87,30 +87,31 @@ export default function Content() {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       if (user) {
-        const { uid, displayName } = user;
-
-        if (uid && displayName) {
-          const query = await getDocs(
-            collection(db, "applications", "users", "user/", uid, displayName)
-          );
-          const docsData: any = [];
-          setLoading(true);
-          try {
-            query.forEach((doc) => {
-              docsData.push({ id: doc.id, ...doc.data() });
-            });
-            setData(docsData);
-            setLoading(false);
-          } catch (error) {
-            console.log(error);
-          }
+        const query = await getDocs(
+          collection(
+            db,
+            "applications",
+            "users",
+            "user/",
+            user.uid as string,
+            user.displayName as string
+          )
+        );
+        const docsData: any = [];
+        setLoading(true);
+        try {
+          query.forEach((doc) => {
+            docsData.push({ id: doc.id, ...doc.data() });
+          });
+          setData(docsData);
+          setLoading(false);
+        } catch (error) {
+          console.log(error);
         }
       }
-    };
-
-    fetchData();
+    })();
   }, [data, user]);
 
   useEffect(() => {
@@ -139,154 +140,146 @@ export default function Content() {
       </h1>
       <button
         onClick={() => setModalOpened((cardOpened) => !cardOpened)}
-        className="font-medium dark:bg-[#18181B] dark:hover:bg-[#2b2b2b] dark:text-white rounded-full bg-black text-white text-sm px-6 py-2 fixed right-6 bottom-6 z-20"
+        className="font-semibold dark:bg-[#18181B] dark:hover:bg-[#2b2b2b] dark:text-white rounded-full bg-black text-white px-6 py-2 fixed right-6 bottom-6 z-20"
       >
         Create
       </button>
-      <div>
-        {modalOpened && (
-          <>
-            <Backdrop />
-            <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
-              <div>
-                <h1 className="text-xl font-semibold mb-1">
-                  Create application
-                </h1>
-                <div className="border border-[#ffffff18]" />
-                <form
-                  className="flex flex-col gap-4 py-4"
-                  onSubmit={(event) => {
-                    event.preventDefault();
+      {modalOpened && (
+        <>
+          <Backdrop />
+          <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-[9999] h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
+            <div>
+              <h1 className="text-xl font-semibold mb-1">Create application</h1>
+              <div className="border border-[#ffffff18]" />
+              <form
+                className="flex flex-col gap-4 py-4 text-sm"
+                onSubmit={(event) => {
+                  event.preventDefault();
 
-                    try {
-                      if (
-                        errors.company?.type === "required" ||
-                        errors.title?.type === "required"
-                      ) {
-                        displayToast(
-                          "Please fill in the required fields",
-                          "error"
-                        );
-                        return;
-                      }
-                      onSubmit();
-                    } catch (error) {
-                      console.log(error);
+                  try {
+                    if (
+                      errors.company?.type === "required" ||
+                      errors.title?.type === "required"
+                    ) {
+                      displayToast(
+                        "Please fill in the required fields",
+                        "error"
+                      );
+                      return;
                     }
-                  }}
-                >
-                  <div>
-                    <label className="font-medium text-sm">
-                      Company <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      placeholder="Company"
-                      {...register("company", {
-                        required: {
-                          value: true,
-                          message: "Company is required",
-                        },
-                      })}
-                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-medium text-sm">
-                      Title <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      placeholder="Title"
-                      {...register("title", {
-                        required: {
-                          value: true,
-                          message: "Title is required",
-                        },
-                      })}
-                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-medium text-sm">Link</label>
-                    <input
-                      placeholder="Link"
-                      {...register("link")}
-                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-medium text-sm dark:text-white text-black">
-                      Status
-                    </label>
-                    <select
-                      {...register("status")}
-                      className="w-full focus:outline-none bg-white border p-1 rounded-sm text-sm bg-white text-black dark:bg-inherit dark:text-white"
-                    >
-                      <option selected disabled className="bg-black" value="">
-                        Select Status
+                    onSubmit();
+                  } catch (error) {
+                    console.log(error);
+                  }
+                }}
+              >
+                <div>
+                  <label>
+                    Company <span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    placeholder="Company"
+                    {...register("company", {
+                      required: {
+                        value: true,
+                        message: "Company is required",
+                      },
+                    })}
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                  />
+                </div>
+                <div>
+                  <label>
+                    Title <span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    placeholder="Title"
+                    {...register("title", {
+                      required: {
+                        value: true,
+                        message: "Title is required",
+                      },
+                    })}
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                  />
+                </div>
+                <div>
+                  <label>Link</label>
+                  <input
+                    placeholder="Link"
+                    {...register("link")}
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                  />
+                </div>
+                <div>
+                  <label className="dark:text-white text-black">Status</label>
+                  <select
+                    {...register("status")}
+                    className="w-full focus:outline-none bg-white border mt-1 p-1 rounded-sm bg-white text-black dark:bg-inherit dark:text-white"
+                  >
+                    <option selected disabled className="bg-black" value="">
+                      Select Status
+                    </option>
+                    {[
+                      "applied",
+                      "interview",
+                      "offer",
+                      "rejected",
+                      "ghosted",
+                    ].map((option) => (
+                      <option className="bg-black text-white" value={option}>
+                        {option.slice(0, 1).toUpperCase() + option.substring(1)}
                       </option>
-                      {[
-                        "applied",
-                        "interview",
-                        "offer",
-                        "rejected",
-                        "ghosted",
-                      ].map((option) => (
-                        <option className="bg-black text-white" value={option}>
-                          {option.slice(0, 1).toUpperCase() +
-                            option.substring(1)}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="font-medium text-sm">Location</label>
-                    <input
-                      placeholder="Location"
-                      {...register("location")}
-                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-medium text-sm">Salary</label>
-                    <input
-                      type="number"
-                      placeholder="Salary"
-                      {...register("salary")}
-                      className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-medium text-sm">Notes</label>
-                    <textarea
-                      className="resize-none min-h-28 focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm text-sm"
-                      placeholder="Notes"
-                      {...register("notes")}
-                    />
-                  </div>
-                  <div className="buttons flex items-center gap-3">
-                    <input
-                      className="cursor-pointer	font-medium dark:bg-white dark:text-[#121212] bg-black text-white rounded-full text-xs px-6 py-2"
-                      type="submit"
-                      value="Confirm"
-                    />
-                    <input
-                      className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline rounded-full text-xs px-6 py-2"
-                      type="button"
-                      value="Cancel"
-                      onClick={() => {
-                        setModalOpened((cardOpened) => !cardOpened);
-                        reset();
-                      }}
-                    />
-                  </div>
-                </form>
-              </div>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label>Location</label>
+                  <input
+                    placeholder="Location"
+                    {...register("location")}
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                  />
+                </div>
+                <div>
+                  <label>Salary</label>
+                  <input
+                    type="number"
+                    placeholder="Salary"
+                    {...register("salary")}
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                  />
+                </div>
+                <div>
+                  <label>Notes</label>
+                  <textarea
+                    className="resize-none min-h-28 focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm"
+                    placeholder="Notes"
+                    {...register("notes")}
+                  />
+                </div>
+                <div className="text-xs">
+                  <input
+                    className="cursor-pointer	font-semibold dark:bg-white dark:text-[#121212] bg-black text-white rounded-full px-4 py-2"
+                    type="submit"
+                    value="Confirm"
+                  />
+                  <input
+                    className="cursor-pointer	font-semibold dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline rounded-full px-4 py-2"
+                    type="button"
+                    value="Cancel"
+                    onClick={() => {
+                      setModalOpened((cardOpened) => !cardOpened);
+                      reset();
+                    }}
+                  />
+                </div>
+              </form>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
 
-      {/* <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-4"> */}
       <div className="grid lg:grid-cols-1 gap-4">
         {data.map((props: AppFormValues) => (
           <>
@@ -302,14 +295,14 @@ export default function Content() {
             {isCardClicked[props.id!] && (
               <>
                 <Backdrop />
-                <div className="dark:bg-[#121212] bg-white text-black p-4 shadow-lg fixed z-[9999] h-full top-0 right-0 min-w-96 w-96">
+                <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-[9999] h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
                   <div>
-                    <h1 className="text-xl font-semibold mb-1 dark:text-white text-black">
+                    <h1 className="text-xl font-semibold mb-1">
                       Edit application
                     </h1>
                     <div className="border border-[#ffffff18]" />
                     <form
-                      className="flex flex-col gap-4 py-4"
+                      className="flex flex-col gap-4 py-4 text-sm"
                       onSubmit={(event) => {
                         event.preventDefault();
                         setPrevData(prevData);
@@ -345,7 +338,7 @@ export default function Content() {
                       }}
                     >
                       <div>
-                        <label className="font-medium text-sm dark:text-white text-black">
+                        <label>
                           Company <span className="text-red-600">*</span>
                         </label>
                         <input
@@ -356,11 +349,11 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
                         />
                       </div>
                       <div>
-                        <label className="font-medium text-sm dark:text-white text-black">
+                        <label>
                           Title <span className="text-red-600">*</span>
                         </label>
                         <input
@@ -371,13 +364,11 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
                         />
                       </div>
                       <div>
-                        <label className="font-medium text-sm dark:text-white text-black">
-                          Link
-                        </label>
+                        <label>Link</label>
                         <input
                           placeholder="Link"
                           value={prevData.link}
@@ -386,13 +377,11 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
                         />
                       </div>
                       <div>
-                        <label className="font-medium text-sm dark:text-white text-black">
-                          Status
-                        </label>
+                        <label>Status</label>
                         <select
                           value={prevData.status}
                           name="status"
@@ -400,7 +389,7 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-white border p-1 rounded-sm text-sm bg-white text-black dark:bg-inherit dark:text-white"
+                          className="w-full focus:outline-none bg-white border mt-1 p-1 rounded-sm bg-white text-black dark:bg-inherit dark:text-white"
                         >
                           <option
                             selected
@@ -428,9 +417,7 @@ export default function Content() {
                         </select>
                       </div>
                       <div>
-                        <label className="font-medium text-sm dark:text-white text-black">
-                          Location
-                        </label>
+                        <label>Location</label>
                         <input
                           name="location"
                           id="location"
@@ -439,15 +426,13 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
                         />
                       </div>
                       <div>
-                        <label className="font-medium text-sm dark:text-white text-black">
-                          Salary
-                        </label>
+                        <label>Salary</label>
                         <input
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1 text-sm"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
                           type="number"
                           name="salary"
                           id="salary"
@@ -459,11 +444,9 @@ export default function Content() {
                         />
                       </div>
                       <div>
-                        <label className="font-medium text-sm dark:text-white text-black">
-                          Notes
-                        </label>
+                        <label>Notes</label>
                         <textarea
-                          className="resize-none min-h-28 focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm text-sm"
+                          className="resize-none min-h-28 focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm"
                           placeholder="Notes"
                           name="notes"
                           id="notes"
@@ -473,16 +456,16 @@ export default function Content() {
                           }
                         />
                       </div>
-                      <div className="buttons flex items-center justify-between gap-3">
+                      <div className="buttons flex justify-between flex-wrap gap-2 items-center w-full text-xs">
                         <div>
                           <input
-                            className="cursor-pointer mr-2font-medium dark:bg-white dark:text-[#121212] bg-black text-white rounded-full text-xs px-6 py-2"
+                            className="cursor-pointer font-semibold dark:bg-white dark:text-[#121212] bg-black text-white rounded-full px-4 py-2"
                             type="submit"
                             value="Confirm"
                             id="confirm"
                           />
                           <input
-                            className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline rounded-full text-xs px-6 py-2"
+                            className="cursor-pointer	font-semibold dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline rounded-full px-4 py-2"
                             type="button"
                             value="Cancel"
                             onClick={() => {
@@ -491,25 +474,27 @@ export default function Content() {
                             }}
                           />
                         </div>
-                        <button
-                          onClick={() => {
-                            deleteDoc(
-                              doc(
-                                db,
-                                "applications",
-                                "users",
-                                "user/",
-                                user?.uid!,
-                                user?.displayName!,
-                                props.id!
-                              )
-                            );
-                          }}
-                          className="flex flex-row items-center gap-1 font-medium justify-between dark:bg-white dark:text-[#121212] bg-black text-white rounded-full text-xs px-6 py-2"
-                        >
-                          <Trash />
-                          <span>Delete</span>
-                        </button>
+                        <div className="float-right">
+                          <button
+                            onClick={() => {
+                              deleteDoc(
+                                doc(
+                                  db,
+                                  "applications",
+                                  "users",
+                                  "user/",
+                                  user?.uid!,
+                                  user?.displayName!,
+                                  props.id!
+                                )
+                              );
+                            }}
+                            className="flex flex-row items-center font-semibold justify-evenly dark:bg-white dark:text-[#121212] bg-black text-white rounded-full px-4 py-2"
+                          >
+                            <Trash className="shrink-0" />
+                            <span>Delete</span>
+                          </button>
+                        </div>
                       </div>
                     </form>
                   </div>
