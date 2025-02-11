@@ -72,11 +72,11 @@ export default function Home() {
   };
 
   return (
-    <div className="h-dvh place-content-center top-0 bottom-0 p-4">
-      <div className="max-w-[500px] m-auto">
-        <div className="rounded-md border border-[#c6c6c6] h-[500px] flex flex-col gap-6 p-6 place-content-center bg-white shadow-lg">
-          <h1 className="text-2xl font-semibold">
-            {!userHasAccount ? "Sign up" : "Sign in"} to Job Tracker
+    <div className="h-dvh flex flex-row justify-between [&>div]:w-full">
+      <div>
+        <div className="border border-[#c6c6c6] h-dvh place-content-center flex flex-col gap-6 p-6 bg-white shadow-lg">
+          <h1 className="text-2xl py-3 font-semibold block lg:hidden md:hidden sm:block xs:block">
+            Welcome to jobtracker
           </h1>
           {!userHasAccount ? (
             <form
@@ -247,6 +247,11 @@ export default function Home() {
             </form>
           )}
         </div>
+      </div>
+      <div className="place-content-center text-center hidden lg:block md:block sm:hidden xs:hidden">
+        <h1 className="font-semibold text-3xl lg:text-3xl md:text-2xl py-3">
+          Welcome to jobtracker
+        </h1>
       </div>
     </div>
   );
