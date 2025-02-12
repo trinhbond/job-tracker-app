@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
 import { FirebaseError } from "firebase/app";
 import { useForm } from "react-hook-form";
-import { UserFormValues } from "../types";
+import { UserForm } from "../types";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -18,7 +18,7 @@ export default function Home() {
     setError,
     reset,
     formState: { errors },
-  } = useForm<UserFormValues>();
+  } = useForm<UserForm>();
   const navigate = useNavigate();
   const [userHasAccount, setUserHasAccount] = useState(false);
 
