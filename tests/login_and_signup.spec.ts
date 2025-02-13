@@ -2,15 +2,15 @@ import { test, expect } from "@playwright/test";
 
 const baseURL = "http://localhost:3000/";
 
-test("has title", async ({ page }) => {
+test.beforeEach(async ({ page }) => {
   await page.goto(baseURL);
+});
 
+test("has title", async ({ page }) => {
   await expect(page).toHaveTitle(/Job Tracker/);
 });
 
 test("signup form errors", async ({ page }) => {
-  await page.goto(baseURL);
-
   // No inputs
   await page.locator("input", { hasText: "Continue" }).click();
   await Promise.all([
@@ -48,7 +48,6 @@ test("signup form errors", async ({ page }) => {
 });
 
 test("login form errors", async ({ page }) => {
-  await page.goto(baseURL);
   await page.locator("button", { hasText: "Sign in" }).click();
 
   await page.locator("input", { hasText: "Continue" }).click();
