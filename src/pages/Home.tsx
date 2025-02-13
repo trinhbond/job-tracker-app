@@ -161,12 +161,11 @@ export default function Home() {
                   </p>
                 )}
               </div>
-              <button
+              <input
                 className="bg-black text-white min-w-fit py-4 px-1 rounded-full font-medium cursor-pointer select-none"
                 type="submit"
-              >
-                Continue
-              </button>
+                value="Continue"
+              />
               <div>
                 Already have an account?{" "}
                 <button
