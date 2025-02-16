@@ -17,6 +17,7 @@ import Trash from "../components/icons/Trash";
 import "react-toastify/dist/ReactToastify.css";
 import Card from "../components/Card";
 import { AuthContext } from "../context/AuthContext";
+import clsx from "clsx";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
@@ -41,6 +42,7 @@ export default function Content() {
     location: "",
     status: "",
   });
+  const options = ["applied", "interview", "offer", "rejected", "ghosted"];
 
   const toggleOpen = (id: string) => {
     setIsCardClicked({
@@ -86,6 +88,33 @@ export default function Content() {
     }
   });
 
+  const onSubmitEdit = (id: string, e: React.BaseSyntheticEvent) => {
+    e.preventDefault();
+    setPrevData(prevData);
+
+    try {
+      if (!prevData.company.trim().length || !prevData.title.trim().length) {
+        return;
+      }
+      updateDoc(
+        doc(
+          db,
+          "applications",
+          "users",
+          "user/",
+          user?.uid as string,
+          user?.displayName as string,
+          id
+        ),
+        { ...prevData }
+      );
+      displayToast("Application updated", "success");
+      setIsCardClicked({});
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       if (user) {
@@ -113,16 +142,6 @@ export default function Content() {
       }
     })();
   }, [data, user]);
-
-  useEffect(() => {
-    if (
-      errors.company?.type === "required" ||
-      errors.title?.type === "required"
-    ) {
-      displayToast("Please fill in the required fields", "error");
-      return;
-    }
-  }, [errors]);
 
   useEffect(() => {
     // disable scrolling when modal is opened
@@ -162,25 +181,7 @@ export default function Content() {
               <div className="border border-[#ffffff18]" />
               <form
                 className="flex flex-col gap-4 py-4 text-sm"
-                onSubmit={(event) => {
-                  event.preventDefault();
-
-                  try {
-                    if (
-                      errors.company?.type === "required" ||
-                      errors.title?.type === "required"
-                    ) {
-                      displayToast(
-                        "Please fill in the required fields",
-                        "error"
-                      );
-                      return;
-                    }
-                    onSubmit();
-                  } catch (error) {
-                    console.log(error);
-                  }
-                }}
+                onSubmit={onSubmit}
               >
                 <div>
                   <label>
@@ -193,8 +194,15 @@ export default function Content() {
                         value: true,
                         message: "Company is required",
                       },
+                      pattern: {
+                        value: /[^' ']+/,
+                        message: "Company is required",
+                      },
                     })}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                    className={clsx(
+                      errors.company && "border-red-600",
+                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                    )}
                   />
                 </div>
                 <div>
@@ -208,8 +216,15 @@ export default function Content() {
                         value: true,
                         message: "Title is required",
                       },
+                      pattern: {
+                        value: /[^' ']+/,
+                        message: "Title is required",
+                      },
                     })}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                    className={clsx(
+                      errors.title && "border-red-600",
+                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                    )}
                   />
                 </div>
                 <div>
@@ -229,13 +244,7 @@ export default function Content() {
                     <option selected disabled className="bg-[#c6c6c6]" value="">
                       Select Status
                     </option>
-                    {[
-                      "applied",
-                      "interview",
-                      "offer",
-                      "rejected",
-                      "ghosted",
-                    ].map((option) => (
+                    {options.map((option) => (
                       <option
                         className="bg-white text-black dark:bg-[#18181B] dark:text-white"
                         value={option}
@@ -315,39 +324,7 @@ export default function Content() {
                     <div className="border border-[#ffffff18]" />
                     <form
                       className="flex flex-col gap-4 py-4 text-sm"
-                      onSubmit={(event) => {
-                        event.preventDefault();
-                        setPrevData(prevData);
-
-                        try {
-                          if (
-                            prevData.company.trim().length === 0 ||
-                            prevData.title.trim().length === 0
-                          ) {
-                            displayToast(
-                              "Fill in the required fields",
-                              "error"
-                            );
-                            return;
-                          }
-                          updateDoc(
-                            doc(
-                              db,
-                              "applications",
-                              "users",
-                              "user/",
-                              user?.uid as string,
-                              user?.displayName as string,
-                              props.id as string
-                            ),
-                            { ...prevData }
-                          );
-                          displayToast("Application updated", "success");
-                          setIsCardClicked({});
-                        } catch (e) {
-                          console.error(e);
-                        }
-                      }}
+                      onSubmit={(e) => onSubmitEdit(props.id as string, e)}
                     >
                       <div>
                         <label>
@@ -361,7 +338,10 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                          className={clsx(
+                            !prevData.company.trim().length && "border-red-600",
+                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                          )}
                         />
                       </div>
                       <div>
@@ -376,7 +356,10 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                          className={clsx(
+                            !prevData.title.trim().length && "border-red-600",
+                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                          )}
                         />
                       </div>
                       <div>
@@ -411,13 +394,7 @@ export default function Content() {
                           >
                             Select Status
                           </option>
-                          {[
-                            "applied",
-                            "interview",
-                            "offer",
-                            "rejected",
-                            "ghosted",
-                          ].map((option) => (
+                          {options.map((option) => (
                             <option
                               className="bg-white text-black dark:bg-[#18181B] dark:text-white"
                               value={option}
