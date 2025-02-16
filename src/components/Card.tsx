@@ -1,13 +1,12 @@
 import { AppForm } from "../types";
 import { Elipsis } from "./icons/Elipsis";
 
-export default function Card({
-  props,
-  onClick,
-}: {
+interface Card {
   props: AppForm;
   onClick: () => void;
-}) {
+}
+
+export default function Card({ props, onClick }: Card) {
   return (
     <div
       key={props.id}
@@ -37,7 +36,7 @@ export default function Card({
       </div>
       <div className="h-full text-sm text-[#5a6881] dark:text-[#808080]">
         <div className="flex flex-col gap-1 mb-2">
-          {!!props.location?.length && <span>{props.location}</span>}
+          {props.location?.length && <span>{props.location}</span>}
           {props.salary > 0 && <span>&#36;{props.salary}</span>}
         </div>
         {props.notes?.length > 0 && (

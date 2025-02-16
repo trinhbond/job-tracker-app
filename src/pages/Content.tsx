@@ -70,8 +70,8 @@ export default function Content() {
           "applications",
           "users",
           "user/",
-          user?.uid!,
-          user?.displayName!
+          user?.uid as string,
+          user?.displayName as string
         ),
         {
           ...data,
@@ -126,24 +126,33 @@ export default function Content() {
 
   useEffect(() => {
     // disable scrolling when modal is opened
-    if (modalOpened || !!Object.keys(isCardClicked).length)
+    if (modalOpened || !!Object.keys(isCardClicked).length) {
       document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "unset";
+    } else {
+      document.body.style.overflow = "unset";
+    }
   }, [modalOpened, isCardClicked]);
 
-  if (loading) return <>loading...</>;
+  if (loading)
+    return (
+      <div className="animate-pulse place-content-center text-lg text-center fixed left-0 right-0 top-0 bottom-0">
+        Loading...
+      </div>
+    );
 
   return (
-    <div className="py-12 px-4 lg:px-24 md:px-22 sm:px-16 xs:px-4 flex flex-col gap-4 relative">
-      <h1 className="w-full inline-block font-medium text-xl border-b border-[#c6c6c6] pb-1">
-        Applications
-      </h1>
-      <button
-        onClick={() => setModalOpened((cardOpened) => !cardOpened)}
-        className="font-semibold dark:bg-[#18181B] dark:hover:bg-[#2b2b2b] dark:text-white rounded-full bg-black text-white px-6 py-2 fixed right-6 bottom-6 z-20"
-      >
-        Create
-      </button>
+    <div className="py-12 px-4 lg:px-24 md:px-22 sm:px-16 xs:px-4 flex flex-col gap-8 relative">
+      <div className="inline-flex justify-between flex-wrap items-center">
+        <h1 className="inline-block font-medium text-xl lg:text-3xl md:text-2xl sm:text-2xl xs:text-xl">
+          Applications
+        </h1>
+        <button
+          onClick={() => setModalOpened((cardOpened) => !cardOpened)}
+          className="font-semibold dark:bg-[#252525] dark:hover:bg-[#2b2b2b] dark:text-white rounded-full bg-black text-white px-4 py-2"
+        >
+          Create
+        </button>
+      </div>
       {modalOpened && (
         <>
           <Backdrop />
@@ -217,7 +226,7 @@ export default function Content() {
                     {...register("status")}
                     className="w-full focus:outline-none bg-white border mt-1 p-1 rounded-sm bg-white text-black dark:bg-inherit dark:text-white"
                   >
-                    <option selected disabled className="bg-black" value="">
+                    <option selected disabled className="bg-[#c6c6c6]" value="">
                       Select Status
                     </option>
                     {[
@@ -227,7 +236,10 @@ export default function Content() {
                       "rejected",
                       "ghosted",
                     ].map((option) => (
-                      <option className="bg-black text-white" value={option}>
+                      <option
+                        className="bg-white text-black dark:bg-[#18181B] dark:text-white"
+                        value={option}
+                      >
                         {option.slice(0, 1).toUpperCase() + option.substring(1)}
                       </option>
                     ))}
@@ -324,9 +336,9 @@ export default function Content() {
                               "applications",
                               "users",
                               "user/",
-                              user?.uid!,
-                              user?.displayName!,
-                              props.id!
+                              user?.uid as string,
+                              user?.displayName as string,
+                              props.id as string
                             ),
                             { ...prevData }
                           );
@@ -394,7 +406,7 @@ export default function Content() {
                           <option
                             selected
                             disabled
-                            className="bg-black"
+                            className="bg-[#c6c6c6]"
                             value=""
                           >
                             Select Status
@@ -407,7 +419,7 @@ export default function Content() {
                             "ghosted",
                           ].map((option) => (
                             <option
-                              className="bg-black text-white"
+                              className="bg-white text-black dark:bg-[#18181B] dark:text-white"
                               value={option}
                             >
                               {option.slice(0, 1).toUpperCase() +
@@ -422,7 +434,7 @@ export default function Content() {
                           name="location"
                           id="location"
                           placeholder="Location"
-                          value={prevData.location || ""}
+                          value={prevData.location}
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
@@ -483,15 +495,15 @@ export default function Content() {
                                   "applications",
                                   "users",
                                   "user/",
-                                  user?.uid!,
-                                  user?.displayName!,
-                                  props.id!
+                                  user?.uid as string,
+                                  user?.displayName as string,
+                                  props.id as string
                                 )
                               );
                             }}
                             className="flex flex-row items-center font-semibold justify-evenly dark:bg-white dark:text-[#121212] bg-black text-white rounded-full px-4 py-2"
                           >
-                            <Trash className="shrink-0" />
+                            <Trash className="shrink-0 mr-0.5" />
                             <span>Delete</span>
                           </button>
                         </div>
