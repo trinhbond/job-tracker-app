@@ -175,7 +175,7 @@ export default function Content() {
       {modalOpened && (
         <>
           <Backdrop />
-          <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-[9999] h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
+          <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
             <div>
               <h1 className="text-xl font-semibold mb-1">Create application</h1>
               <div className="border border-[#ffffff18]" />
@@ -316,7 +316,7 @@ export default function Content() {
             {isCardClicked[props.id!] && (
               <>
                 <Backdrop />
-                <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-[9999] h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
+                <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
                   <div>
                     <h1 className="text-xl font-semibold mb-1">
                       Edit application
