@@ -34,7 +34,7 @@ function App() {
         }
       >
         <Route path="profile" element={<Profile />} />
-        <Route path="content" element={<Content />} />
+        <Route path="applications" element={<Content />} />
         <Route path="*" element={<>Not Found</>} />
       </Route>
       <Route path="*" element={<>Not Found</>} />

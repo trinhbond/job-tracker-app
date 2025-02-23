@@ -172,8 +172,8 @@ export default function Content() {
     );
 
   return (
-    <div className="py-12 px-4 lg:px-24 md:px-22 sm:px-16 xs:px-4 relative">
-      <div className="flex flex-col justify-between gap-6 border-b pb-3">
+    <div className="py-12 px-4 lg:px-40 md:px-22 sm:px-16 xs:px-4 relative">
+      <div className="flex flex-col gap-6 border-b pb-3">
         <h1 className="inline-block font-medium text-xl lg:text-3xl md:text-2xl sm:text-2xl xs:text-xl">
           Applications
         </h1>
@@ -190,10 +190,11 @@ export default function Content() {
               <button className="dropbtn">Filter</button>
               <ArrowDown className="group-hover:rotate-180" />
             </div>
-            <fieldset className="absolute hidden group-hover:block z-40 dark:bg-[#252525] bg-black rounded-md p-3 w-32 min-w-32 text-sm">
+            <fieldset className="absolute hidden group-hover:block z-40 dark:bg-[#252525] bg-black rounded-md p-3 w-28 min-w-28 text-sm">
               {options.map((option, index) => (
                 <div>
                   <input
+                    className="align-middle"
                     key={index}
                     type="checkbox"
                     checked={index === optionValue}
@@ -203,7 +204,7 @@ export default function Content() {
                       );
                     }}
                   />
-                  <label htmlFor={option} className="ml-4 text-white">
+                  <label htmlFor={option} className="ml-2 text-white">
                     {option}
                   </label>
                 </div>
