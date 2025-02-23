@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Card from "../components/Card";
 import { AuthContext } from "../context/AuthContext";
 import clsx from "clsx";
+import ArrowDown from "../components/icons/ArrowDown";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
@@ -42,7 +43,18 @@ export default function Content() {
     location: "",
     status: "",
   });
+  const [optionValue, setOptionValue] = useState<number | null>(0);
   const options = ["applied", "interview", "offer", "rejected", "ghosted"];
+
+  const filteredData =
+    options[optionValue as number] &&
+    data.filter((element) =>
+      element.status.includes(options[optionValue as number])
+    ).length > 0
+      ? data.filter((element) =>
+          element.status.includes(options[optionValue as number])
+        )
+      : data;
 
   const toggleOpen = (id: string) => {
     setIsCardClicked({
@@ -160,17 +172,45 @@ export default function Content() {
     );
 
   return (
-    <div className="py-12 px-4 lg:px-24 md:px-22 sm:px-16 xs:px-4 flex flex-col gap-8 relative">
-      <div className="inline-flex justify-between flex-wrap items-center">
+    <div className="py-12 px-4 lg:px-24 md:px-22 sm:px-16 xs:px-4 relative">
+      <div className="flex flex-col justify-between gap-6 border-b pb-3">
         <h1 className="inline-block font-medium text-xl lg:text-3xl md:text-2xl sm:text-2xl xs:text-xl">
           Applications
         </h1>
-        <button
-          onClick={() => setModalOpened((cardOpened) => !cardOpened)}
-          className="font-semibold dark:bg-[#252525] dark:hover:bg-[#2b2b2b] dark:text-white rounded-full bg-black text-white px-4 py-2"
-        >
-          Create
-        </button>
+        <div className="inline-flex">
+          <button
+            onClick={() => setModalOpened((cardOpened) => !cardOpened)}
+            className="font-medium text-sm dark:bg-[#252525] dark:hover:bg-[#2b2b2b] dark:text-white rounded-full bg-black text-white px-4 py-2"
+          >
+            Create
+          </button>
+          <div className="h-8 border-l border-[#c6c6c6] dark:border-white ml-4 text-center"></div>
+          <div className="group relative inline-block">
+            <div className="font-medium text-sm w-fit rounded-full px-4 py-2 inline-flex items-center gap-1">
+              <button className="dropbtn">Filter</button>
+              <ArrowDown className="group-hover:rotate-180" />
+            </div>
+            <fieldset className="absolute hidden group-hover:block z-40 dark:bg-[#252525] bg-black rounded-md p-3 w-32 min-w-32 text-sm">
+              {options.map((option, index) => (
+                <div>
+                  <input
+                    key={index}
+                    type="checkbox"
+                    checked={index === optionValue}
+                    onChange={() => {
+                      setOptionValue((prevState) =>
+                        prevState === index ? null : index
+                      );
+                    }}
+                  />
+                  <label htmlFor={option} className="ml-4 text-white">
+                    {option}
+                  </label>
+                </div>
+              ))}
+            </fieldset>
+          </div>
+        </div>
       </div>
       {modalOpened && (
         <>
@@ -300,9 +340,8 @@ export default function Content() {
           </div>
         </>
       )}
-
-      <div className="grid lg:grid-cols-1 gap-4">
-        {data.map((props: AppForm) => (
+      <div className="grid lg:grid-cols-1 gap-4 mt-3">
+        {filteredData.map((props: AppForm) => (
           <>
             <Card
               props={props}
