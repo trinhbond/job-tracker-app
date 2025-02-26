@@ -43,16 +43,16 @@ export default function Content() {
     location: "",
     status: "",
   });
-  const [optionValue, setOptionValue] = useState<number | null>(0);
+  const [filterValue, setFilterValue] = useState<number | null>(0);
   const options = ["applied", "interview", "offer", "rejected", "ghosted"];
 
   const filteredData =
-    options[optionValue as number] &&
+    options[filterValue as number] &&
     data.filter((element) =>
-      element.status.includes(options[optionValue as number])
+      element.status.includes(options[filterValue as number])
     ).length > 0
       ? data.filter((element) =>
-          element.status.includes(options[optionValue as number])
+          element.status.includes(options[filterValue as number])
         )
       : data;
 
@@ -76,7 +76,7 @@ export default function Content() {
     }
   };
 
-  const onSubmit = handleSubmit(async (data) => {
+  const handleAddApplication = handleSubmit(async (data) => {
     try {
       await addDoc(
         collection(
@@ -100,12 +100,12 @@ export default function Content() {
     }
   });
 
-  const onSubmitEdit = (id: string, e: React.BaseSyntheticEvent) => {
+  const handleEditApplication = (id: string, e: React.BaseSyntheticEvent) => {
     e.preventDefault();
     setPrevData(prevData);
 
     try {
-      if (!prevData.company.trim().length || !prevData.title.trim().length) {
+      if (!prevData.company.trim() || !prevData.title.trim()) {
         return;
       }
       updateDoc(
@@ -125,6 +125,10 @@ export default function Content() {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleChangeFilter = (index: number) => {
+    setFilterValue((prevState) => (prevState === index ? null : index));
   };
 
   useEffect(() => {
@@ -197,12 +201,8 @@ export default function Content() {
                     className="align-middle"
                     key={index}
                     type="checkbox"
-                    checked={index === optionValue}
-                    onChange={() => {
-                      setOptionValue((prevState) =>
-                        prevState === index ? null : index
-                      );
-                    }}
+                    checked={index === filterValue}
+                    onChange={() => handleChangeFilter(index)}
                   />
                   <label htmlFor={option} className="ml-2 text-white">
                     {option}
@@ -218,11 +218,12 @@ export default function Content() {
           <Backdrop />
           <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
             <div>
-              <h1 className="text-xl font-semibold mb-1">Create application</h1>
-              <div className="border border-[#ffffff18]" />
+              <h1 className="text-xl font-semibold pb-1 border-b border-[#ffffff18]">
+                Create application
+              </h1>
               <form
                 className="flex flex-col gap-4 py-4 text-sm"
-                onSubmit={onSubmit}
+                onSubmit={handleAddApplication}
               >
                 <div>
                   <label>
@@ -358,13 +359,14 @@ export default function Content() {
                 <Backdrop />
                 <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
                   <div>
-                    <h1 className="text-xl font-semibold mb-1">
+                    <h1 className="text-xl font-semibold pb-1 border-b border-[#ffffff18]">
                       Edit application
                     </h1>
-                    <div className="border border-[#ffffff18]" />
                     <form
                       className="flex flex-col gap-4 py-4 text-sm"
-                      onSubmit={(e) => onSubmitEdit(props.id as string, e)}
+                      onSubmit={(e) =>
+                        handleEditApplication(props.id as string, e)
+                      }
                     >
                       <div>
                         <label>
@@ -379,7 +381,7 @@ export default function Content() {
                             handleChange(event, prevData, setPrevData)
                           }
                           className={clsx(
-                            !prevData.company.trim().length && "border-red-600",
+                            !prevData.company.trim() && "border-red-600",
                             "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
                           )}
                         />
@@ -397,7 +399,7 @@ export default function Content() {
                             handleChange(event, prevData, setPrevData)
                           }
                           className={clsx(
-                            !prevData.title.trim().length && "border-red-600",
+                            !prevData.title.trim() && "border-red-600",
                             "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
                           )}
                         />

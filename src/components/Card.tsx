@@ -13,7 +13,7 @@ export default function Card({ props, onClick }: Card) {
       className="relative p-4 border border-[#c6c6c6] rounded-md select-none break-all flex flex-col gap-4"
     >
       <div className="flex flex-row justify-between gap-1 items-start">
-        {props.link?.trim().length ? (
+        {props.link?.trim() ? (
           <a
             href={props.link}
             target="_blank"
