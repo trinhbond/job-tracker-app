@@ -18,15 +18,14 @@ import "react-toastify/dist/ReactToastify.css";
 import Card from "../components/Card";
 import { AuthContext } from "../context/AuthContext";
 import clsx from "clsx";
-import ArrowDown from "../components/icons/ArrowDown";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
   const toastId = useRef("toast");
   const [data, setData] = useState<AppForm[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [modalOpened, setModalOpened] = useState(false);
-  const [isCardClicked, setIsCardClicked] = useState<any>({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isCardOpen, setIsCardOpen] = useState<any>({});
   const {
     handleSubmit,
     reset,
@@ -44,7 +43,14 @@ export default function Content() {
     status: "",
   });
   const [filterValue, setFilterValue] = useState<number | null>(0);
-  const options = ["applied", "interview", "offer", "rejected", "ghosted"];
+  const options = [
+    "all",
+    "applied",
+    "interview",
+    "offer",
+    "rejected",
+    "ghosted",
+  ];
 
   const filteredData =
     options[filterValue as number] &&
@@ -57,9 +63,9 @@ export default function Content() {
       : data;
 
   const toggleOpen = (id: string) => {
-    setIsCardClicked({
-      ...isCardClicked,
-      [id]: !isCardClicked[id],
+    setIsCardOpen({
+      ...isCardOpen,
+      [id]: !isCardOpen[id],
     });
   };
 
@@ -93,7 +99,7 @@ export default function Content() {
         }
       );
       displayToast("Application added", "success");
-      setModalOpened((cardOpened) => !cardOpened);
+      setIsModalOpen((isModalOpen) => !isModalOpen);
       reset();
     } catch (e) {
       console.error(e);
@@ -121,14 +127,10 @@ export default function Content() {
         { ...prevData }
       );
       displayToast("Application updated", "success");
-      setIsCardClicked({});
+      setIsCardOpen({});
     } catch (e) {
       console.error(e);
     }
-  };
-
-  const handleChangeFilter = (index: number) => {
-    setFilterValue((prevState) => (prevState === index ? null : index));
   };
 
   useEffect(() => {
@@ -145,13 +147,13 @@ export default function Content() {
           )
         );
         const docsData: any = [];
-        setLoading(true);
+        setIsLoading(true);
         try {
           query.forEach((doc) => {
             docsData.push({ id: doc.id, ...doc.data() });
           });
           setData(docsData);
-          setLoading(false);
+          setIsLoading(false);
         } catch (error) {
           console.log(error);
         }
@@ -161,14 +163,14 @@ export default function Content() {
 
   useEffect(() => {
     // disable scrolling when modal is opened
-    if (modalOpened || !!Object.keys(isCardClicked).length) {
+    if (isModalOpen || !!Object.keys(isCardOpen).length) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
-  }, [modalOpened, isCardClicked]);
+  }, [isModalOpen, isCardOpen]);
 
-  if (loading)
+  if (isLoading)
     return (
       <div className="animate-pulse place-content-center text-lg text-center fixed left-0 right-0 top-0 bottom-0">
         Loading...
@@ -177,50 +179,48 @@ export default function Content() {
 
   return (
     <div className="py-12 px-4 lg:px-40 md:px-22 sm:px-16 xs:px-4 relative">
-      <div className="flex flex-col gap-6 border-b pb-3">
-        <h1 className="inline-block font-medium text-xl lg:text-3xl md:text-2xl sm:text-2xl xs:text-xl">
-          Applications
+      <div className="flex flex-col gap-6 border-b dark:border-[#ffffff18] pb-3">
+        <h1 className="inline-block font-semibold text-3xl lg:text-4xl md:text-4xl sm:text-4xl xs:text-3xl">
+          Your Applications
         </h1>
-        <div className="inline-flex">
+        <div className="inline-flex items-center gap-4">
           <button
-            onClick={() => setModalOpened((cardOpened) => !cardOpened)}
-            className="font-medium text-sm dark:bg-[#252525] dark:hover:bg-[#2b2b2b] dark:text-white rounded-full bg-black text-white px-4 py-2"
+            onClick={() => setIsModalOpen((isModalOpen) => !isModalOpen)}
+            className="font-medium text-sm dark:bg-[#252525] dark:hover:bg-[#2b2b2b] dark:text-white rounded-sm bg-black text-white px-4 py-2"
           >
             Create
           </button>
-          <div className="h-8 border-l border-[#c6c6c6] dark:border-white ml-4 text-center"></div>
-          <div className="group relative inline-block">
-            <div className="font-medium text-sm w-fit rounded-full px-4 py-2 inline-flex items-center gap-1">
-              <button className="dropbtn">Filter</button>
-              <ArrowDown className="group-hover:rotate-180" />
-            </div>
-            <fieldset className="absolute hidden group-hover:block z-40 dark:bg-[#252525] bg-black rounded-md p-3 w-28 min-w-28 text-sm">
-              {options.map((option, index) => (
-                <div>
-                  <input
-                    className="align-middle"
+          <div className="h-9 border-l dark:border-[#ffffff18]"></div>
+          <div className="relative inline-block">
+            <div className="rounded-sm border dark:border-none">
+              <select
+                onChange={(e) => {
+                  setFilterValue(e.target.selectedIndex);
+                }}
+                multiple={false}
+                className="focus:outline-none border-r-[14px] border-black dark:border-[#252525] dark:bg-[#252525] bg-black text-white px-4 py-2 rounded-sm font-medium text-sm"
+              >
+                {options.map((option, index) => (
+                  <option
+                    className="dark:bg-[#252525] dark:text-white bg-white text-black"
+                    value={option}
                     key={index}
-                    type="checkbox"
-                    checked={index === filterValue}
-                    onChange={() => handleChangeFilter(index)}
-                  />
-                  <label htmlFor={option} className="ml-2 text-white">
-                    {option}
-                  </label>
-                </div>
-              ))}
-            </fieldset>
+                    selected={index === filterValue}
+                  >
+                    {option.slice(0, 1).toUpperCase() + option.substring(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
-      {modalOpened && (
+      {isModalOpen && (
         <>
           <Backdrop />
           <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
             <div>
-              <h1 className="text-xl font-semibold pb-1 border-b border-[#ffffff18]">
-                Create application
-              </h1>
+              <h1 className="text-xl font-semibold pb-1">Create application</h1>
               <form
                 className="flex flex-col gap-4 py-4 text-sm"
                 onSubmit={handleAddApplication}
@@ -243,7 +243,7 @@ export default function Content() {
                     })}
                     className={clsx(
                       errors.company && "border-red-600",
-                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                     )}
                   />
                 </div>
@@ -265,7 +265,7 @@ export default function Content() {
                     })}
                     className={clsx(
                       errors.title && "border-red-600",
-                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                     )}
                   />
                 </div>
@@ -274,16 +274,21 @@ export default function Content() {
                   <input
                     placeholder="Link"
                     {...register("link")}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                   />
                 </div>
                 <div>
                   <label className="dark:text-white text-black">Status</label>
                   <select
                     {...register("status")}
-                    className="w-full focus:outline-none bg-white border mt-1 p-1 rounded-sm bg-white text-black dark:bg-inherit dark:text-white"
+                    className="w-full focus:outline-none bg-white border dark:border-[#ffffff18] mt-1 p-1 rounded-sm bg-white text-black dark:bg-inherit dark:text-white"
                   >
-                    <option selected disabled className="bg-[#c6c6c6]" value="">
+                    <option
+                      selected
+                      disabled
+                      className="bg-[#c6c6c6] dark:border-[#ffffff18]"
+                      value=""
+                    >
                       Select Status
                     </option>
                     {options.map((option) => (
@@ -301,7 +306,7 @@ export default function Content() {
                   <input
                     placeholder="Location"
                     {...register("location")}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                   />
                 </div>
                 <div>
@@ -310,7 +315,7 @@ export default function Content() {
                     type="number"
                     placeholder="Salary"
                     {...register("salary")}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                   />
                 </div>
                 <div>
@@ -323,16 +328,16 @@ export default function Content() {
                 </div>
                 <div className="text-xs">
                   <input
-                    className="cursor-pointer	font-semibold dark:bg-white dark:text-[#121212] bg-black text-white rounded-full px-4 py-2"
+                    className="cursor-pointer	font-medium dark:bg-white dark:text-[#121212] bg-black text-white rounded-sm px-4 py-2"
                     type="submit"
                     value="Confirm"
                   />
                   <input
-                    className="cursor-pointer	font-semibold dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline rounded-full px-4 py-2"
+                    className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline px-4 py-2"
                     type="button"
                     value="Cancel"
                     onClick={() => {
-                      setModalOpened((cardOpened) => !cardOpened);
+                      setIsModalOpen((isModalOpen) => !isModalOpen);
                       reset();
                     }}
                   />
@@ -354,12 +359,12 @@ export default function Content() {
                 });
               }}
             />
-            {isCardClicked[props.id!] && (
+            {isCardOpen[props.id!] && (
               <>
                 <Backdrop />
                 <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
                   <div>
-                    <h1 className="text-xl font-semibold pb-1 border-b border-[#ffffff18]">
+                    <h1 className="text-xl font-semibold pb-1">
                       Edit application
                     </h1>
                     <form
@@ -382,7 +387,7 @@ export default function Content() {
                           }
                           className={clsx(
                             !prevData.company.trim() && "border-red-600",
-                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                           )}
                         />
                       </div>
@@ -400,7 +405,7 @@ export default function Content() {
                           }
                           className={clsx(
                             !prevData.title.trim() && "border-red-600",
-                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                           )}
                         />
                       </div>
@@ -414,7 +419,7 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                         />
                       </div>
                       <div>
@@ -426,7 +431,7 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none bg-white border mt-1 p-1 rounded-sm bg-white text-black dark:bg-inherit dark:text-white"
+                          className="w-full focus:outline-none bg-white border dark:border-[#ffffff18] mt-1 p-1 rounded-sm bg-white text-black dark:bg-inherit dark:text-white"
                         >
                           <option
                             selected
@@ -457,17 +462,17 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                         />
                       </div>
                       <div>
                         <label>Salary</label>
                         <input
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b pb-1"
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
                           type="number"
                           name="salary"
                           id="salary"
-                          placeholder="salary"
+                          placeholder="Salary"
                           value={prevData.salary}
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
@@ -490,17 +495,17 @@ export default function Content() {
                       <div className="buttons flex justify-between flex-wrap gap-2 items-center w-full text-xs">
                         <div>
                           <input
-                            className="cursor-pointer font-semibold dark:bg-white dark:text-[#121212] bg-black text-white rounded-full px-4 py-2"
+                            className="cursor-pointer font-medium dark:bg-white dark:text-[#121212] bg-black text-white rounded-sm px-4 py-2"
                             type="submit"
                             value="Confirm"
                             id="confirm"
                           />
                           <input
-                            className="cursor-pointer	font-semibold dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline rounded-full px-4 py-2"
+                            className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline px-4 py-2"
                             type="button"
                             value="Cancel"
                             onClick={() => {
-                              setIsCardClicked({});
+                              setIsCardOpen({});
                               reset();
                             }}
                           />
@@ -520,7 +525,7 @@ export default function Content() {
                                 )
                               );
                             }}
-                            className="flex flex-row items-center font-semibold justify-evenly dark:bg-white dark:text-[#121212] bg-black text-white rounded-full px-4 py-2"
+                            className="flex flex-row items-center font-medium justify-evenly dark:bg-white dark:text-[#121212] bg-black text-white rounded-sm px-4 py-2"
                           >
                             <Trash className="shrink-0 mr-0.5" />
                             <span>Delete</span>

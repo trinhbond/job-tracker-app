@@ -8,7 +8,7 @@ export default function Profile() {
     <div className="py-12 px-4 lg:px-40 md:px-22 sm:px-16 xs:px-4 flex flex-col gap-2">
       {user && (
         <>
-          <h1 className="inline-block font-medium text-xl lg:text-3xl md:text-2xl sm:text-2xl xs:text-xl border-b pb-1">
+          <h1 className="inline-block font-semibold text-3xl lg:text-4xl md:text-4xl sm:text-4xl xs:text-3xl border-b dark:border-[#ffffff18] pb-1">
             Profile
           </h1>
           <div className="text-sm">
