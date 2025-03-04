@@ -18,6 +18,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Card from "../components/Card";
 import { AuthContext } from "../context/AuthContext";
 import clsx from "clsx";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
@@ -188,24 +191,46 @@ export default function Content() {
             Create
           </button>
           <div className="h-9 border-l dark:border-[#ffffff18]"></div>
-          <select
-            onChange={(e) => {
-              setFilterValue(e.target.selectedIndex);
+          <FormControl
+            sx={{
+              minWidth: 130,
             }}
-            multiple={false}
-            className="focus:outline-none border-r-[14px] border-black dark:border-[#252525] dark:bg-[#252525] bg-black text-white px-4 py-2 rounded-sm font-medium text-sm"
           >
-            {options.map((option, index) => (
-              <option
-                className="dark:bg-[#252525] dark:text-white bg-white text-black"
-                value={option}
-                key={index}
-                selected={index === filterValue}
-              >
-                {option.slice(0, 1).toUpperCase() + option.substring(1)}
-              </option>
-            ))}
-          </select>
+            <Select
+              className="focus:outline-none dark:border-[#252525] dark:bg-[#252525] dark:text-white bg-black !text-white !rounded-sm !font-medium !text-sm"
+              value={options[filterValue]}
+              onChange={(e: SelectChangeEvent) => {
+                setFilterValue(options.indexOf(e.target.value));
+              }}
+              sx={{
+                ".MuiSvgIcon-root ": {
+                  fill: "white !important",
+                },
+                ".MuiSelect-select": {
+                  padding: "8px 16px",
+                },
+                "& .MuiOutlinedInput-notchedOutline": {
+                  border: 0,
+                },
+                "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                  {
+                    border: "none",
+                  },
+              }}
+              displayEmpty
+              inputProps={{ "aria-label": "Without label" }}
+            >
+              {options.map((option, index) => (
+                <MenuItem
+                  value={option}
+                  key={index}
+                  selected={index === filterValue}
+                >
+                  {option.slice(0, 1).toUpperCase() + option.substring(1)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
       </div>
       {isModalOpen && (
