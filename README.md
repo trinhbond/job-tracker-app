@@ -3,7 +3,8 @@
 A simple application to create and manage your job applications.
 
 ![job-tracker-app-homepage](https://github.com/user-attachments/assets/b79420e1-8630-4bb8-b2bf-320c2e28f593)
-![job-tracker-app-applications](https://github.com/user-attachments/assets/664ce04a-419b-4124-9a6c-c75c314014c1)
+![job-tracker-app-delta vercel app_user_applications](https://github.com/user-attachments/assets/16275443-9d28-477c-907e-195733080796)
+
 
 # Features
 - Create, edit, and delete applications
