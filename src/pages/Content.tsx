@@ -11,6 +11,7 @@ import {
 import { db } from "../config/firebase";
 import { useForm } from "react-hook-form";
 import { AppForm } from "../types";
+import { useThemeToggle } from "../hooks";
 import { handleChange } from "../utils";
 import { toast, TypeOptions } from "react-toastify";
 import Trash from "../components/icons/Trash";
@@ -29,6 +30,7 @@ export default function Content() {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isCardOpen, setIsCardOpen] = useState<any>({});
+  const { theme, handleThemeChange } = useThemeToggle();
   const {
     handleSubmit,
     reset,

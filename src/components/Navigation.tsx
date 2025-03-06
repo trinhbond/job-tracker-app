@@ -1,6 +1,6 @@
 import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useMouse, useToggle } from "../utils";
+import { useMouse, useThemeToggle } from "../hooks";
 import * as motion from "motion/react-client";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
@@ -10,7 +10,7 @@ export default function Navigation() {
   const ref = useRef<HTMLDivElement>(null);
   const placeholder = user?.displayName?.[0].toUpperCase();
   const { clicked, setClicked } = useMouse(ref);
-  const { theme, switchTheme } = useToggle();
+  const { theme, handleThemeChange } = useThemeToggle();
 
   const handleClick = () => setClicked((clicked) => !clicked);
 
@@ -48,7 +48,7 @@ export default function Navigation() {
                 theme === "dark" ? "justify-end" : "justify-start",
                 "w-[50px] h-[25px] rounded-full cursor-pointer flex items-center p-1"
               )}
-              onClick={switchTheme}
+              onClick={handleThemeChange}
             >
               <motion.div
                 className="w-[20px] h-[20px] bg-white rounded-full"
