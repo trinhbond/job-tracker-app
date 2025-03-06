@@ -199,17 +199,34 @@ export default function Content() {
             }}
           >
             <Select
-              className="focus:outline-none dark:border-[#252525] dark:bg-[#252525] dark:text-white bg-black !text-white !rounded-sm !font-medium !text-sm"
+              className="focus:outline-none rounded-sm !font-medium !text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
               value={options[filterValue]}
               onChange={(e: SelectChangeEvent) => {
                 setFilterValue(options.indexOf(e.target.value));
               }}
-              sx={{
-                ".MuiSvgIcon-root ": {
-                  fill: "white !important",
+              MenuProps={{
+                sx: {
+                  top: 2,
+                  ".MuiPaper-root": {
+                    background:
+                      document.querySelector("html")?.classList.value == "dark"
+                        ? "#252525"
+                        : "#ffffff",
+                  },
+                  ul: {
+                    color:
+                      document.querySelector("html")?.classList.value == "dark"
+                        ? "white"
+                        : "black",
+                  },
                 },
+              }}
+              sx={{
+                "& .MuiInputBase-root": { fontWeight: 400 },
                 ".MuiSelect-select": {
                   padding: "8px 16px",
+                  fontSize: 14,
+                  fontWeight: 400,
                 },
                 "& .MuiOutlinedInput-notchedOutline": {
                   border: 0,
@@ -227,6 +244,7 @@ export default function Content() {
                   value={option}
                   key={index}
                   selected={index === filterValue}
+                  sx={{ fontSize: 14, fontWeight: 400 }}
                 >
                   {option.slice(0, 1).toUpperCase() + option.substring(1)}
                 </MenuItem>
@@ -299,27 +317,64 @@ export default function Content() {
                 </div>
                 <div>
                   <label className="dark:text-white text-black">Status</label>
-                  <select
-                    {...register("status")}
-                    className="w-full focus:outline-none bg-white border dark:border-[#ffffff18] mt-1 p-1 rounded-sm bg-white text-black dark:bg-inherit dark:text-white"
+                  <FormControl
+                    sx={{
+                      minWidth: 130,
+                      display: "block",
+                      width: "100%",
+                      fontWeight: 400,
+                    }}
                   >
-                    <option
-                      selected
-                      disabled
-                      className="bg-[#c6c6c6] dark:border-[#ffffff18]"
-                      value=""
+                    <Select
+                      className="w-full mt-1 focus:outline-none rounded-sm font-medium text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+                      {...register("status")}
+                      MenuProps={{
+                        sx: {
+                          top: 2,
+                          ".MuiPaper-root": {
+                            background:
+                              document.querySelector("html")?.classList.value ==
+                              "dark"
+                                ? "#252525"
+                                : "#ffffff",
+                          },
+                          ul: {
+                            color:
+                              document.querySelector("html")?.classList.value ==
+                              "dark"
+                                ? "white"
+                                : "black",
+                          },
+                        },
+                      }}
+                      sx={{
+                        "& .MuiInputBase-root": { fontWeight: 400 },
+                        ".MuiSelect-select": {
+                          padding: "8px 16px",
+                          fontSize: 14,
+                          fontWeight: 400,
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          border: 0,
+                        },
+                        "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                          {
+                            border: "none",
+                          },
+                      }}
+                      inputProps={{ "aria-label": "Without label" }}
                     >
-                      Select Status
-                    </option>
-                    {options.slice(1).map((option) => (
-                      <option
-                        className="bg-white text-black dark:bg-[#18181B] dark:text-white"
-                        value={option}
-                      >
-                        {option.slice(0, 1).toUpperCase() + option.substring(1)}
-                      </option>
-                    ))}
-                  </select>
+                      {options.slice(1).map((option) => (
+                        <MenuItem
+                          value={option}
+                          sx={{ fontSize: 14, fontWeight: 400 }}
+                        >
+                          {option.slice(0, 1).toUpperCase() +
+                            option.substring(1)}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </div>
                 <div>
                   <label>Location</label>
@@ -449,33 +504,70 @@ export default function Content() {
                         </div>
                         <div>
                           <label>Status</label>
-                          <select
-                            value={prevData.status}
-                            name="status"
-                            id="status"
-                            onChange={(event) =>
-                              handleChange(event, prevData, setPrevData)
-                            }
-                            className="w-full focus:outline-none bg-white border dark:border-[#ffffff18] mt-1 p-1 rounded-sm bg-white text-black dark:bg-inherit dark:text-white"
+                          <FormControl
+                            sx={{
+                              minWidth: 130,
+                              display: "block",
+                              width: "100%",
+                              fontWeight: 400,
+                            }}
                           >
-                            <option
-                              selected
-                              disabled
-                              className="bg-[#c6c6c6]"
-                              value=""
+                            <Select
+                              className="w-full mt-1 focus:outline-none rounded-sm font-medium text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+                              value={prevData.status}
+                              name="status"
+                              id="status"
+                              onChange={(event: SelectChangeEvent) => {
+                                const { name, value } = event.target;
+                                setPrevData({ ...prevData, [name]: value });
+                              }}
+                              MenuProps={{
+                                sx: {
+                                  top: 2,
+                                  ".MuiPaper-root": {
+                                    background:
+                                      document.querySelector("html")?.classList
+                                        .value == "dark"
+                                        ? "#252525"
+                                        : "#ffffff",
+                                  },
+                                  ul: {
+                                    color:
+                                      document.querySelector("html")?.classList
+                                        .value == "dark"
+                                        ? "white"
+                                        : "black",
+                                  },
+                                },
+                              }}
+                              sx={{
+                                "& .MuiInputBase-root": { fontWeight: 400 },
+                                ".MuiSelect-select": {
+                                  padding: "8px 16px",
+                                  fontSize: 14,
+                                  fontWeight: 400,
+                                },
+                                "& .MuiOutlinedInput-notchedOutline": {
+                                  border: 0,
+                                },
+                                "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                  {
+                                    border: "none",
+                                  },
+                              }}
+                              inputProps={{ "aria-label": "Without label" }}
                             >
-                              Select Status
-                            </option>
-                            {options.slice(1).map((option) => (
-                              <option
-                                className="bg-white text-black dark:bg-[#18181B] dark:text-white"
-                                value={option}
-                              >
-                                {option.slice(0, 1).toUpperCase() +
-                                  option.substring(1)}
-                              </option>
-                            ))}
-                          </select>
+                              {options.slice(1).map((option) => (
+                                <MenuItem
+                                  value={option}
+                                  sx={{ fontSize: 14, fontWeight: 400 }}
+                                >
+                                  {option.slice(0, 1).toUpperCase() +
+                                    option.substring(1)}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
                         </div>
                         <div>
                           <label>Location</label>
