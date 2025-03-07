@@ -362,8 +362,13 @@ export default function Content() {
                             border: "none",
                           },
                       }}
+                      displayEmpty
+                      defaultValue={""}
                       inputProps={{ "aria-label": "Without label" }}
                     >
+                      <MenuItem value="" sx={{ fontSize: 14, fontWeight: 400 }}>
+                        <em>None</em>
+                      </MenuItem>
                       {options.slice(1).map((option) => (
                         <MenuItem
                           value={option}
@@ -521,6 +526,8 @@ export default function Content() {
                                 const { name, value } = event.target;
                                 setPrevData({ ...prevData, [name]: value });
                               }}
+                              displayEmpty
+                              defaultValue={""}
                               MenuProps={{
                                 sx: {
                                   top: 2,
@@ -557,6 +564,12 @@ export default function Content() {
                               }}
                               inputProps={{ "aria-label": "Without label" }}
                             >
+                              <MenuItem
+                                value={""}
+                                sx={{ fontSize: 14, fontWeight: 400 }}
+                              >
+                                <em>None</em>
+                              </MenuItem>
                               {options.slice(1).map((option) => (
                                 <MenuItem
                                   value={option}
