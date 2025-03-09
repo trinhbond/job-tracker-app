@@ -14,22 +14,30 @@ export default function Card({ props, onClick }: Card) {
     >
       <div className="flex flex-row justify-between gap-1 items-start">
         {props.link?.trim() ? (
-          <a
-            href={props.link}
-            target="_blank"
-            rel="noreferrer"
-            className="font-semibold hover:underline"
-          >
-            {props.title} - {props.company}
-          </a>
+          <div>
+            <a
+              href={props.link}
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold hover:underline"
+            >
+              {props.title}
+            </a>
+            <span className="text-[#5a6881] dark:text-[#808080]">
+              {props.company}
+            </span>
+          </div>
         ) : (
-          <h2 className="font-semibold">
-            {props.title} - {props.company}
-          </h2>
+          <div>
+            <h2 className="font-semibold">{props.title}</h2>
+            <span className="text-[#5a6881] dark:text-[#808080]">
+              {props.company}
+            </span>
+          </div>
         )}
 
         {props.status?.length > 0 && (
-          <div className="whitespace-nowrap text-xs border border-[#c6c6c6] uppercase rounded-full px-4 py-1 select-none font-semibold">
+          <div className="whitespace-nowrap text-[11px] border border-[#c6c6c6] uppercase rounded-full px-2 py-1 select-none font-semibold">
             {props.status}
           </div>
         )}

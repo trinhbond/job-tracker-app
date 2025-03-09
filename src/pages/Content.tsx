@@ -22,6 +22,7 @@ import clsx from "clsx";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { CircularProgress as Loading } from "@mui/material";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
@@ -30,7 +31,6 @@ export default function Content() {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isCardOpen, setIsCardOpen] = useState<any>({});
-  const { theme, handleThemeChange } = useThemeToggle();
   const {
     handleSubmit,
     reset,
@@ -174,8 +174,8 @@ export default function Content() {
 
   if (isLoading)
     return (
-      <div className="animate-pulse place-content-center text-lg text-center fixed left-0 right-0 top-0 bottom-0">
-        Loading...
+      <div className="place-content-center text-lg text-center fixed left-0 right-0 top-0 bottom-0">
+        <Loading sx={{ color: "#000" }} />
       </div>
     );
 
