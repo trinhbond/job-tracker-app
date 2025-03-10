@@ -26,11 +26,13 @@ import { CircularProgress as Loading } from "@mui/material";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
+  const { theme } = useThemeToggle();
   const toastId = useRef("toast");
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isCardOpen, setIsCardOpen] = useState<any>({});
+  const [filterValue, setFilterValue] = useState<number>(0);
   const {
     handleSubmit,
     reset,
@@ -47,7 +49,6 @@ export default function Content() {
     location: "",
     status: "",
   });
-  const [filterValue, setFilterValue] = useState<number>(0);
   const options = [
     "all",
     "applied",
@@ -56,6 +57,8 @@ export default function Content() {
     "rejected",
     "ghosted",
   ];
+
+  const isThemeDark = document.querySelector("html")?.classList.value == "dark";
 
   const filteredData =
     filterValue > 0 &&
@@ -175,7 +178,11 @@ export default function Content() {
   if (isLoading)
     return (
       <div className="place-content-center text-lg text-center fixed left-0 right-0 top-0 bottom-0">
-        <Loading sx={{ color: "#000" }} />
+        <Loading
+          sx={{
+            color: theme == "dark" ? "white" : "black",
+          }}
+        />
       </div>
     );
 
@@ -208,16 +215,10 @@ export default function Content() {
                 sx: {
                   top: 2,
                   ".MuiPaper-root": {
-                    background:
-                      document.querySelector("html")?.classList.value == "dark"
-                        ? "#252525"
-                        : "#ffffff",
+                    background: isThemeDark ? "#252525" : "#ffffff",
                   },
                   ul: {
-                    color:
-                      document.querySelector("html")?.classList.value == "dark"
-                        ? "white"
-                        : "black",
+                    color: isThemeDark ? "white" : "black",
                   },
                 },
               }}
@@ -332,18 +333,10 @@ export default function Content() {
                         sx: {
                           top: 2,
                           ".MuiPaper-root": {
-                            background:
-                              document.querySelector("html")?.classList.value ==
-                              "dark"
-                                ? "#252525"
-                                : "#ffffff",
+                            background: isThemeDark ? "#252525" : "#ffffff",
                           },
                           ul: {
-                            color:
-                              document.querySelector("html")?.classList.value ==
-                              "dark"
-                                ? "white"
-                                : "black",
+                            color: isThemeDark ? "white" : "black",
                           },
                         },
                       }}
@@ -532,18 +525,12 @@ export default function Content() {
                                 sx: {
                                   top: 2,
                                   ".MuiPaper-root": {
-                                    background:
-                                      document.querySelector("html")?.classList
-                                        .value == "dark"
-                                        ? "#252525"
-                                        : "#ffffff",
+                                    background: isThemeDark
+                                      ? "#252525"
+                                      : "#ffffff",
                                   },
                                   ul: {
-                                    color:
-                                      document.querySelector("html")?.classList
-                                        .value == "dark"
-                                        ? "white"
-                                        : "black",
+                                    color: isThemeDark ? "white" : "black",
                                   },
                                 },
                               }}
