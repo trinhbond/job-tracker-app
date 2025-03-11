@@ -23,14 +23,14 @@ export default function Card({ props, onClick }: Card) {
             >
               {props.title}
             </a>
-            <span className="text-[#5a6881] dark:text-[#808080]">
+            <span className="text-gray-payne dark:text-gray-default">
               {props.company}
             </span>
           </div>
         ) : (
           <div>
             <h2 className="font-semibold">{props.title}</h2>
-            <span className="text-[#5a6881] dark:text-[#808080]">
+            <span className="text-gray-payne dark:text-gray-default">
               {props.company}
             </span>
           </div>
@@ -42,7 +42,7 @@ export default function Card({ props, onClick }: Card) {
           </div>
         )}
       </div>
-      <div className="h-full text-sm text-[#5a6881] dark:text-[#808080]">
+      <div className="h-full text-sm text-gray-payne dark:text-gray-default">
         <div className="flex flex-col gap-1 mb-2">
           {props.location && <span>{props.location}</span>}
           {props.salary > 0 && <span>&#36;{props.salary}</span>}
@@ -54,7 +54,7 @@ export default function Card({ props, onClick }: Card) {
         )}
       </div>
       {props.date && (
-        <div className="flex flex-row gap-1 self-auto items-center place-self-end justify-self-start text-sm text-[#5a6881] dark:text-[#808080]">
+        <div className="flex flex-row gap-1 self-auto items-center place-self-end justify-self-start text-sm text-gray-payne dark:text-gray-default">
           <span>
             {props.date &&
               new Date(props.date.seconds * 1000).toLocaleDateString("en-NZ")}

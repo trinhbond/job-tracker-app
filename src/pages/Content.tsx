@@ -401,7 +401,7 @@ export default function Content() {
                 </div>
                 <div className="text-xs">
                   <input
-                    className="cursor-pointer	font-medium dark:bg-white dark:text-[#121212] bg-black text-white rounded-sm px-4 py-2"
+                    className="cursor-pointer	font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-sm px-4 py-2"
                     type="submit"
                     value="Confirm"
                   />
@@ -612,7 +612,7 @@ export default function Content() {
                         <div className="buttons flex justify-between flex-wrap gap-2 items-center w-full text-xs">
                           <div>
                             <input
-                              className="cursor-pointer font-medium dark:bg-white dark:text-[#121212] bg-black text-white rounded-sm px-4 py-2"
+                              className="cursor-pointer font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-sm px-4 py-2"
                               type="submit"
                               value="Confirm"
                               id="confirm"
@@ -642,7 +642,7 @@ export default function Content() {
                                   )
                                 );
                               }}
-                              className="flex flex-row items-center font-medium justify-evenly dark:bg-white dark:text-[#121212] bg-black text-white rounded-sm px-4 py-2"
+                              className="flex flex-row items-center font-medium justify-evenly dark:bg-white dark:text-gray-night bg-black text-white rounded-sm px-4 py-2"
                             >
                               <Trash className="shrink-0 mr-0.5" />
                               <span>Delete</span>
