@@ -2,14 +2,14 @@ import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useMouse, useThemeToggle } from "../hooks";
 import { Link } from "react-router-dom";
-import Toggle from "./Toggle";
+import Toggle, { IOSSwitch } from "./Toggle";
 
 export default function Navigation() {
-  const { user, signOutUser } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement>(null);
-  const placeholder = user?.displayName?.[0].toUpperCase();
+  const { user, signOutUser } = useContext(AuthContext);
   const { clicked, setClicked } = useMouse(ref);
   const { theme, handleThemeChange } = useThemeToggle();
+  const placeholder = user?.displayName?.[0].toUpperCase();
 
   const handleClick = () => setClicked((clicked) => !clicked);
 
@@ -51,8 +51,11 @@ export default function Navigation() {
                 <div className="py-1 px-2 flex flex-row justify-between items-center">
                   <span>Dark mode</span>
                   <Toggle
-                    checked={theme === "dark"}
+                    sx={{ m: 0 }}
+                    label={false}
                     onClick={handleThemeChange}
+                    checked={theme === "dark"}
+                    control={<IOSSwitch />}
                   />
                 </div>
               </div>
