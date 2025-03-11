@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { TextField } from "@mui/material";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
