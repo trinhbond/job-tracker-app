@@ -37,7 +37,7 @@ export default function Card({ props, onClick }: Card) {
         )}
 
         {props.status?.length > 0 && (
-          <div className="whitespace-nowrap text-[11px] border border-[#c6c6c6] uppercase rounded-full px-2 py-1 select-none font-semibold">
+          <div className="whitespace-nowrap text-center min-w-24 text-[11px] border border-[#c6c6c6] uppercase rounded-full leading-6 select-none font-semibold">
             {props.status}
           </div>
         )}

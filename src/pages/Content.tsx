@@ -49,14 +49,7 @@ export default function Content() {
     location: "",
     status: "",
   });
-  const options = [
-    "all",
-    "applied",
-    "interview",
-    "offer",
-    "rejected",
-    "ghosted",
-  ];
+  const options = ["all", "applied", "interview", "offer", "rejected"];
 
   const isThemeDark = document.querySelector("html")?.classList.value == "dark";
 
