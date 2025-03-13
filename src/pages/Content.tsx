@@ -274,8 +274,8 @@ export default function Content() {
                       },
                     })}
                     className={clsx(
-                      errors.company && "border-red-600",
-                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                      errors.company && "border-red-600 dark:border-red-600",
+                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                     )}
                   />
                 </div>
@@ -296,8 +296,8 @@ export default function Content() {
                       },
                     })}
                     className={clsx(
-                      errors.title && "border-red-600",
-                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                      errors.title && "border-red-600 dark:border-red-600",
+                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                     )}
                   />
                 </div>
@@ -306,7 +306,7 @@ export default function Content() {
                   <input
                     placeholder="Link"
                     {...register("link")}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                   />
                 </div>
                 <div>
@@ -339,6 +339,9 @@ export default function Content() {
                           padding: "8px 16px",
                           fontSize: 14,
                           fontWeight: 400,
+                          lineHeight: "normal",
+                          paddingTop: "0.375rem",
+                          paddingBottom: "0.375rem",
                         },
                         "& .MuiOutlinedInput-notchedOutline": {
                           border: 0,
@@ -372,7 +375,7 @@ export default function Content() {
                   <input
                     placeholder="Location"
                     {...register("location")}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                   />
                 </div>
                 <div>
@@ -381,25 +384,25 @@ export default function Content() {
                     type="number"
                     placeholder="Salary"
                     {...register("salary")}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                   />
                 </div>
                 <div>
                   <label>Notes</label>
                   <textarea
-                    className="resize-none min-h-28 focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm"
+                    className="resize-none min-h-28 w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                     placeholder="Notes"
                     {...register("notes")}
                   />
                 </div>
                 <div className="text-xs">
                   <input
-                    className="cursor-pointer	font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-sm px-4 py-2"
+                    className="cursor-pointer	font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
                     type="submit"
                     value="Confirm"
                   />
                   <input
-                    className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline px-4 py-2"
+                    className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline px-4 py-2 rounded-full"
                     type="button"
                     value="Cancel"
                     onClick={() => {
@@ -457,8 +460,9 @@ export default function Content() {
                               handleChange(event, prevData, setPrevData)
                             }
                             className={clsx(
-                              !prevData.company.trim() && "border-red-600",
-                              "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                              !prevData.company.trim() &&
+                                "border-red-600 dark:border-red-600",
+                              "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                             )}
                           />
                         </div>
@@ -475,8 +479,9 @@ export default function Content() {
                               handleChange(event, prevData, setPrevData)
                             }
                             className={clsx(
-                              !prevData.title.trim() && "border-red-600",
-                              "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                              !prevData.title.trim() &&
+                                "border-red-600 dark:border-red-600",
+                              "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                             )}
                           />
                         </div>
@@ -490,7 +495,7 @@ export default function Content() {
                             onChange={(event) =>
                               handleChange(event, prevData, setPrevData)
                             }
-                            className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                            className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                           />
                         </div>
                         <div>
@@ -533,6 +538,9 @@ export default function Content() {
                                   padding: "8px 16px",
                                   fontSize: 14,
                                   fontWeight: 400,
+                                  lineHeight: "normal",
+                                  paddingTop: "0.375rem",
+                                  paddingBottom: "0.375rem",
                                 },
                                 "& .MuiOutlinedInput-notchedOutline": {
                                   border: 0,
@@ -572,13 +580,13 @@ export default function Content() {
                             onChange={(event) =>
                               handleChange(event, prevData, setPrevData)
                             }
-                            className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                            className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                           />
                         </div>
                         <div>
                           <label>Salary</label>
                           <input
-                            className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border-b dark:border-[#ffffff18] pb-1"
+                            className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                             type="number"
                             name="salary"
                             id="salary"
@@ -592,7 +600,7 @@ export default function Content() {
                         <div>
                           <label>Notes</label>
                           <textarea
-                            className="resize-none min-h-28 focus:outline-none w-full h-auto dark:bg-inherit dark:text-white bg-white rounded-sm"
+                            className="resize-none min-h-28 w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                             placeholder="Notes"
                             name="notes"
                             id="notes"
@@ -605,13 +613,13 @@ export default function Content() {
                         <div className="buttons flex justify-between flex-wrap gap-2 items-center w-full text-xs">
                           <div>
                             <input
-                              className="cursor-pointer font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-sm px-4 py-2"
+                              className="cursor-pointer font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
                               type="submit"
                               value="Confirm"
                               id="confirm"
                             />
                             <input
-                              className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline px-4 py-2"
+                              className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline px-4 py-2 rounded-full"
                               type="button"
                               value="Cancel"
                               onClick={() => {
@@ -635,7 +643,7 @@ export default function Content() {
                                   )
                                 );
                               }}
-                              className="flex flex-row items-center font-medium justify-evenly dark:bg-white dark:text-gray-night bg-black text-white rounded-sm px-4 py-2"
+                              className="flex flex-row items-center font-medium justify-evenly dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
                             >
                               <Trash className="shrink-0 mr-0.5" />
                               <span>Delete</span>

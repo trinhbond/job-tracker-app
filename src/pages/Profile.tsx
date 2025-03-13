@@ -13,10 +13,10 @@ export default function Profile() {
       </h1>
       <div className="text-sm [&>div]:max-w-64 [&>div]:mb-3">
         <div>
-          <label>Preferred name</label>
+          <label>Name</label>
           <input
             type="text"
-            className="w-full rounded-md border border-[#c6c6c6] p-1 mt-1"
+            className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1"
             disabled
             placeholder={user.displayName as string}
           />
@@ -25,7 +25,7 @@ export default function Profile() {
           <label>Email</label>
           <input
             type="text"
-            className="w-full rounded-md border border-[#c6c6c6] p-1 mt-1"
+            className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1"
             disabled
             placeholder={user.email as string}
           />
@@ -34,7 +34,7 @@ export default function Profile() {
           <label>Account created</label>
           <input
             type="text"
-            className="w-full rounded-md border border-[#c6c6c6] p-1 mt-1"
+            className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1"
             disabled
             placeholder={user.metadata.creationTime as string}
           />

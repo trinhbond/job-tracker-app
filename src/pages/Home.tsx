@@ -89,7 +89,7 @@ export default function Home() {
                   type="text"
                   className={clsx(
                     errors.name && "border-red-600",
-                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                    "border border-[#c6c6c6] rounded-md px-4 py-2 focus:outline-none"
                   )}
                   placeholder="Name"
                   {...register("name", {
@@ -115,7 +115,7 @@ export default function Home() {
                   type="text"
                   className={clsx(
                     errors.email && "border-red-600",
-                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                    "border border-[#c6c6c6] rounded-md px-4 py-2 focus:outline-none"
                   )}
                   placeholder="Email"
                   {...register("email", {
@@ -141,7 +141,7 @@ export default function Home() {
                   type="password"
                   className={clsx(
                     errors.password && "border-red-600",
-                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                    "border border-[#c6c6c6] rounded-md px-4 py-2 focus:outline-none"
                   )}
                   placeholder="Password (6 or more characters)"
                   {...register("password", {
@@ -187,7 +187,7 @@ export default function Home() {
                   type="text"
                   className={clsx(
                     errors.email && "border-red-600",
-                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                    "border border-[#c6c6c6] rounded-md px-4 py-2 focus:outline-none"
                   )}
                   placeholder="Email"
                   {...register("email", {
@@ -213,7 +213,7 @@ export default function Home() {
                   type="password"
                   className={clsx(
                     errors.password && "border-red-600",
-                    "border border-[#c6c6c6] rounded-md p-1.5 focus:outline-none"
+                    "border border-[#c6c6c6] rounded-md px-4 py-2 focus:outline-none"
                   )}
                   placeholder="Password"
                   {...register("password", {
