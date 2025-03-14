@@ -252,9 +252,9 @@ export default function Content() {
           <Backdrop />
           <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
             <div>
-              <h1 className="text-xl font-semibold pb-1">Create application</h1>
+              <h1 className="text-xl font-semibold">New application</h1>
               <form
-                className="flex flex-col gap-4 py-4 text-sm"
+                className="flex flex-col gap-4 mt-6 text-sm"
                 onSubmit={handleAddApplication}
               >
                 <div>
@@ -438,11 +438,11 @@ export default function Content() {
                   <Backdrop />
                   <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
                     <div>
-                      <h1 className="text-xl font-semibold pb-1">
+                      <h1 className="text-xl font-semibold">
                         Edit application
                       </h1>
                       <form
-                        className="flex flex-col gap-4 py-4 text-sm"
+                        className="flex flex-col gap-4 mt-6 text-sm"
                         onSubmit={(e) =>
                           handleEditApplication(props.id as string, e)
                         }
