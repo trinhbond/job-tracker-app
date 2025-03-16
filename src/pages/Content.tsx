@@ -1,5 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import Backdrop from "../components/Backdrop";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   addDoc,
   collection,
@@ -22,7 +21,7 @@ import clsx from "clsx";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { CircularProgress as Loading } from "@mui/material";
+import { CircularProgress as Loading, Modal } from "@mui/material";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
@@ -104,8 +103,11 @@ export default function Content() {
     }
   });
 
-  const handleEditApplication = (id: string, e: React.BaseSyntheticEvent) => {
-    e.preventDefault();
+  const handleEditApplication = (
+    id: string,
+    event: React.BaseSyntheticEvent
+  ) => {
+    event.preventDefault();
     setPrevData(prevData);
 
     try {
@@ -129,6 +131,20 @@ export default function Content() {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleDelete = (id: string) => {
+    deleteDoc(
+      doc(
+        db,
+        "applications",
+        "users",
+        "user/",
+        user?.uid as string,
+        user?.displayName as string,
+        id as string
+      )
+    );
   };
 
   useEffect(() => {
@@ -158,15 +174,6 @@ export default function Content() {
       }
     })();
   }, [data, user]);
-
-  useEffect(() => {
-    // disable scrolling when modal is opened
-    if (isModalOpen || !!Object.keys(isCardOpen).length) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [isModalOpen, isCardOpen]);
 
   if (isLoading)
     return (
@@ -247,175 +254,169 @@ export default function Content() {
           </FormControl>
         </div>
       </div>
-      {isModalOpen && (
-        <>
-          <Backdrop />
-          <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
+      <Modal keepMounted open={isModalOpen}>
+        <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
+          <h1 className="text-xl font-semibold">New application</h1>
+          <form
+            className="flex flex-col gap-4 mt-6 text-sm"
+            onSubmit={handleAddApplication}
+          >
             <div>
-              <h1 className="text-xl font-semibold">New application</h1>
-              <form
-                className="flex flex-col gap-4 mt-6 text-sm"
-                onSubmit={handleAddApplication}
-              >
-                <div>
-                  <label>
-                    Company <span className="text-red-600">*</span>
-                  </label>
-                  <input
-                    placeholder="Company"
-                    {...register("company", {
-                      required: {
-                        value: true,
-                        message: "Company is required",
-                      },
-                      pattern: {
-                        value: /[^' ']+/,
-                        message: "Company is required",
-                      },
-                    })}
-                    className={clsx(
-                      errors.company && "border-red-600 dark:border-red-600",
-                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                    )}
-                  />
-                </div>
-                <div>
-                  <label>
-                    Title <span className="text-red-600">*</span>
-                  </label>
-                  <input
-                    placeholder="Title"
-                    {...register("title", {
-                      required: {
-                        value: true,
-                        message: "Title is required",
-                      },
-                      pattern: {
-                        value: /[^' ']+/,
-                        message: "Title is required",
-                      },
-                    })}
-                    className={clsx(
-                      errors.title && "border-red-600 dark:border-red-600",
-                      "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                    )}
-                  />
-                </div>
-                <div>
-                  <label>Link</label>
-                  <input
-                    placeholder="Link"
-                    {...register("link")}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                  />
-                </div>
-                <div>
-                  <label className="dark:text-white text-black">Status</label>
-                  <FormControl
-                    sx={{
-                      minWidth: 130,
-                      display: "block",
-                      width: "100%",
-                      fontWeight: 400,
-                    }}
-                  >
-                    <Select
-                      className="w-full mt-1 focus:outline-none rounded-sm font-medium text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
-                      {...register("status")}
-                      MenuProps={{
-                        sx: {
-                          top: 2,
-                          ".MuiPaper-root": {
-                            background: isThemeDark ? "#252525" : "#ffffff",
-                          },
-                          ul: {
-                            color: isThemeDark ? "white" : "black",
-                          },
-                        },
-                      }}
-                      sx={{
-                        "& .MuiInputBase-root": { fontWeight: 400 },
-                        ".MuiSelect-select": {
-                          padding: "8px 16px",
-                          fontSize: 14,
-                          fontWeight: 400,
-                          lineHeight: "normal",
-                          paddingTop: "0.375rem",
-                          paddingBottom: "0.375rem",
-                        },
-                        "& .MuiOutlinedInput-notchedOutline": {
-                          border: 0,
-                        },
-                        "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                          {
-                            border: "none",
-                          },
-                      }}
-                      displayEmpty
-                      defaultValue={""}
-                      inputProps={{ "aria-label": "Without label" }}
-                    >
-                      <MenuItem value="" sx={{ fontSize: 14, fontWeight: 400 }}>
-                        <em>None</em>
-                      </MenuItem>
-                      {options.slice(1).map((option) => (
-                        <MenuItem
-                          value={option}
-                          sx={{ fontSize: 14, fontWeight: 400 }}
-                        >
-                          {option.slice(0, 1).toUpperCase() +
-                            option.substring(1)}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </div>
-                <div>
-                  <label>Location</label>
-                  <input
-                    placeholder="Location"
-                    {...register("location")}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                  />
-                </div>
-                <div>
-                  <label>Salary</label>
-                  <input
-                    type="number"
-                    placeholder="Salary"
-                    {...register("salary")}
-                    className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                  />
-                </div>
-                <div>
-                  <label>Notes</label>
-                  <textarea
-                    className="resize-none min-h-28 w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                    placeholder="Notes"
-                    {...register("notes")}
-                  />
-                </div>
-                <div className="text-xs">
-                  <input
-                    className="cursor-pointer	font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
-                    type="submit"
-                    value="Confirm"
-                  />
-                  <input
-                    className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline px-4 py-2 rounded-full"
-                    type="button"
-                    value="Cancel"
-                    onClick={() => {
-                      setIsModalOpen((isModalOpen) => !isModalOpen);
-                      reset();
-                    }}
-                  />
-                </div>
-              </form>
+              <label>
+                Company <span className="text-red-600">*</span>
+              </label>
+              <input
+                placeholder="Company"
+                {...register("company", {
+                  required: {
+                    value: true,
+                    message: "Company is required",
+                  },
+                  pattern: {
+                    value: /[^' ']+/,
+                    message: "Company is required",
+                  },
+                })}
+                className={clsx(
+                  errors.company && "border-red-600 dark:border-red-600",
+                  "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                )}
+              />
             </div>
-          </div>
-        </>
-      )}
+            <div>
+              <label>
+                Title <span className="text-red-600">*</span>
+              </label>
+              <input
+                placeholder="Title"
+                {...register("title", {
+                  required: {
+                    value: true,
+                    message: "Title is required",
+                  },
+                  pattern: {
+                    value: /[^' ']+/,
+                    message: "Title is required",
+                  },
+                })}
+                className={clsx(
+                  errors.title && "border-red-600 dark:border-red-600",
+                  "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                )}
+              />
+            </div>
+            <div>
+              <label>Link</label>
+              <input
+                placeholder="Link"
+                {...register("link")}
+                className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+              />
+            </div>
+            <div>
+              <label className="dark:text-white text-black">Status</label>
+              <FormControl
+                sx={{
+                  minWidth: 130,
+                  display: "block",
+                  width: "100%",
+                  fontWeight: 400,
+                }}
+              >
+                <Select
+                  className="w-full mt-1 focus:outline-none rounded-sm font-medium text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+                  {...register("status")}
+                  MenuProps={{
+                    sx: {
+                      top: 2,
+                      ".MuiPaper-root": {
+                        background: isThemeDark ? "#252525" : "#ffffff",
+                      },
+                      ul: {
+                        color: isThemeDark ? "white" : "black",
+                      },
+                    },
+                  }}
+                  sx={{
+                    "& .MuiInputBase-root": { fontWeight: 400 },
+                    ".MuiSelect-select": {
+                      padding: "8px 16px",
+                      fontSize: 14,
+                      fontWeight: 400,
+                      lineHeight: "normal",
+                      paddingTop: "0.375rem",
+                      paddingBottom: "0.375rem",
+                    },
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: 0,
+                    },
+                    "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                      {
+                        border: "none",
+                      },
+                  }}
+                  displayEmpty
+                  defaultValue={""}
+                  inputProps={{ "aria-label": "Without label" }}
+                >
+                  <MenuItem value="" sx={{ fontSize: 14, fontWeight: 400 }}>
+                    <em>None</em>
+                  </MenuItem>
+                  {options.slice(1).map((option) => (
+                    <MenuItem
+                      value={option}
+                      sx={{ fontSize: 14, fontWeight: 400 }}
+                    >
+                      {option.slice(0, 1).toUpperCase() + option.substring(1)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+            <div>
+              <label>Location</label>
+              <input
+                placeholder="Location"
+                {...register("location")}
+                className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+              />
+            </div>
+            <div>
+              <label>Salary</label>
+              <input
+                type="number"
+                placeholder="Salary"
+                {...register("salary")}
+                className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+              />
+            </div>
+            <div>
+              <label>Notes</label>
+              <textarea
+                className="resize-none min-h-28 w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                placeholder="Notes"
+                {...register("notes")}
+              />
+            </div>
+            <div className="text-xs">
+              <input
+                className="cursor-pointer	font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
+                type="submit"
+                value="Confirm"
+              />
+              <input
+                className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline px-4 py-2 rounded-full"
+                type="button"
+                value="Cancel"
+                onClick={() => {
+                  setIsModalOpen((isModalOpen) => !isModalOpen);
+                  reset();
+                }}
+              />
+            </div>
+          </form>
+        </div>
+      </Modal>
       <div className="grid lg:grid-cols-1 gap-4 mt-3">
         {filterValue > 0 &&
         data.filter((props) => props.status.includes(options[filterValue]))
@@ -433,228 +434,211 @@ export default function Content() {
                   });
                 }}
               />
-              {isCardOpen[props.id!] && (
-                <>
-                  <Backdrop />
-                  <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
-                    <div>
-                      <h1 className="text-xl font-semibold">
-                        Edit application
-                      </h1>
-                      <form
-                        className="flex flex-col gap-4 mt-6 text-sm"
-                        onSubmit={(e) =>
-                          handleEditApplication(props.id as string, e)
-                        }
-                      >
-                        <div>
-                          <label>
-                            Company <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            placeholder="Company"
-                            value={prevData.company}
-                            name="company"
-                            id="company"
-                            onChange={(event) =>
-                              handleChange(event, prevData, setPrevData)
-                            }
-                            className={clsx(
-                              !prevData.company.trim() &&
-                                "border-red-600 dark:border-red-600",
-                              "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                            )}
-                          />
-                        </div>
-                        <div>
-                          <label>
-                            Title <span className="text-red-600">*</span>
-                          </label>
-                          <input
-                            placeholder="Title"
-                            value={prevData.title}
-                            name="title"
-                            id="title"
-                            onChange={(event) =>
-                              handleChange(event, prevData, setPrevData)
-                            }
-                            className={clsx(
-                              !prevData.title.trim() &&
-                                "border-red-600 dark:border-red-600",
-                              "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                            )}
-                          />
-                        </div>
-                        <div>
-                          <label>Link</label>
-                          <input
-                            placeholder="Link"
-                            value={prevData.link}
-                            name="link"
-                            id="link"
-                            onChange={(event) =>
-                              handleChange(event, prevData, setPrevData)
-                            }
-                            className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                          />
-                        </div>
-                        <div>
-                          <label>Status</label>
-                          <FormControl
-                            sx={{
-                              minWidth: 130,
-                              display: "block",
-                              width: "100%",
-                              fontWeight: 400,
+              <Modal keepMounted open={isCardOpen[props.id!]}>
+                <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
+                  <div>
+                    <h1 className="text-xl font-semibold">Edit application</h1>
+                    <form
+                      className="flex flex-col gap-4 mt-6 text-sm"
+                      onSubmit={(e) =>
+                        handleEditApplication(props.id as string, e)
+                      }
+                    >
+                      <div>
+                        <label>
+                          Company <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          placeholder="Company"
+                          value={prevData.company}
+                          name="company"
+                          id="company"
+                          onChange={(event) =>
+                            handleChange(event, prevData, setPrevData)
+                          }
+                          className={clsx(
+                            !prevData.company.trim() &&
+                              "border-red-600 dark:border-red-600",
+                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                          )}
+                        />
+                      </div>
+                      <div>
+                        <label>
+                          Title <span className="text-red-600">*</span>
+                        </label>
+                        <input
+                          placeholder="Title"
+                          value={prevData.title}
+                          name="title"
+                          id="title"
+                          onChange={(event) =>
+                            handleChange(event, prevData, setPrevData)
+                          }
+                          className={clsx(
+                            !prevData.title.trim() &&
+                              "border-red-600 dark:border-red-600",
+                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                          )}
+                        />
+                      </div>
+                      <div>
+                        <label>Link</label>
+                        <input
+                          placeholder="Link"
+                          value={prevData.link}
+                          name="link"
+                          id="link"
+                          onChange={(event) =>
+                            handleChange(event, prevData, setPrevData)
+                          }
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                        />
+                      </div>
+                      <div>
+                        <label>Status</label>
+                        <FormControl
+                          sx={{
+                            minWidth: 130,
+                            display: "block",
+                            width: "100%",
+                            fontWeight: 400,
+                          }}
+                        >
+                          <Select
+                            className="w-full mt-1 focus:outline-none rounded-sm font-medium text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+                            value={prevData.status}
+                            name="status"
+                            id="status"
+                            onChange={(event: SelectChangeEvent) => {
+                              const { name, value } = event.target;
+                              setPrevData({ ...prevData, [name]: value });
                             }}
+                            displayEmpty
+                            defaultValue={""}
+                            MenuProps={{
+                              sx: {
+                                top: 2,
+                                ".MuiPaper-root": {
+                                  background: isThemeDark
+                                    ? "#252525"
+                                    : "#ffffff",
+                                },
+                                ul: {
+                                  color: isThemeDark ? "white" : "black",
+                                },
+                              },
+                            }}
+                            sx={{
+                              "& .MuiInputBase-root": { fontWeight: 400 },
+                              ".MuiSelect-select": {
+                                padding: "8px 16px",
+                                fontSize: 14,
+                                fontWeight: 400,
+                                lineHeight: "normal",
+                                paddingTop: "0.375rem",
+                                paddingBottom: "0.375rem",
+                              },
+                              "& .MuiOutlinedInput-notchedOutline": {
+                                border: 0,
+                              },
+                              "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                                {
+                                  border: "none",
+                                },
+                            }}
+                            inputProps={{ "aria-label": "Without label" }}
                           >
-                            <Select
-                              className="w-full mt-1 focus:outline-none rounded-sm font-medium text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
-                              value={prevData.status}
-                              name="status"
-                              id="status"
-                              onChange={(event: SelectChangeEvent) => {
-                                const { name, value } = event.target;
-                                setPrevData({ ...prevData, [name]: value });
-                              }}
-                              displayEmpty
-                              defaultValue={""}
-                              MenuProps={{
-                                sx: {
-                                  top: 2,
-                                  ".MuiPaper-root": {
-                                    background: isThemeDark
-                                      ? "#252525"
-                                      : "#ffffff",
-                                  },
-                                  ul: {
-                                    color: isThemeDark ? "white" : "black",
-                                  },
-                                },
-                              }}
-                              sx={{
-                                "& .MuiInputBase-root": { fontWeight: 400 },
-                                ".MuiSelect-select": {
-                                  padding: "8px 16px",
-                                  fontSize: 14,
-                                  fontWeight: 400,
-                                  lineHeight: "normal",
-                                  paddingTop: "0.375rem",
-                                  paddingBottom: "0.375rem",
-                                },
-                                "& .MuiOutlinedInput-notchedOutline": {
-                                  border: 0,
-                                },
-                                "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                                  {
-                                    border: "none",
-                                  },
-                              }}
-                              inputProps={{ "aria-label": "Without label" }}
+                            <MenuItem
+                              value={""}
+                              sx={{ fontSize: 14, fontWeight: 400 }}
                             >
+                              <em>None</em>
+                            </MenuItem>
+                            {options.slice(1).map((option) => (
                               <MenuItem
-                                value={""}
+                                value={option}
                                 sx={{ fontSize: 14, fontWeight: 400 }}
                               >
-                                <em>None</em>
+                                {option.slice(0, 1).toUpperCase() +
+                                  option.substring(1)}
                               </MenuItem>
-                              {options.slice(1).map((option) => (
-                                <MenuItem
-                                  value={option}
-                                  sx={{ fontSize: 14, fontWeight: 400 }}
-                                >
-                                  {option.slice(0, 1).toUpperCase() +
-                                    option.substring(1)}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                        </div>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </div>
+                      <div>
+                        <label>Location</label>
+                        <input
+                          name="location"
+                          id="location"
+                          placeholder="Location"
+                          value={prevData.location}
+                          onChange={(event) =>
+                            handleChange(event, prevData, setPrevData)
+                          }
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                        />
+                      </div>
+                      <div>
+                        <label>Salary</label>
+                        <input
+                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                          type="number"
+                          name="salary"
+                          id="salary"
+                          placeholder="Salary"
+                          value={prevData.salary}
+                          onChange={(event) =>
+                            handleChange(event, prevData, setPrevData)
+                          }
+                        />
+                      </div>
+                      <div>
+                        <label>Notes</label>
+                        <textarea
+                          className="resize-none min-h-28 w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                          placeholder="Notes"
+                          name="notes"
+                          id="notes"
+                          value={prevData.notes}
+                          onChange={(event) =>
+                            handleChange(event, prevData, setPrevData)
+                          }
+                        />
+                      </div>
+                      <div className="buttons flex justify-between flex-wrap gap-2 items-center w-full text-xs">
                         <div>
-                          <label>Location</label>
                           <input
-                            name="location"
-                            id="location"
-                            placeholder="Location"
-                            value={prevData.location}
-                            onChange={(event) =>
-                              handleChange(event, prevData, setPrevData)
-                            }
-                            className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                            className="cursor-pointer font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
+                            type="submit"
+                            value="Confirm"
+                            id="confirm"
                           />
-                        </div>
-                        <div>
-                          <label>Salary</label>
                           <input
-                            className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                            type="number"
-                            name="salary"
-                            id="salary"
-                            placeholder="Salary"
-                            value={prevData.salary}
-                            onChange={(event) =>
-                              handleChange(event, prevData, setPrevData)
-                            }
+                            className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline px-4 py-2 rounded-full"
+                            type="button"
+                            value="Cancel"
+                            onClick={() => {
+                              setIsCardOpen({});
+                              reset();
+                            }}
                           />
                         </div>
-                        <div>
-                          <label>Notes</label>
-                          <textarea
-                            className="resize-none min-h-28 w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                            placeholder="Notes"
-                            name="notes"
-                            id="notes"
-                            value={prevData.notes}
-                            onChange={(event) =>
-                              handleChange(event, prevData, setPrevData)
-                            }
-                          />
+                        <div className="float-right">
+                          <button
+                            onClick={() => handleDelete(props.id!)}
+                            className="flex flex-row items-center font-medium justify-evenly dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
+                          >
+                            <Trash className="shrink-0 mr-0.5" />
+                            <span>Delete</span>
+                          </button>
                         </div>
-                        <div className="buttons flex justify-between flex-wrap gap-2 items-center w-full text-xs">
-                          <div>
-                            <input
-                              className="cursor-pointer font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
-                              type="submit"
-                              value="Confirm"
-                              id="confirm"
-                            />
-                            <input
-                              className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline px-4 py-2 rounded-full"
-                              type="button"
-                              value="Cancel"
-                              onClick={() => {
-                                setIsCardOpen({});
-                                reset();
-                              }}
-                            />
-                          </div>
-                          <div className="float-right">
-                            <button
-                              onClick={() => {
-                                deleteDoc(
-                                  doc(
-                                    db,
-                                    "applications",
-                                    "users",
-                                    "user/",
-                                    user?.uid as string,
-                                    user?.displayName as string,
-                                    props.id as string
-                                  )
-                                );
-                              }}
-                              className="flex flex-row items-center font-medium justify-evenly dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
-                            >
-                              <Trash className="shrink-0 mr-0.5" />
-                              <span>Delete</span>
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
+                      </div>
+                    </form>
                   </div>
-                </>
-              )}
+                </div>
+              </Modal>
             </>
           ))
         )}
