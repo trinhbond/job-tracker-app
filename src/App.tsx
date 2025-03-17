@@ -1,5 +1,5 @@
 import { Outlet, Route, Routes, Navigate } from "react-router-dom";
-import Navigation from "./components/Navigation";
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import { Suspense, useContext } from "react";
@@ -9,7 +9,7 @@ import Content from "./pages/Content";
 function Layout() {
   return (
     <>
-      <Navigation />
+      <Header />
       <Outlet />
     </>
   );
