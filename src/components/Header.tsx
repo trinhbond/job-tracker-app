@@ -27,7 +27,7 @@ export default function Header() {
             {placeholder}
           </button>
           {!!clicked && (
-            <div className="border border-[#c6c6c6] dark:border-none fixed right-4 top-16 lg:right-40 md:right-22 sm:right-16 xs:right-4 z-40 p-3 shadow-md rounded-md min-w-52 w-auto dark:bg-[#18181B] bg-white text-sm">
+            <div className="border border-[#c6c6c6] dark:border-none fixed right-4 top-14 lg:right-40 md:right-22 sm:right-16 xs:right-4 z-40 p-3 shadow-lg rounded-md min-w-52 w-auto dark:bg-[#18181B] bg-white text-sm">
               <div className="border-b dark:border-[#ffffff18] pb-2 px-2">
                 <h2 className="font-medium">{user.displayName}</h2>
                 <div>{user.email}</div>
