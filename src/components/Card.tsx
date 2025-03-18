@@ -1,12 +1,13 @@
+import { MoreHoriz as MoreIcon } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import { AppForm } from "../types";
-import { Elipsis } from "./icons/Elipsis";
 
-interface Card {
+interface CardProps {
   props: AppForm;
   onClick: () => void;
 }
 
-export default function Card({ props, onClick }: Card) {
+export default function Card({ props, onClick }: CardProps) {
   return (
     <div
       key={props.id}
@@ -59,10 +60,12 @@ export default function Card({ props, onClick }: Card) {
             {props.date &&
               new Date(props.date.seconds * 1000).toLocaleDateString("en-NZ")}
           </span>
-          <Elipsis
-            onClick={onClick}
-            className="cursor-pointer absolute right-3.5 dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5] dark:text-white rounded-full"
-          />
+          <IconButton aria-label="delete" className="!absolute !right-3.5 !p-1">
+            <MoreIcon
+              className="cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5] dark:text-white rounded-full"
+              onClick={onClick}
+            />
+          </IconButton>
         </div>
       )}
     </div>

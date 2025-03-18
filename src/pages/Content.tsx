@@ -13,7 +13,6 @@ import { AppForm } from "../types";
 import { useThemeToggle } from "../hooks";
 import { handleChange } from "../utils";
 import { toast, TypeOptions } from "react-toastify";
-import Trash from "../components/icons/Trash";
 import "react-toastify/dist/ReactToastify.css";
 import Card from "../components/Card";
 import { AuthContext } from "../context/AuthContext";
@@ -22,6 +21,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { CircularProgress as Loading, Modal } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
@@ -628,9 +628,9 @@ export default function Content() {
                         <div className="float-right">
                           <button
                             onClick={() => handleDelete(props.id!)}
-                            className="flex flex-row items-center font-medium justify-evenly dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
+                            className="flex flex-row items-center justify-between gap-2 font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
                           >
-                            <Trash className="shrink-0 mr-0.5" />
+                            <DeleteIcon className="shrink-0" fontSize="small" />
                             <span>Delete</span>
                           </button>
                         </div>
