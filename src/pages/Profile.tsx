@@ -30,7 +30,7 @@ export default function Profile() {
                   setName(user.displayName as string);
                   setIsOpen((isOpen) => !isOpen);
                 }}
-                className="text-[#0000EE]"
+                className="text-sky-600 underline hover:no-underline"
               >
                 Edit
               </button>
@@ -69,14 +69,17 @@ export default function Profile() {
             className="text-sm [&>div]:max-w-64 h-full grid place-content-center"
           >
             <div className="flex justify-between">
-              <label className="mr-1">Name</label>
+              <label className="mr-1 text-white">Name</label>
               <Tooltip
                 placement="top"
                 title="A name change may require a page refresh"
                 followCursor
                 enterTouchDelay={0}
               >
-                <InfoIcon fontSize="small" />
+                <InfoIcon
+                  fontSize="small"
+                  className="!fill-[#fff] dark:fill-[#000]"
+                />
               </Tooltip>
             </div>
             <input
@@ -88,7 +91,7 @@ export default function Profile() {
             <div className="w-full flex justify-between mt-2">
               <button
                 onClick={() => setIsOpen((isOpen) => !isOpen)}
-                className="w-full cursor-pointer font-medium dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline px-4 py-2 rounded-full"
+                className="w-full cursor-pointer font-medium bg-transparent text-white underline hover:no-underline px-4 py-2 rounded-full"
               >
                 Cancel
               </button>
