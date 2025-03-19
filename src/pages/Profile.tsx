@@ -23,17 +23,7 @@ export default function Profile() {
       <div className="text-sm [&>div]:max-w-64 [&>div]:mb-3">
         <div>
           <div className="flex justify-between">
-            <div>
-              <label className="mr-1">Name</label>
-              <Tooltip
-                placement="top"
-                title="A name change may require a page refresh"
-                followCursor
-                enterTouchDelay={0}
-              >
-                <InfoIcon fontSize="small" />
-              </Tooltip>
-            </div>
+            <label className="mr-1">Name</label>
             {!isOpen && (
               <button
                 onClick={() => {
@@ -78,15 +68,23 @@ export default function Profile() {
             onSubmit={handleSubmit}
             className="text-sm [&>div]:max-w-64 h-full grid place-content-center"
           >
-            <div>
-              <label>Name</label>
-              <input
-                type="text"
-                className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1 text-black"
-                value={name || ""}
-                onChange={(e) => setName(e.target.value)}
-              />
+            <div className="flex justify-between">
+              <label className="mr-1">Name</label>
+              <Tooltip
+                placement="top"
+                title="A name change may require a page refresh"
+                followCursor
+                enterTouchDelay={0}
+              >
+                <InfoIcon fontSize="small" />
+              </Tooltip>
             </div>
+            <input
+              type="text"
+              className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1 text-black"
+              value={name || ""}
+              onChange={(e) => setName(e.target.value)}
+            />
             <div className="w-full flex justify-between mt-2">
               <button
                 onClick={() => setIsOpen((isOpen) => !isOpen)}
