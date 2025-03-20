@@ -100,7 +100,7 @@ export default function Profile() {
               type="text"
               className={clsx(
                 errors.name && "border-red-600",
-                "border border-[#c6c6c6] rounded-md px-4 py-2 mt-1 focus:outline-none"
+                "border border-[#c6c6c6] rounded-md px-4 py-2 mt-1 text-black focus:outline-none"
               )}
               {...register("name", {
                 pattern: {
