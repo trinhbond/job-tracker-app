@@ -187,9 +187,9 @@ export default function Content() {
     );
 
   return (
-    <div className="py-12 px-4 lg:px-40 md:px-22 sm:px-16 xs:px-4 relative">
-      <div className="flex flex-col gap-6 border-b dark:border-[#ffffff18] pb-3">
-        <h1 className="font-semibold text-3xl lg:text-4xl md:text-4xl sm:text-4xl xs:text-3xl">
+    <div className="main px-4 py-12 relative">
+      <div className="flex justify-between items-normal items-normal md:items-center lg:items-center flex-col md:flex-row lg:flex-row gap-4 border-b dark:border-[#ffffff18] pb-3">
+        <h1 className="font-semibold text-2xl max-w-md:bg-red-200">
           Your Applications
         </h1>
         <div className="inline-flex items-center gap-4">
@@ -255,7 +255,7 @@ export default function Content() {
         </div>
       </div>
       <Modal keepMounted open={isModalOpen}>
-        <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
+        <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
           <h1 className="text-xl font-semibold">New application</h1>
           <form
             className="flex flex-col gap-4 mt-6 text-sm"
@@ -435,7 +435,7 @@ export default function Content() {
                 }}
               />
               <Modal keepMounted open={isCardOpen[props.id!]}>
-                <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full lg:w-96 lg:w-min-96 md:w-96 md:w-min-96 sm:w-96 sm:w-min-96 xs:w-full top-0 right-0 overflow-y-scroll">
+                <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
                   <div>
                     <h1 className="text-xl font-semibold">Edit application</h1>
                     <form

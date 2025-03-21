@@ -10,3 +10,8 @@ body {
   padding: 0;
   font-family: "Poppins", sans-serif;
 }
+
+.main {
+  margin-inline: auto;
+  width: min(150ch, 100%);
+}

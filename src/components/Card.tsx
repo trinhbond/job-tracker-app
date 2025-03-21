@@ -11,7 +11,7 @@ export default function Card({ props, onClick }: CardProps) {
   return (
     <div
       key={props.id}
-      className="relative p-4 border border-[#c6c6c6] dark:border-[#ffffff18] rounded-sm select-none break-all flex flex-col gap-4"
+      className="relative p-4 border border-[#c6c6c6] dark:border-[#ffffff18] rounded-md select-none break-all flex flex-col gap-4"
     >
       <div className="flex flex-row justify-between gap-1 items-start">
         {props.link?.trim() ? (

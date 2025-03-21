@@ -30,8 +30,8 @@ export default function Profile() {
   );
 
   return (
-    <div className="py-12 px-4 lg:px-40 md:px-22 sm:px-16 xs:px-4 flex flex-col gap-2">
-      <h1 className="font-semibold text-3xl lg:text-4xl md:text-4xl sm:text-4xl xs:text-3xl border-b dark:border-[#ffffff18] pb-1">
+    <div className="main px-4 py-12 flex flex-col gap-2">
+      <h1 className="font-semibold text-2xl border-b dark:border-[#ffffff18] pb-1">
         Profile
       </h1>
       <div className="text-sm [&>div]:max-w-64 [&>div]:mb-3">
