@@ -82,14 +82,7 @@ export default function Content() {
   const handleAddApplication = handleSubmit(async (data) => {
     try {
       await addDoc(
-        collection(
-          db,
-          "applications",
-          "users",
-          "user/",
-          user?.uid as string,
-          user?.displayName as string
-        ),
+        collection(db, "applications", "user/", user?.uid as string),
         {
           ...data,
           date: new Date(),
@@ -114,18 +107,9 @@ export default function Content() {
       if (!prevData.company.trim() || !prevData.title.trim()) {
         return;
       }
-      updateDoc(
-        doc(
-          db,
-          "applications",
-          "users",
-          "user/",
-          user?.uid as string,
-          user?.displayName as string,
-          id
-        ),
-        { ...prevData }
-      );
+      updateDoc(doc(db, "applications", "user/", user?.uid as string, id), {
+        ...prevData,
+      });
       displayToast("Application updated", "success");
       setIsCardOpen({});
     } catch (e) {
@@ -134,31 +118,14 @@ export default function Content() {
   };
 
   const handleDelete = (id: string) => {
-    deleteDoc(
-      doc(
-        db,
-        "applications",
-        "users",
-        "user/",
-        user?.uid as string,
-        user?.displayName as string,
-        id as string
-      )
-    );
+    deleteDoc(doc(db, "applications", "user/", user?.uid as string, id));
   };
 
   useEffect(() => {
     (async () => {
       if (user) {
         const query = await getDocs(
-          collection(
-            db,
-            "applications",
-            "users",
-            "user/",
-            user.uid as string,
-            user.displayName as string
-          )
+          collection(db, "applications", "user/", user.uid as string)
         );
         const docsData: any = [];
         setIsLoading(true);
