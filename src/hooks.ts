@@ -17,7 +17,7 @@ export const useMouse = (ref: RefObject<HTMLElement>) => {
   return { setClicked, clicked };
 };
 
-export const useThemeToggle = () => {
+export const useTheme = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
   const root = document.documentElement;
 

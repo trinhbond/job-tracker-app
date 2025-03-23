@@ -1,6 +1,6 @@
 import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useMouse, useThemeToggle } from "../hooks";
+import { useMouse, useTheme } from "../hooks";
 import { Link } from "react-router-dom";
 import Toggle, { IOSSwitch } from "./Toggle";
 
@@ -8,7 +8,7 @@ export default function Header() {
   const ref = useRef<HTMLDivElement>(null);
   const { user, signOutUser } = useContext(AuthContext);
   const { clicked, setClicked } = useMouse(ref);
-  const { theme, handleThemeChange } = useThemeToggle();
+  const { theme, handleThemeChange } = useTheme();
   const placeholder = user?.displayName?.[0].toUpperCase();
 
   const handleClick = () => setClicked((clicked) => !clicked);

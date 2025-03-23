@@ -10,7 +10,7 @@ import {
 import { db } from "../config/firebase";
 import { useForm } from "react-hook-form";
 import { AppForm } from "../types";
-import { useThemeToggle } from "../hooks";
+import { useTheme } from "../hooks";
 import { handleChange } from "../utils";
 import { toast, TypeOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,7 +25,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
-  const { theme } = useThemeToggle();
+  const { theme } = useTheme();
   const toastId = useRef("toast");
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoading, setIsLoading] = useState(true);
