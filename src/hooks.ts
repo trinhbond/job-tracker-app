@@ -19,27 +19,28 @@ export const useMouse = (ref: React.RefObject<HTMLElement>) => {
 
 export const useThemeToggle = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme"));
+  const root = document.documentElement;
 
-  const handleThemeChange = () =>
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  const handleThemeChange = () => {
+    setTheme(() =>
+      localStorage.getItem("theme") === "dark" ? "light" : "dark"
+    );
+  };
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.querySelector("html")?.classList.add("dark");
-      document.querySelector("html")?.classList.remove("light");
-      document.body.classList.add("dark:bg-[#121212]", "dark:text-white");
-      localStorage.currentTheme = "dark";
+    if (
+      theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      root.classList.add("dark");
       localStorage.setItem("theme", "dark");
-      setTheme("dark");
+      document.body.classList.add("dark:bg-[#121212]", "dark:text-white");
     } else {
-      document.querySelector("html")?.classList.remove("dark");
-      document.querySelector("html")?.classList.add("light");
-      localStorage.currentTheme = "light";
+      root.classList.remove("dark");
       localStorage.setItem("theme", "light");
-      setTheme("light");
     }
   }, [theme]);
-
   return {
     theme,
     handleThemeChange,
