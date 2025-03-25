@@ -20,7 +20,7 @@ export default function Home() {
     formState: { errors },
   } = useForm<UserForm>();
   const navigate = useNavigate();
-  const [userHasAccount, setUserHasAccount] = useState(false);
+  const [userHasAccount, setUserHasAccount] = useState<boolean>(false);
 
   const handleLogin = handleSubmit(async (data) => {
     try {

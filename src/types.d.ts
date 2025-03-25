@@ -5,7 +5,7 @@ export interface UserForm {
 }
 
 export interface AppForm {
-  id?: string;
+  id: string;
   company: string;
   title: string;
   link?: string;

@@ -28,10 +28,10 @@ export default function Content() {
   const { theme } = useTheme();
   const toastId = useRef("toast");
   const [data, setData] = useState<AppForm[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isCardOpen, setIsCardOpen] = useState<any>({});
-  const [filterValue, setFilterValue] = useState<number>(0);
+  const [statusIndex, setStatusIndex] = useState<number>(0);
   const {
     handleSubmit,
     reset,
@@ -39,6 +39,7 @@ export default function Content() {
     formState: { errors },
   } = useForm<AppForm>();
   const [prevData, setPrevData] = useState<AppForm>({
+    id: "",
     company: "",
     title: "",
     link: "",
@@ -48,15 +49,15 @@ export default function Content() {
     location: "",
     status: "",
   });
-  const options = ["all", "applied", "interview", "offer", "rejected"];
-
-  const isThemeDark = document.querySelector("html")?.classList.value == "dark";
+  const statusOptions = ["all", "applied", "interview", "offer", "rejected"];
 
   const filteredData =
-    filterValue > 0 &&
-    data.filter((props) => props.status.includes(options[filterValue])).length >
-      0
-      ? data.filter((props) => props.status.includes(options[filterValue]))
+    statusIndex > 0 &&
+    data.filter((props) => props.status.includes(statusOptions[statusIndex]))
+      .length > 0
+      ? data.filter((props) =>
+          props.status.includes(statusOptions[statusIndex])
+        )
       : data;
 
   const toggleOpen = (id: string) => {
@@ -174,18 +175,24 @@ export default function Content() {
           >
             <Select
               className="focus:outline-none rounded-sm !font-medium !text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
-              value={options[filterValue]}
+              value={statusOptions[statusIndex]}
               onChange={(e: SelectChangeEvent) => {
-                setFilterValue(options.indexOf(e.target.value));
+                setStatusIndex(statusOptions.indexOf(e.target.value));
               }}
               MenuProps={{
                 sx: {
                   top: 2,
                   ".MuiPaper-root": {
-                    background: isThemeDark ? "#252525" : "#ffffff",
+                    background:
+                      document.documentElement.classList.value === "dark"
+                        ? "#252525"
+                        : "white",
                   },
                   ul: {
-                    color: isThemeDark ? "white" : "black",
+                    color:
+                      document.documentElement.classList.value === "dark"
+                        ? "white"
+                        : "black",
                   },
                 },
               }}
@@ -207,11 +214,11 @@ export default function Content() {
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              {options.map((option, index) => (
+              {statusOptions.map((option, index) => (
                 <MenuItem
                   value={option}
                   key={index}
-                  selected={index === filterValue}
+                  selected={index === statusIndex}
                   sx={{ fontSize: 14, fontWeight: 400 }}
                 >
                   {option.slice(0, 1).toUpperCase() + option.substring(1)}
@@ -297,10 +304,10 @@ export default function Content() {
                     sx: {
                       top: 2,
                       ".MuiPaper-root": {
-                        background: isThemeDark ? "#252525" : "#ffffff",
+                        background: theme === "dark" ? "#252525" : "#ffffff",
                       },
                       ul: {
-                        color: isThemeDark ? "white" : "black",
+                        color: theme === "dark" ? "white" : "black",
                       },
                     },
                   }}
@@ -329,7 +336,7 @@ export default function Content() {
                   <MenuItem value="" sx={{ fontSize: 14, fontWeight: 400 }}>
                     <em>None</em>
                   </MenuItem>
-                  {options.slice(1).map((option) => (
+                  {statusOptions.slice(1).map((option) => (
                     <MenuItem
                       value={option}
                       sx={{ fontSize: 14, fontWeight: 400 }}
@@ -385,9 +392,10 @@ export default function Content() {
         </div>
       </Modal>
       <div className="grid lg:grid-cols-1 gap-4 mt-3">
-        {filterValue > 0 &&
-        data.filter((props) => props.status.includes(options[filterValue]))
-          .length == 0 ? (
+        {statusIndex > 0 &&
+        data.filter((props) =>
+          props.status.includes(statusOptions[statusIndex])
+        ).length == 0 ? (
           <>No results</>
         ) : (
           filteredData.map((props: AppForm) => (
@@ -395,13 +403,13 @@ export default function Content() {
               <Card
                 props={props}
                 onClick={() => {
-                  toggleOpen(props.id!);
+                  toggleOpen(props.id);
                   setPrevData({
                     ...props,
                   });
                 }}
               />
-              <Modal keepMounted open={isCardOpen[props.id!]}>
+              <Modal keepMounted open={isCardOpen[props.id]}>
                 <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
                   <div>
                     <h1 className="text-xl font-semibold">Edit application</h1>
@@ -487,12 +495,11 @@ export default function Content() {
                               sx: {
                                 top: 2,
                                 ".MuiPaper-root": {
-                                  background: isThemeDark
-                                    ? "#252525"
-                                    : "#ffffff",
+                                  background:
+                                    theme === "dark" ? "#252525" : "#ffffff",
                                 },
                                 ul: {
-                                  color: isThemeDark ? "white" : "black",
+                                  color: theme === "dark" ? "white" : "black",
                                 },
                               },
                             }}
@@ -522,7 +529,7 @@ export default function Content() {
                             >
                               <em>None</em>
                             </MenuItem>
-                            {options.slice(1).map((option) => (
+                            {statusOptions.slice(1).map((option) => (
                               <MenuItem
                                 value={option}
                                 sx={{ fontSize: 14, fontWeight: 400 }}
@@ -594,7 +601,7 @@ export default function Content() {
                         </div>
                         <div className="float-right">
                           <button
-                            onClick={() => handleDelete(props.id!)}
+                            onClick={() => handleDelete(props.id)}
                             className="flex flex-row items-center justify-between gap-2 font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
                           >
                             <DeleteIcon className="shrink-0" fontSize="small" />

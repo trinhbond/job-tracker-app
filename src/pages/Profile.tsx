@@ -8,7 +8,7 @@ import clsx from "clsx";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
     register,
     setValue,

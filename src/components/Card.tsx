@@ -60,11 +60,8 @@ export default function Card({ props, onClick }: CardProps) {
             {props.date &&
               new Date(props.date.seconds * 1000).toLocaleDateString("en-NZ")}
           </span>
-          <IconButton aria-label="delete" className="!absolute !right-3.5 !p-1">
-            <MoreIcon
-              className="cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5] dark:text-white rounded-full"
-              onClick={onClick}
-            />
+          <IconButton className="!absolute !right-3.5 !p-1" onClick={onClick}>
+            <MoreIcon className="cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5] dark:text-white rounded-full" />
           </IconButton>
         </div>
       )}
