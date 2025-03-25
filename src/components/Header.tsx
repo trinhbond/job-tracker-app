@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <div className="sticky top-0 z-10 border-b dark:border-[#ffffff18]">
-      <header className="flex items-center justify-between dark:bg-[#121212] bg-white main p-4">
+      <header className="flex items-center justify-between dark:bg-[#121212] bg-white main px-6 py-4">
         <span className="font-semibold text-lg select-none">jobtracker</span>
         <div className="relative" ref={ref}>
           <button

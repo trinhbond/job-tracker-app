@@ -30,10 +30,8 @@ export default function Profile() {
   );
 
   return (
-    <div className="main px-4 py-12 flex flex-col gap-2">
-      <h1 className="font-semibold text-2xl border-b dark:border-[#ffffff18] pb-1">
-        Profile
-      </h1>
+    <div className="main px-6 py-12 flex flex-col gap-8">
+      <h1 className="font-semibold text-2xl">Profile</h1>
       <div className="text-sm [&>div]:max-w-64 [&>div]:mb-3">
         <div>
           <div className="flex justify-between">

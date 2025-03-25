@@ -155,8 +155,8 @@ export default function Content() {
     );
 
   return (
-    <div className="main px-4 py-12 relative">
-      <div className="flex justify-between items-normal items-normal md:items-center lg:items-center flex-col md:flex-row lg:flex-row gap-4 border-b dark:border-[#ffffff18] pb-3">
+    <div className="main px-6 py-12 relative">
+      <div className="flex justify-between items-normal items-normal md:items-center lg:items-center flex-col md:flex-row lg:flex-row gap-4">
         <h1 className="font-semibold text-2xl max-w-md:bg-red-200">
           Your Applications
         </h1>
@@ -391,7 +391,7 @@ export default function Content() {
           </form>
         </div>
       </Modal>
-      <div className="grid lg:grid-cols-1 gap-4 mt-3">
+      <div className="grid lg:grid-cols-1 gap-4 mt-8">
         {statusIndex > 0 &&
         data.filter((props) =>
           props.status.includes(statusOptions[statusIndex])
