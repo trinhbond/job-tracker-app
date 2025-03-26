@@ -11,8 +11,7 @@ import { db } from "../config/firebase";
 import { useForm } from "react-hook-form";
 import { AppForm } from "../types";
 import { useTheme } from "../hooks";
-import { handleChange } from "../utils";
-import { toast, TypeOptions } from "react-toastify";
+import { notify, handleChange } from "../utils";
 import "react-toastify/dist/ReactToastify.css";
 import Card from "../components/Card";
 import { AuthContext } from "../context/AuthContext";
@@ -60,24 +59,12 @@ export default function Content() {
         )
       : data;
 
-  const toggleOpen = (id: string) => {
+  const toggleCard = (id: string, props: AppForm) => {
     setIsCardOpen({
       ...isCardOpen,
       [id]: !isCardOpen[id],
     });
-  };
-
-  const displayToast = (message: string, type: TypeOptions) => {
-    if (!toast.isActive(toastId.current)) {
-      toast(message, {
-        type: type,
-        position: "bottom-center",
-        theme: "colored",
-        icon: false,
-        hideProgressBar: true,
-        toastId: type,
-      });
-    }
+    setPrevData(props);
   };
 
   const handleAddApplication = handleSubmit(async (data) => {
@@ -89,7 +76,7 @@ export default function Content() {
           date: new Date(),
         }
       );
-      displayToast("Application added", "success");
+      notify("Application added", "success", toastId);
       setIsModalOpen((isModalOpen) => !isModalOpen);
       reset();
     } catch (e) {
@@ -111,7 +98,7 @@ export default function Content() {
       updateDoc(doc(db, "applications", "user/", user?.uid as string, id), {
         ...prevData,
       });
-      displayToast("Application updated", "success");
+      notify("Application updated", "success", toastId);
       setIsCardOpen({});
     } catch (e) {
       console.error(e);
@@ -228,6 +215,7 @@ export default function Content() {
           </FormControl>
         </div>
       </div>
+
       <Modal keepMounted open={isModalOpen}>
         <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
           <h1 className="text-xl font-semibold">New application</h1>
@@ -391,6 +379,7 @@ export default function Content() {
           </form>
         </div>
       </Modal>
+
       <div className="grid lg:grid-cols-1 gap-4 mt-8">
         {statusIndex > 0 &&
         data.filter((props) =>
@@ -400,23 +389,16 @@ export default function Content() {
         ) : (
           filteredData.map((props: AppForm) => (
             <>
-              <Card
-                props={props}
-                onClick={() => {
-                  toggleOpen(props.id);
-                  setPrevData({
-                    ...props,
-                  });
-                }}
-              />
+              <Card props={props} onClick={() => toggleCard(props.id, props)} />
+
               <Modal keepMounted open={isCardOpen[props.id]}>
                 <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
                   <div>
                     <h1 className="text-xl font-semibold">Edit application</h1>
                     <form
                       className="flex flex-col gap-4 mt-6 text-sm"
-                      onSubmit={(e) =>
-                        handleEditApplication(props.id as string, e)
+                      onSubmit={(event) =>
+                        handleEditApplication(props.id, event)
                       }
                     >
                       <div>
