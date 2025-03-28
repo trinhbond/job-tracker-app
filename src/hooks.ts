@@ -3,6 +3,8 @@ import { useEffect, useState, RefObject } from "react";
 export const useMouse = (ref: RefObject<HTMLElement>) => {
   const [clicked, setClicked] = useState<boolean>(false);
 
+  const handleClick = () => setClicked((clicked) => !clicked);
+
   useEffect(() => {
     function handleClickOutside({ target }: MouseEvent) {
       if (ref.current && !ref.current.contains(target as Node)) {
@@ -14,7 +16,7 @@ export const useMouse = (ref: RefObject<HTMLElement>) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [clicked, ref]);
-  return { setClicked, clicked };
+  return { handleClick, clicked };
 };
 
 export const useTheme = () => {
