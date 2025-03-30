@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserForm } from "../types";
-import LoginForm from "../components/forms/LoginForm";
-import SignupForm from "../components/forms/SignupForm";
+import LoginForm from "../components/Forms/LoginForm";
+import SignupForm from "../components/Forms/SignupForm";
 
 export default function Home() {
   const { reset } = useForm<UserForm>();
