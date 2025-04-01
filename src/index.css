@@ -15,3 +15,26 @@ body {
   margin-inline: auto;
   width: min(150ch, 100%);
 }
+
+/* Overriding MUI css */
+.MuiInputBase-root.MuiOutlinedInput-root {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  border-radius: 0.25rem !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+.MuiSelect-select.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input {
+  padding: 8px 16px !important;
+  font-size: 14 !important;
+  font-weight: 400 !important;
+}
+
+li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}

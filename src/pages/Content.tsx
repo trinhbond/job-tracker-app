@@ -25,6 +25,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function Content() {
   const { user } = useContext(AuthContext);
   const { theme } = useTheme();
+  const isThemeDark = document.documentElement.classList.value === "dark";
   const toastId = useRef("toast");
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -132,10 +133,10 @@ export default function Content() {
 
   if (isLoading)
     return (
-      <div className="place-content-center text-lg text-center fixed left-0 right-0 top-0 bottom-0">
+      <div className="place-content-center text-center fixed left-0 right-0 top-0 bottom-0">
         <Loading
           sx={{
-            color: theme == "dark" ? "white" : "black",
+            color: theme == "dark" ? "#fff" : "#000",
           }}
         />
       </div>
@@ -143,14 +144,12 @@ export default function Content() {
 
   return (
     <div className="main px-6 py-12 relative">
-      <div className="flex justify-between items-normal items-normal md:items-center lg:items-center flex-col md:flex-row lg:flex-row gap-4">
-        <h1 className="font-semibold text-2xl max-w-md:bg-red-200">
-          Your Applications
-        </h1>
+      <div className="flex justify-between items-normal md:items-center lg:items-center flex-col md:flex-row lg:flex-row gap-4">
+        <h1 className="font-semibold text-2xl">Your Applications</h1>
         <div className="inline-flex items-center gap-4">
           <button
             onClick={() => setIsModalOpen((isModalOpen) => !isModalOpen)}
-            className="font-medium text-sm dark:bg-[#252525] dark:hover:bg-[#2b2b2b] dark:text-white rounded-sm bg-black text-white px-4 py-2"
+            className="font-medium text-sm bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-sm text-white px-4 py-2"
           >
             Create
           </button>
@@ -161,7 +160,7 @@ export default function Content() {
             }}
           >
             <Select
-              className="focus:outline-none rounded-sm !font-medium !text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+              className="focus:outline-none dark:text-white border dark:[&>svg]:fill-white dark:border-[#ffffff18]"
               value={statusOptions[statusIndex]}
               onChange={(e: SelectChangeEvent) => {
                 setStatusIndex(statusOptions.indexOf(e.target.value));
@@ -170,33 +169,12 @@ export default function Content() {
                 sx: {
                   top: 2,
                   ".MuiPaper-root": {
-                    background:
-                      document.documentElement.classList.value === "dark"
-                        ? "#252525"
-                        : "white",
+                    background: isThemeDark ? "#252525" : "#fff",
                   },
                   ul: {
-                    color:
-                      document.documentElement.classList.value === "dark"
-                        ? "white"
-                        : "black",
+                    color: isThemeDark ? "#fff" : "#000",
                   },
                 },
-              }}
-              sx={{
-                "& .MuiInputBase-root": { fontWeight: 400 },
-                ".MuiSelect-select": {
-                  padding: "8px 16px",
-                  fontSize: 14,
-                  fontWeight: 400,
-                },
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: 0,
-                },
-                "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                  {
-                    border: "none",
-                  },
               }}
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
@@ -206,7 +184,6 @@ export default function Content() {
                   value={option}
                   key={index}
                   selected={index === statusIndex}
-                  sx={{ fontSize: 14, fontWeight: 400 }}
                 >
                   {option.slice(0, 1).toUpperCase() + option.substring(1)}
                 </MenuItem>
@@ -217,7 +194,7 @@ export default function Content() {
       </div>
 
       <Modal keepMounted open={isModalOpen}>
-        <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
+        <div className="p-4 shadow-lg bg-white dark:bg-[#18181B] dark:text-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
           <h1 className="text-xl font-semibold">New application</h1>
           <form
             className="flex flex-col gap-4 mt-6 text-sm"
@@ -241,7 +218,7 @@ export default function Content() {
                 })}
                 className={clsx(
                   errors.company && "border-red-600 dark:border-red-600",
-                  "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                  "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                 )}
               />
             </div>
@@ -263,7 +240,7 @@ export default function Content() {
                 })}
                 className={clsx(
                   errors.title && "border-red-600 dark:border-red-600",
-                  "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                  "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                 )}
               />
             </div>
@@ -272,7 +249,7 @@ export default function Content() {
               <input
                 placeholder="Link"
                 {...register("link")}
-                className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
               />
             </div>
             <div>
@@ -281,54 +258,31 @@ export default function Content() {
                 sx={{
                   minWidth: 130,
                   display: "block",
-                  width: "100%",
-                  fontWeight: 400,
                 }}
               >
                 <Select
-                  className="w-full mt-1 focus:outline-none rounded-sm font-medium text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+                  className="w-full mt-1 focus:outline-none dark:text-white border dark:[&>svg]:fill-white dark:border-[#ffffff18]"
                   {...register("status")}
                   MenuProps={{
                     sx: {
                       top: 2,
                       ".MuiPaper-root": {
-                        background: theme === "dark" ? "#252525" : "#ffffff",
+                        background: isThemeDark ? "#252525" : "#fff",
                       },
                       ul: {
-                        color: theme === "dark" ? "white" : "black",
+                        color: isThemeDark ? "#fff" : "#000",
                       },
                     },
-                  }}
-                  sx={{
-                    "& .MuiInputBase-root": { fontWeight: 400 },
-                    ".MuiSelect-select": {
-                      padding: "8px 16px",
-                      fontSize: 14,
-                      fontWeight: 400,
-                      lineHeight: "normal",
-                      paddingTop: "0.375rem",
-                      paddingBottom: "0.375rem",
-                    },
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      border: 0,
-                    },
-                    "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                      {
-                        border: "none",
-                      },
                   }}
                   displayEmpty
                   defaultValue={""}
                   inputProps={{ "aria-label": "Without label" }}
                 >
-                  <MenuItem value="" sx={{ fontSize: 14, fontWeight: 400 }}>
+                  <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
                   {statusOptions.slice(1).map((option) => (
-                    <MenuItem
-                      value={option}
-                      sx={{ fontSize: 14, fontWeight: 400 }}
-                    >
+                    <MenuItem value={option}>
                       {option.slice(0, 1).toUpperCase() + option.substring(1)}
                     </MenuItem>
                   ))}
@@ -340,7 +294,7 @@ export default function Content() {
               <input
                 placeholder="Location"
                 {...register("location")}
-                className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
               />
             </div>
             <div>
@@ -349,25 +303,25 @@ export default function Content() {
                 type="number"
                 placeholder="Salary"
                 {...register("salary")}
-                className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                className="w-full focus:outline-none dark:bg-inherit bg-white dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
               />
             </div>
             <div>
               <label>Notes</label>
               <textarea
-                className="resize-none min-h-28 w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                className="resize-none min-h-28 w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                 placeholder="Notes"
                 {...register("notes")}
               />
             </div>
             <div className="text-xs">
               <input
-                className="cursor-pointer	font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
+                className="cursor-pointer	font-medium bg-black dark:bg-white text-white dark:text-gray-night rounded-full px-4 py-2"
                 type="submit"
                 value="Confirm"
               />
               <input
-                className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white text-black underline hover:no-underline px-4 py-2 rounded-full"
+                className="cursor-pointer	font-medium bg-white dark:bg-inherit text-black dark:text-white underline hover:no-underline px-4 py-2 rounded-full"
                 type="button"
                 value="Cancel"
                 onClick={() => {
@@ -392,7 +346,7 @@ export default function Content() {
               <Card props={props} onClick={() => toggleCard(props.id, props)} />
 
               <Modal keepMounted open={isCardOpen[props.id]}>
-                <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
+                <div className="p-4 shadow-lg text-black dark:text-white bg-white dark:bg-[#18181B] fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
                   <div>
                     <h1 className="text-xl font-semibold">Edit application</h1>
                     <form
@@ -416,7 +370,7 @@ export default function Content() {
                           className={clsx(
                             !prevData.company.trim() &&
                               "border-red-600 dark:border-red-600",
-                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                            "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                           )}
                         />
                       </div>
@@ -435,7 +389,7 @@ export default function Content() {
                           className={clsx(
                             !prevData.title.trim() &&
                               "border-red-600 dark:border-red-600",
-                            "w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                            "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                           )}
                         />
                       </div>
@@ -449,7 +403,7 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                          className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                         />
                       </div>
                       <div>
@@ -458,12 +412,10 @@ export default function Content() {
                           sx={{
                             minWidth: 130,
                             display: "block",
-                            width: "100%",
-                            fontWeight: 400,
                           }}
                         >
                           <Select
-                            className="w-full mt-1 focus:outline-none rounded-sm font-medium text-sm dark:text-white border [&>svg]:fill-red-black dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+                            className="w-full mt-1 focus:outline-none dark:text-white border dark:border-[#ffffff18] dark:[&>svg]:fill-white"
                             value={prevData.status}
                             name="status"
                             id="status"
@@ -477,45 +429,20 @@ export default function Content() {
                               sx: {
                                 top: 2,
                                 ".MuiPaper-root": {
-                                  background:
-                                    theme === "dark" ? "#252525" : "#ffffff",
+                                  background: isThemeDark ? "#252525" : "#fff",
                                 },
                                 ul: {
-                                  color: theme === "dark" ? "white" : "black",
+                                  color: isThemeDark ? "#fff" : "#000",
                                 },
                               },
-                            }}
-                            sx={{
-                              "& .MuiInputBase-root": { fontWeight: 400 },
-                              ".MuiSelect-select": {
-                                padding: "8px 16px",
-                                fontSize: 14,
-                                fontWeight: 400,
-                                lineHeight: "normal",
-                                paddingTop: "0.375rem",
-                                paddingBottom: "0.375rem",
-                              },
-                              "& .MuiOutlinedInput-notchedOutline": {
-                                border: 0,
-                              },
-                              "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                                {
-                                  border: "none",
-                                },
                             }}
                             inputProps={{ "aria-label": "Without label" }}
                           >
-                            <MenuItem
-                              value={""}
-                              sx={{ fontSize: 14, fontWeight: 400 }}
-                            >
+                            <MenuItem value={""}>
                               <em>None</em>
                             </MenuItem>
                             {statusOptions.slice(1).map((option) => (
-                              <MenuItem
-                                value={option}
-                                sx={{ fontSize: 14, fontWeight: 400 }}
-                              >
+                              <MenuItem value={option}>
                                 {option.slice(0, 1).toUpperCase() +
                                   option.substring(1)}
                               </MenuItem>
@@ -533,13 +460,13 @@ export default function Content() {
                           onChange={(event) =>
                             handleChange(event, prevData, setPrevData)
                           }
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                          className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                         />
                       </div>
                       <div>
                         <label>Salary</label>
                         <input
-                          className="w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                          className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                           type="number"
                           name="salary"
                           id="salary"
@@ -553,7 +480,7 @@ export default function Content() {
                       <div>
                         <label>Notes</label>
                         <textarea
-                          className="resize-none min-h-28 w-full focus:outline-none dark:bg-inherit dark:text-white bg-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                          className="resize-none min-h-28 w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                           placeholder="Notes"
                           name="notes"
                           id="notes"
@@ -563,16 +490,16 @@ export default function Content() {
                           }
                         />
                       </div>
-                      <div className="buttons flex justify-between flex-wrap gap-2 items-center w-full text-xs">
+                      <div className="w-full flex justify-between flex-wrap gap-2 items-center text-xs">
                         <div>
                           <input
-                            className="cursor-pointer font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
+                            className="cursor-pointer font-medium bg-black dark:bg-white text-white dark:text-gray-night rounded-full px-4 py-2"
                             type="submit"
                             value="Confirm"
                             id="confirm"
                           />
                           <input
-                            className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white bg-black underline hover:no-underline px-4 py-2 rounded-full"
+                            className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white underline hover:no-underline px-4 py-2 rounded-full"
                             type="button"
                             value="Cancel"
                             onClick={() => {
@@ -584,7 +511,7 @@ export default function Content() {
                         <div className="float-right">
                           <button
                             onClick={() => handleDelete(props.id)}
-                            className="flex flex-row items-center justify-between gap-2 font-medium dark:bg-white dark:text-gray-night bg-black text-white rounded-full px-4 py-2"
+                            className="flex flex-row items-center justify-between gap-2 font-medium bg-black dark:bg-white text-white dark:text-gray-night rounded-full px-4 py-2"
                           >
                             <DeleteIcon className="shrink-0" fontSize="small" />
                             <span>Delete</span>

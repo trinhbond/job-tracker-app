@@ -77,7 +77,7 @@ export default function SignupForm({
           )}
         />
         {errors.name && (
-          <p className="text-red-600 top-0 relative" role="alert">
+          <p className="text-red-600" role="alert">
             {errors.name.message}
           </p>
         )}
