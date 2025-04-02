@@ -2,7 +2,7 @@ import { Outlet, Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import { Suspense, useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Content from "./pages/Content";
 
@@ -25,14 +25,7 @@ function App() {
         index
         element={user ? <Navigate to="user/profile" /> : <Home />}
       />
-      <Route
-        path="user"
-        element={
-          <Suspense fallback={<>loading...</>}>
-            <Layout />
-          </Suspense>
-        }
-      >
+      <Route path="user" element={<Layout />}>
         <Route path="profile" element={<Profile />} />
         <Route path="applications" element={<Content />} />
         <Route path="*" element={<>Not Found</>} />
