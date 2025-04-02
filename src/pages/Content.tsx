@@ -19,16 +19,17 @@ import clsx from "clsx";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { CircularProgress as Loading, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
+import Loading from "../components/Loading";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Content() {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const { theme } = useTheme();
   const isThemeDark = document.documentElement.classList.value === "dark";
   const toastId = useRef("toast");
   const [data, setData] = useState<AppForm[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isCardOpen, setIsCardOpen] = useState<any>({});
   const [statusIndex, setStatusIndex] = useState<number>(0);
@@ -117,13 +118,13 @@ export default function Content() {
           collection(db, "applications", "user/", user.uid as string)
         );
         const docsData: any = [];
-        setIsLoading(true);
+        setIsLoadingData(true);
         try {
           query.forEach((doc) => {
             docsData.push({ id: doc.id, ...doc.data() });
           });
           setData(docsData);
-          setIsLoading(false);
+          setIsLoadingData(false);
         } catch (error) {
           console.log(error);
         }
@@ -131,14 +132,10 @@ export default function Content() {
     })();
   }, [data, user]);
 
-  if (isLoading)
+  if (isLoadingData || loading)
     return (
       <div className="place-content-center text-center fixed left-0 right-0 top-0 bottom-0">
-        <Loading
-          sx={{
-            color: theme == "dark" ? "#fff" : "#000",
-          }}
-        />
+        <Loading theme={theme} />
       </div>
     );
 

@@ -1,13 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Modal, Tooltip } from "@mui/material";
 import { updateProfile } from "firebase/auth";
 import InfoIcon from "@mui/icons-material/Info";
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
+import { useTheme } from "../hooks";
+import Loading from "../components/Loading";
 
 export default function Profile() {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
+  const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
     register,
@@ -21,7 +24,12 @@ export default function Profile() {
     },
   });
 
-  if (!user) return null;
+  if (!user || loading)
+    return (
+      <div className="place-content-center text-center fixed left-0 right-0 top-0 bottom-0">
+        <Loading theme={theme} />
+      </div>
+    );
 
   return (
     <div className="main px-6 py-12 flex flex-col gap-8">
