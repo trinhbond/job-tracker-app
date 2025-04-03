@@ -6,62 +6,50 @@ import {
   Switch,
 } from "@mui/material";
 
-export const IOSSwitch = styled((props) => (
-  <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
+export const AntSwitch = styled(Switch)(({ theme }) => ({
   width: 42,
-  height: 26,
+  height: 22,
+  borderRadius: 32,
   padding: 0,
+  display: "flex",
+  "&:active": {
+    "& .MuiSwitch-thumb": {
+      width: 15,
+    },
+    "& .MuiSwitch-switchBase.Mui-checked": {
+      transform: "translateX(9px)",
+    },
+  },
   "& .MuiSwitch-switchBase": {
-    padding: 0,
-    margin: 2,
-    transitionDuration: "300ms",
+    padding: 2,
     "&.Mui-checked": {
-      transform: "translateX(16px)",
+      transform: "translateX(20px)",
       color: "#fff",
       "& + .MuiSwitch-track": {
-        backgroundColor: "#65C466",
         opacity: 1,
-        border: 0,
+        backgroundColor: "#1890ff",
         ...theme.applyStyles("dark", {
-          backgroundColor: "#2ECA45",
+          backgroundColor: "#177ddc",
         }),
       },
-      "&.Mui-disabled + .MuiSwitch-track": {
-        opacity: 0.5,
-      },
-    },
-    "&.Mui-focusVisible .MuiSwitch-thumb": {
-      color: "#33cf4d",
-      border: "6px solid #fff",
-    },
-    "&.Mui-disabled .MuiSwitch-thumb": {
-      color: theme.palette.grey[100],
-      ...theme.applyStyles("dark", {
-        color: theme.palette.grey[600],
-      }),
-    },
-    "&.Mui-disabled + .MuiSwitch-track": {
-      opacity: 0.7,
-      ...theme.applyStyles("dark", {
-        opacity: 0.3,
-      }),
     },
   },
   "& .MuiSwitch-thumb": {
-    boxSizing: "border-box",
-    width: 22,
-    height: 22,
+    boxShadow: "0 2px 4px 0 rgb(0 35 11 / 20%)",
+    width: 18,
+    height: 18,
+    borderRadius: 32,
+    transition: theme.transitions.create(["width"], {
+      duration: 200,
+    }),
   },
   "& .MuiSwitch-track": {
-    borderRadius: 26 / 2,
-    backgroundColor: "#E9E9EA",
+    borderRadius: 16 / 2,
     opacity: 1,
-    transition: theme.transitions.create(["background-color"], {
-      duration: 500,
-    }),
+    backgroundColor: "rgba(0,0,0,.25)",
+    boxSizing: "border-box",
     ...theme.applyStyles("dark", {
-      backgroundColor: "#39393D",
+      backgroundColor: "rgba(255,255,255,.35)",
     }),
   },
 }));

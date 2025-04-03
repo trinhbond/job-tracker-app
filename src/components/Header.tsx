@@ -2,7 +2,7 @@ import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import useWindowDimensions, { useMouse, useTheme } from "../hooks";
 import { Link } from "react-router-dom";
-import Toggle, { IOSSwitch } from "./Toggle";
+import Toggle, { AntSwitch } from "./Toggle";
 import clsx from "clsx";
 import { Backdrop } from "@mui/material";
 
@@ -42,7 +42,7 @@ export default function Header() {
             label={false}
             onClick={handleThemeChange}
             checked={theme === "dark"}
-            control={<IOSSwitch />}
+            control={<AntSwitch />}
           />
         </div>
       </div>
