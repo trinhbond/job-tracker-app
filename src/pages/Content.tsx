@@ -313,7 +313,7 @@ export default function Content() {
             </div>
             <div className="text-xs">
               <input
-                className="cursor-pointer	font-medium bg-black dark:bg-white text-white dark:text-gray-night rounded-full px-4 py-2"
+                className="cursor-pointer	font-medium bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] text-white rounded-full px-4 py-2"
                 type="submit"
                 value="Confirm"
               />
@@ -490,13 +490,13 @@ export default function Content() {
                       <div className="w-full flex justify-between flex-wrap gap-2 items-center text-xs">
                         <div>
                           <input
-                            className="cursor-pointer font-medium bg-black dark:bg-white text-white dark:text-gray-night rounded-full px-4 py-2"
+                            className="cursor-pointer font-medium bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] text-white rounded-full px-4 py-2"
                             type="submit"
                             value="Confirm"
                             id="confirm"
                           />
                           <input
-                            className="cursor-pointer	font-medium dark:bg-inherit dark:text-white bg-white underline hover:no-underline px-4 py-2 rounded-full"
+                            className="cursor-pointer	font-medium dark:bg-inherit text-black dark:text-white bg-white underline hover:no-underline px-4 py-2 rounded-full"
                             type="button"
                             value="Cancel"
                             onClick={() => {
@@ -508,7 +508,7 @@ export default function Content() {
                         <div className="float-right">
                           <button
                             onClick={() => handleDelete(props.id)}
-                            className="flex flex-row items-center justify-between gap-2 font-medium bg-black dark:bg-white text-white dark:text-gray-night rounded-full px-4 py-2"
+                            className="flex items-center gap-1.5 font-medium bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] text-white rounded-full pl-3 pr-4 py-2"
                           >
                             <DeleteIcon className="shrink-0" fontSize="small" />
                             <span>Delete</span>

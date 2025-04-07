@@ -124,7 +124,7 @@ export default function Profile() {
             </div>
             <div className="text-xs">
               <input
-                className="cursor-pointer	font-medium bg-black dark:bg-white text-white dark:text-gray-night rounded-full px-4 py-2"
+                className="cursor-pointer	font-medium bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] text-white rounded-full px-4 py-2"
                 type="submit"
                 value="Confirm"
               />
