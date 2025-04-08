@@ -4,7 +4,7 @@ import { Modal } from "@mui/material";
 import { updateProfile } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
-import { useTheme } from "../hooks";
+import useTheme from "../hooks/useTheme";
 import Loading from "../components/Loading";
 
 export default function Profile() {

@@ -10,7 +10,7 @@ import {
 import { db } from "../config/firebase";
 import { useForm } from "react-hook-form";
 import { AppForm } from "../types";
-import { useTheme } from "../hooks";
+import useTheme from "../hooks/useTheme";
 import { notify, handleChange } from "../utils";
 import "react-toastify/dist/ReactToastify.css";
 import Card from "../components/Card";

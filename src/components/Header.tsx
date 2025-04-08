@@ -1,10 +1,12 @@
 import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
-import useWindowDimensions, { useMouse, useTheme } from "../hooks";
 import { Link } from "react-router-dom";
 import Toggle, { AntSwitch } from "./Toggle";
 import clsx from "clsx";
 import { Backdrop } from "@mui/material";
+import useMouse from "../hooks/useMouse";
+import useTheme from "../hooks/useTheme";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 export default function Header() {
   const ref = useRef<HTMLDivElement>(null);

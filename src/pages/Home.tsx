@@ -6,10 +6,10 @@ import SignupForm from "../components/Forms/SignupForm";
 
 export default function Home() {
   const { reset } = useForm<UserForm>();
-  const [userHasAccount, setUserHasAccount] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(false);
 
   const handleClick = () => {
-    setUserHasAccount((userHasAccount) => !userHasAccount);
+    setToggle((toggle) => !toggle);
     reset();
   };
 
@@ -19,7 +19,7 @@ export default function Home() {
         <h1 className="text-2xl py-3 font-semibold block sm:block lg:hidden">
           Welcome to jobtracker
         </h1>
-        {userHasAccount ? (
+        {toggle ? (
           <LoginForm handleClick={handleClick} />
         ) : (
           <SignupForm handleClick={handleClick} />
