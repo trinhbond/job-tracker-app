@@ -22,20 +22,22 @@ export default function Header() {
         <h2 className="font-medium">{user?.displayName}</h2>
         <div>{user?.email}</div>
       </div>
-      <div>
-        <Link
-          to="profile"
-          className="inline-block w-full mt-1 py-2 px-4 cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
-        >
-          Profile
-        </Link>
-        <Link
-          to="applications"
-          className="inline-block w-full mb-1 py-2 px-4 cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
-        >
-          Applications
-        </Link>
-      </div>
+      {width < 640 && (
+        <div>
+          <Link
+            to="profile"
+            className="inline-block w-full mt-1 py-2 px-4 cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
+          >
+            Profile
+          </Link>
+          <Link
+            to="applications"
+            className="inline-block w-full mb-1 py-2 px-4 cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
+          >
+            Applications
+          </Link>
+        </div>
+      )}
       <div>
         <div className="my-1 py-2 px-4 flex flex-row justify-between items-center">
           <span>Dark mode</span>
@@ -62,7 +64,23 @@ export default function Header() {
   return (
     <div className="sticky top-0 z-10 border-b dark:border-[#ffffff18]">
       <header className="flex items-center justify-between dark:bg-[#121212] bg-white main px-6 py-4">
-        <span className="font-semibold text-lg select-none">jobtracker</span>
+        <div className="flex items-center space-x-8">
+          <span className="font-semibold text-lg select-none">Ontrack</span>
+          {width >= 640 && (
+            <div>
+              <Link
+                to="applications"
+                className="mr-4 inline-block cursor-pointer"
+              >
+                Applications
+              </Link>
+              <Link to="profile" className="inline-block cursor-pointer">
+                Profile
+              </Link>
+            </div>
+          )}
+        </div>
+
         <div className="relative" ref={ref}>
           <button
             onClick={handleClick}
