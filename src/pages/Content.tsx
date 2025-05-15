@@ -26,7 +26,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function Content() {
   const { user, loading } = useContext(AuthContext);
   const { theme } = useTheme();
-  const isThemeDark = document.documentElement.classList.value === "dark";
+  const isThemeDark = document.documentElement.classList.contains("dark"); // for MUI components
   const toastId = useRef("toast");
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
