@@ -58,7 +58,7 @@ export default function Card({ props, onClick }: CardProps) {
           <span>
             {new Date(props.date.seconds * 1000).toLocaleDateString("en-NZ")}
           </span>
-          <IconButton className="!absolute !right-3.5 !p-1" onClick={onClick}>
+          <IconButton className="!absolute !right-3.5 !p-0" onClick={onClick}>
             <MoreIcon className="cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5] dark:text-white rounded-full" />
           </IconButton>
         </div>
