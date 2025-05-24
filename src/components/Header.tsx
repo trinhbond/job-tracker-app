@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 import Toggle, { AntSwitch } from "./Toggle";
 import clsx from "clsx";
 import { Avatar, Backdrop, IconButton } from "@mui/material";
-import { Close, Menu } from "@mui/icons-material";
-import useMouse from "../hooks/useMouse";
-import useTheme from "../hooks/useTheme";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import { useWindowDimensions, useMouse, useTheme } from "../hooks/index";
 
 export default function Header() {
   const ref = useRef<HTMLDivElement>(null);

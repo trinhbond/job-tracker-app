@@ -1,10 +1,8 @@
 import { Outlet, Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/Header";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import Content from "./pages/Content";
+import { Content, Home, Profile } from "./pages";
 
 function Layout() {
   return (
@@ -23,9 +21,9 @@ function App() {
       <Route
         path="/"
         index
-        element={user ? <Navigate to="user/profile" /> : <Home />}
+        element={user ? <Navigate to="/profile" /> : <Home />}
       />
-      <Route path="user" element={<Layout />}>
+      <Route element={<Layout />}>
         <Route path="profile" element={<Profile />} />
         <Route path="applications" element={<Content />} />
         <Route path="*" element={<>Not Found</>} />

@@ -29,7 +29,7 @@ export default function LoginForm({
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password).then(
         () => {
-          navigate("user/profile");
+          navigate("/profile");
         }
       );
       reset();

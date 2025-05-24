@@ -35,7 +35,7 @@ export default function SignupForm({
         if (auth.currentUser)
           updateProfile(auth.currentUser, { displayName: data.name }).then(
             () => {
-              navigate("user/profile");
+              navigate("/profile");
             }
           );
       });
