@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Toggle, { AntSwitch } from "./Toggle";
 import clsx from "clsx";
 import { Avatar, Backdrop, IconButton } from "@mui/material";
+import { Menu } from "@mui/icons-material";
 import { useWindowDimensions, useMouse, useTheme } from "../hooks/index";
 
 export default function Header() {
@@ -29,15 +30,15 @@ export default function Header() {
           "p-4"
         )}
       >
-        <div>
-          <h2 className="font-medium">{user?.displayName}</h2>
-          <div>{user?.email}</div>
+        <div className="flex flex-row items-center space-x-3">
+          <Avatar alt={user?.displayName as string} sx={avatarCSS}>
+            {placeholder}
+          </Avatar>
+          <div>
+            <h2 className="font-medium">{user?.displayName}</h2>
+            <div>{user?.email}</div>
+          </div>
         </div>
-        {width < 640 && (
-          <IconButton sx={{ padding: 0 }} onClick={handleClick}>
-            <Close sx={{ color: theme === "dark" ? "#fff" : "#000" }} />
-          </IconButton>
-        )}
       </div>
       {width < 640 && (
         <div>
@@ -80,29 +81,22 @@ export default function Header() {
 
   return (
     <div className="sticky top-0 z-10 border-b dark:border-[#ffffff18]">
-      <header className="flex items-center justify-between dark:bg-[#121212] bg-white main px-6 py-4">
+      <header className="flex items-center justify-between dark:bg-[#121212] bg-white main px-6 py-4 h-16">
         <div className="flex items-center space-x-8">
           <span className="font-semibold text-lg select-none">Ontrack</span>
           {width >= 640 && (
-            <div>
-              <Link
-                to="applications"
-                className="mr-4 inline-block cursor-pointer"
-              >
+            <>
+              <Link to="applications" className="inline-block cursor-pointer">
                 Applications
               </Link>
               <Link to="profile" className="inline-block cursor-pointer">
                 Profile
               </Link>
-            </div>
+            </>
           )}
         </div>
         <div className="relative" ref={ref}>
-          {width < 640 ? (
-            <IconButton sx={{ padding: 0 }} onClick={handleClick}>
-              <Menu sx={{ color: theme === "dark" ? "#fff" : "#000" }} />
-            </IconButton>
-          ) : (
+          {width >= 640 ? (
             <Avatar
               onClick={handleClick}
               alt={user?.displayName as string}
@@ -110,13 +104,16 @@ export default function Header() {
             >
               {placeholder}
             </Avatar>
+          ) : (
+            <IconButton sx={{ padding: 0 }} onClick={handleClick}>
+              <Menu sx={{ color: theme === "dark" ? "#fff" : "#000" }} />
+            </IconButton>
           )}
           <div>
             <Backdrop open={clicked} onClick={handleClick} />
             <div
               className={clsx(
                 clicked && "!block",
-                width < 640 && "!w-full",
                 "hidden divide-y-[1px] dark:divide-[#ffffff18] border border-[#c6c6c6] dark:border-none fixed h-dvh top-0 right-0 z-40 shadow-lg min-w-64 w-auto dark:bg-[#18181B] bg-white text-sm"
               )}
             >

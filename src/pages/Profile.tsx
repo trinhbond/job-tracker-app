@@ -32,25 +32,22 @@ export default function Profile() {
 
   return (
     <div className="main px-6 py-12 flex flex-col gap-8">
-      <h1 className="font-semibold text-2xl">Profile</h1>
-      <div className="text-sm [&>div]:max-w-64 [&>div]:mb-3">
+      <div className="flex justify-between flex-row">
+        <h1 className="font-semibold text-2xl">{user.displayName}'s Profile</h1>
+        <button
+          onClick={() => {
+            setValue("name", user.displayName);
+            setIsOpen((isOpen) => !isOpen);
+          }}
+          className="font-medium text-sm bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-sm text-white px-4 py-2"
+        >
+          Edit
+        </button>
+      </div>
+      <div className="text-sm [&>div]:mb-3 grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-4">
         {user.displayName && (
           <div>
-            <div className="flex justify-between">
-              <label className="mr-1">Name</label>
-              <button
-                onClick={() => {
-                  setValue("name", user.displayName);
-                  setIsOpen((isOpen) => !isOpen);
-                }}
-                className={clsx(
-                  isOpen && "hidden",
-                  "text-sky-600 underline hover:no-underline"
-                )}
-              >
-                Edit
-              </button>
-            </div>
+            <label>Name</label>
             <input
               type="text"
               className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1"
@@ -81,11 +78,20 @@ export default function Profile() {
             />
           </div>
         )}
+        <div>
+          <label>Verified</label>
+          <input
+            type="text"
+            className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1"
+            disabled
+            placeholder={user.emailVerified ? "Yes" : "No"}
+          />
+        </div>
       </div>
 
       <Modal keepMounted open={isOpen}>
         <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0">
-          <h1 className="text-xl font-semibold">Edit Name</h1>
+          <h1 className="text-xl font-semibold">Edit details</h1>
           <form
             onSubmit={handleSubmit(async (data) =>
               updateProfile(user, { displayName: data.name }).then(() => {
