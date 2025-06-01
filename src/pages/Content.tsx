@@ -146,7 +146,7 @@ export default function Content() {
         <div className="inline-flex items-center gap-4">
           <button
             onClick={() => setIsModalOpen((isModalOpen) => !isModalOpen)}
-            className="font-medium text-sm bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-sm text-white px-4 py-2"
+            className="font-medium text-sm bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-white px-4 py-2"
           >
             Create
           </button>

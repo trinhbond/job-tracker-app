@@ -39,7 +39,7 @@ export default function Profile() {
             setValue("name", user.displayName);
             setIsOpen((isOpen) => !isOpen);
           }}
-          className="font-medium text-sm bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-sm text-white px-4 py-2"
+          className="font-medium text-sm bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-white px-4 py-2"
         >
           Edit
         </button>
