@@ -81,7 +81,7 @@ export default function Header() {
 
   return (
     <div className="sticky top-0 z-10 border-b dark:border-[#ffffff18]">
-      <header className="flex items-center justify-between dark:bg-[#121212] bg-white main px-6 py-4 h-16">
+      <header className="flex items-center justify-between dark:bg-[#121212] bg-white px-6 py-4 h-16">
         <div className="flex items-center space-x-8">
           <span className="font-semibold text-lg select-none">Ontrack</span>
           {width >= 640 && (

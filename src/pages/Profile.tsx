@@ -31,7 +31,7 @@ export default function Profile() {
     );
 
   return (
-    <div className="main px-6 py-12 flex flex-col gap-8">
+    <div className="px-6 py-12 flex flex-col gap-8">
       <div className="flex justify-between flex-row">
         <h1 className="font-semibold text-2xl">{user.displayName}'s Profile</h1>
         <button
@@ -39,7 +39,7 @@ export default function Profile() {
             setValue("name", user.displayName);
             setIsOpen((isOpen) => !isOpen);
           }}
-          className="font-medium text-sm bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-white px-4 py-2"
+          className="font-medium text-sm bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white px-4 py-2"
         >
           Edit
         </button>
@@ -130,7 +130,7 @@ export default function Profile() {
             </div>
             <div className="text-xs">
               <input
-                className="cursor-pointer	font-medium bg-black dark:bg-[#252525] dark:hover:bg-[#2b2b2b] text-white rounded-full px-4 py-2"
+                className="cursor-pointer	font-medium bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white rounded-full px-4 py-2"
                 type="submit"
                 value="Confirm"
               />
