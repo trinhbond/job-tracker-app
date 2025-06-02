@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Controller, useForm } from "react-hook-form";
-import { auth } from "../../config/firebase";
+import { auth } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 
