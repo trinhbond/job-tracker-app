@@ -15,8 +15,7 @@ import CreateForm from "../components/CreateForm";
 
 export default function Content() {
   const { user, loading } = useContext(AuthContext);
-  const { theme } = useTheme();
-  const isThemeDark = document.documentElement.classList.contains("dark"); // for MUI components
+  const { theme, isThemeDark } = useTheme();
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

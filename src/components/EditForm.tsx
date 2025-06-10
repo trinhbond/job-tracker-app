@@ -14,6 +14,7 @@ import { handleChange, notify } from "../utils";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useTheme } from "../hooks";
 
 export default function EditForm({
   data,
@@ -28,7 +29,7 @@ export default function EditForm({
   isCardOpen: any;
   setIsCardOpen: React.Dispatch<React.SetStateAction<any>>;
 }) {
-  const isThemeDark = document.documentElement.classList.contains("dark"); // for MUI components
+  const { isThemeDark } = useTheme();
   const { user } = useContext(AuthContext);
   const { reset } = useForm<AppForm>();
   const toastId = useRef("toast");

@@ -26,5 +26,6 @@ export default function useTheme() {
   return {
     theme,
     handleThemeChange,
+    isThemeDark: document.documentElement.classList.contains("dark"),
   };
 }

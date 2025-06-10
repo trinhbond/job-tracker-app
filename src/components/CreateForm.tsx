@@ -7,6 +7,7 @@ import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { notify } from "../utils";
 import { Controller, useForm } from "react-hook-form";
+import { useTheme } from "../hooks";
 
 export default function CreateForm({
   isModalOpen,
@@ -16,7 +17,7 @@ export default function CreateForm({
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { user } = useContext(AuthContext);
-  const isThemeDark = document.documentElement.classList.contains("dark"); // for MUI components
+  const { isThemeDark } = useTheme();
   const {
     handleSubmit,
     reset,

@@ -1,9 +1,3 @@
-export interface UserForm {
-  name: string;
-  email: string;
-  password: string;
-}
-
 export interface AppForm {
   id: string;
   company: string;
@@ -17,7 +11,8 @@ export interface AppForm {
     | "interview"
     | "offer"
     | "rejected"
-    | "ghosted";
+    | "screening"
+    | "assessment";
   notes: string;
   date?: Date | Timestamp;
   location?: string;

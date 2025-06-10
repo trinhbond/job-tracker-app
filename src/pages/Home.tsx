@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { UserForm } from "../types";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
 
+type User = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 export default function Home() {
-  const { reset } = useForm<UserForm>();
+  const { reset } = useForm<User>();
   const [toggle, setToggle] = useState<boolean>(false);
 
   const handleClick = () => {
