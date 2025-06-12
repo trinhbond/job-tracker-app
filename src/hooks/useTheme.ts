@@ -16,7 +16,6 @@ export default function useTheme() {
     ) {
       root.classList.add("dark");
       localStorage.setItem("theme", "dark");
-      document.body.classList.add("dark:bg-[#121212]", "dark:text-white");
     } else {
       root.classList.remove("dark");
       localStorage.setItem("theme", "light");

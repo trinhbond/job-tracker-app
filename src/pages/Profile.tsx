@@ -31,7 +31,7 @@ export default function Profile() {
     );
 
   return (
-    <div className="px-6 py-12 flex flex-col gap-8">
+    <div className="dark:bg-[#121212] dark:text-white px-6 py-8">
       <div className="flex justify-between flex-row">
         <h1 className="font-semibold text-2xl">{user.displayName}'s Profile</h1>
         <button
@@ -44,7 +44,7 @@ export default function Profile() {
           Edit
         </button>
       </div>
-      <div className="text-sm [&>div]:mb-3 grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-4">
+      <div className="text-sm [&>div]:mb-3 grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-4 mt-8">
         {user.displayName && (
           <div>
             <label>Name</label>

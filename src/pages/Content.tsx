@@ -5,13 +5,17 @@ import { AppForm } from "../types";
 import useTheme from "../hooks/useTheme";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/AuthContext";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Loading from "../components/Loading";
 import DataTable from "../components/DataTable";
 import EditForm from "../components/EditForm";
 import CreateForm from "../components/CreateForm";
+import {
+  capitalize,
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 
 export default function Content() {
   const { user, loading } = useContext(AuthContext);
@@ -79,54 +83,52 @@ export default function Content() {
     );
 
   return (
-    <div className="px-6 py-12 relative">
-      <div className="flex justify-between items-normal md:items-center lg:items-center flex-col sm:flex-row md:flex-row lg:flex-row gap-4">
-        <h1 className="font-semibold text-2xl">Your Applications</h1>
-        <div className="inline-flex items-center gap-4">
-          <button
-            onClick={() => setIsModalOpen((isModalOpen) => !isModalOpen)}
-          onClick={() => setShowModal((isModalOpen) => !isModalOpen)}
-          >
-            Create
-          </button>
-          <div className="h-9 border-l dark:border-[#ffffff18]"></div>
-          <FormControl
-            sx={{
-              minWidth: 130,
+    <div className="dark:bg-[#121212] dark:text-white px-6 py-8 relative">
+      <h1 className="font-semibold text-2xl">Your Applications</h1>
+      <div className="flex items-center space-x-4 mt-8">
+        <button
+          onClick={() => setShowModal((showModal) => !showModal)}
+          className="font-medium text-sm bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white px-4 py-2"
+        >
+          Create
+        </button>
+        <div className="h-9 border-l dark:border-[#ffffff18]"></div>
+        <FormControl
+          sx={{
+            minWidth: 140,
+          }}
+        >
+          <Select
+            className="focus:outline-none dark:text-white border dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+            value={statusOptions[statusIndex]}
+            onChange={(e: SelectChangeEvent) => {
+              setStatusIndex(statusOptions.indexOf(e.target.value));
             }}
-          >
-            <Select
-              className="focus:outline-none dark:text-white border dark:[&>svg]:fill-white dark:border-[#ffffff18]"
-              value={statusOptions[statusIndex]}
-              onChange={(e: SelectChangeEvent) => {
-                setStatusIndex(statusOptions.indexOf(e.target.value));
-              }}
-              MenuProps={{
-                sx: {
-                  top: 2,
-                  ".MuiPaper-root": {
-                    background: isThemeDark ? "#252525" : "#fff",
-                  },
-                  ul: {
-                    color: isThemeDark ? "#fff" : "#000",
-                  },
+            MenuProps={{
+              sx: {
+                top: 2,
+                ".MuiPaper-root": {
+                  background: isThemeDark ? "#252525" : "#fff",
                 },
-              }}
-              displayEmpty
-              inputProps={{ "aria-label": "Without label" }}
-            >
-              {statusOptions.map((option, index) => (
-                <MenuItem
-                  value={option}
-                  key={index}
-                  selected={index === statusIndex}
-                >
-                  {option.slice(0, 1).toUpperCase() + option.substring(1)}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
+                ul: {
+                  color: isThemeDark ? "#fff" : "#000",
+                },
+              },
+            }}
+            displayEmpty
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            {statusOptions.map((option, index) => (
+              <MenuItem
+                value={option}
+                key={index}
+                selected={index === statusIndex}
+              >
+                {capitalize(option)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
       <CreateForm isModalOpen={showModal} setIsModalOpen={setShowModal} />
       <div className="mt-8">
