@@ -124,16 +124,16 @@ export default function CreateForm({
           </div>
           <div>
             <label className="dark:text-white text-black">Status</label>
-            <FormControl
-              sx={{
-                minWidth: 130,
-                display: "block",
-              }}
-            >
-              <Controller
-                control={control}
-                name={"status"}
-                render={() => (
+            <Controller
+              control={control}
+              name={"status"}
+              render={() => (
+                <FormControl
+                  sx={{
+                    minWidth: 130,
+                    display: "block",
+                  }}
+                >
                   <Select
                     className="w-full mt-1 focus:outline-none dark:text-white border dark:[&>svg]:fill-white dark:border-[#ffffff18]"
                     {...register("status")}
@@ -155,7 +155,15 @@ export default function CreateForm({
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    {["all", "applied", "interview", "offer", "rejected"]
+                    {[
+                      "all",
+                      "applied",
+                      "interview",
+                      "offer",
+                      "rejected",
+                      "screening",
+                      "assessment",
+                    ]
                       .slice(1)
                       .map((option) => (
                         <MenuItem value={option}>
@@ -164,9 +172,9 @@ export default function CreateForm({
                         </MenuItem>
                       ))}
                   </Select>
-                )}
-              />
-            </FormControl>
+                </FormControl>
+              )}
+            />
           </div>
           <div>
             <label>Location</label>

@@ -32,7 +32,16 @@ export default function Content() {
     location: "",
     status: "",
   });
-  const statusOptions = ["all", "applied", "interview", "offer", "rejected"];
+
+  const statusOptions = [
+    "all",
+    "applied",
+    "interview",
+    "offer",
+    "rejected",
+    "screening",
+    "assessment",
+  ];
 
   const filteredData =
     statusIndex > 0 &&

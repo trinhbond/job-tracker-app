@@ -156,7 +156,15 @@ export default function EditForm({
                       <MenuItem value={""}>
                         <em>None</em>
                       </MenuItem>
-                      {["all", "applied", "interview", "offer", "rejected"]
+                      {[
+                        "all",
+                        "applied",
+                        "interview",
+                        "offer",
+                        "rejected",
+                        "screening",
+                        "assessment",
+                      ]
                         .slice(1)
                         .map((option) => (
                           <MenuItem value={option}>
