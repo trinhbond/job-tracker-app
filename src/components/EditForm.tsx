@@ -20,14 +20,14 @@ export default function EditForm({
   data,
   prevData,
   setPrevData,
-  isCardOpen,
-  setIsCardOpen,
+  setShowSelectedData,
+  showSelectedData,
 }: {
   data: AppForm[];
   prevData: AppForm;
   setPrevData: React.Dispatch<React.SetStateAction<AppForm>>;
-  isCardOpen: any;
-  setIsCardOpen: React.Dispatch<React.SetStateAction<any>>;
+  setShowSelectedData: React.Dispatch<React.SetStateAction<any>>;
+  showSelectedData: any;
 }) {
   const { isThemeDark } = useTheme();
   const { user } = useContext(AuthContext);
@@ -49,7 +49,7 @@ export default function EditForm({
         ...prevData,
       });
       notify("Application updated", "success", toastId);
-      setIsCardOpen({});
+      setShowSelectedData({});
     } catch (e) {
       console.error(e);
     }
@@ -62,7 +62,7 @@ export default function EditForm({
   return (
     <>
       {data.map((props) => (
-        <Modal keepMounted open={isCardOpen[props.id]}>
+        <Modal keepMounted open={showSelectedData[props.id]}>
           <div className="p-4 shadow-lg text-black dark:text-white bg-white dark:bg-[#18181B] fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
             <div>
               <h1 className="text-xl font-semibold">Edit application</h1>
@@ -220,7 +220,7 @@ export default function EditForm({
                       type="button"
                       value="Cancel"
                       onClick={() => {
-                        setIsCardOpen({});
+                        setShowSelectedData({});
                         reset();
                       }}
                     />

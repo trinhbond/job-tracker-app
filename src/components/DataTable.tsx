@@ -5,20 +5,20 @@ import { MoreHoriz } from "@mui/icons-material";
 
 export default function DataTable({
   data,
-  setIsCardOpen,
-  isCardOpen,
+  setShowSelectedData,
+  showSelectedData,
   setPrevData,
 }: {
   data: AppForm[];
-  setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isCardOpen: any;
+  setShowSelectedData: React.Dispatch<React.SetStateAction<boolean>>;
+  showSelectedData: any;
   setPrevData: React.Dispatch<React.SetStateAction<AppForm>>;
 }) {
   const { width } = useWindowDimensions();
-  const toggleCard = (id: string, props: AppForm) => {
-    setIsCardOpen({
-      ...isCardOpen,
-      [id]: !isCardOpen[id],
+  const toggleEdit = (id: string, props: AppForm) => {
+    setShowSelectedData({
+      ...showSelectedData,
+      [id]: !showSelectedData[id],
     });
     setPrevData(props);
   };
@@ -67,7 +67,7 @@ export default function DataTable({
                 </td>
                 <td className="text-gray-payne dark:text-gray-default text-end py-2 align-top">
                   <button
-                    onClick={() => toggleCard(props.id, props)}
+                    onClick={() => toggleEdit(props.id, props)}
                     className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white p-1"
                   >
                     <MoreHoriz fontSize="small" />
@@ -110,7 +110,7 @@ export default function DataTable({
                 </td>
                 <td className="text-gray-payne dark:text-gray-default text-end py-2 pl-1.5 align-top">
                   <button
-                    onClick={() => toggleCard(props.id, props)}
+                    onClick={() => toggleEdit(props.id, props)}
                     className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white p-1"
                   >
                     <MoreHoriz fontSize="small" />

@@ -18,8 +18,8 @@ export default function Content() {
   const { theme, isThemeDark } = useTheme();
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isCardOpen, setIsCardOpen] = useState<any>({});
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showSelectedData, setShowSelectedData] = useState<any>({});
   const [statusIndex, setStatusIndex] = useState<number>(0);
   const [prevData, setPrevData] = useState<AppForm>({
     id: "",
@@ -45,21 +45,19 @@ export default function Content() {
 
   useEffect(() => {
     (async () => {
-      if (user) {
-        const query = await getDocs(
-          collection(db, "applications", "user/", user.uid as string)
-        );
-        const docsData: any = [];
-        setIsLoadingData(true);
-        try {
-          query.forEach((doc) => {
-            docsData.push({ id: doc.id, ...doc.data() });
-          });
-          setData(docsData);
-          setIsLoadingData(false);
-        } catch (error) {
-          console.log(error);
-        }
+      const query = await getDocs(
+        collection(db, "applications", "user/", user?.uid as string)
+      );
+      const docsData: any = [];
+      setIsLoadingData(true);
+      try {
+        query.forEach((doc) => {
+          docsData.push({ id: doc.id, ...doc.data() });
+        });
+        setData(docsData);
+        setIsLoadingData(false);
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, [data, user]);
@@ -78,7 +76,7 @@ export default function Content() {
         <div className="inline-flex items-center gap-4">
           <button
             onClick={() => setIsModalOpen((isModalOpen) => !isModalOpen)}
-            className="font-medium text-sm bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white px-4 py-2"
+          onClick={() => setShowModal((isModalOpen) => !isModalOpen)}
           >
             Create
           </button>
@@ -121,8 +119,8 @@ export default function Content() {
           </FormControl>
         </div>
       </div>
-      <CreateForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      <div className="grid lg:grid-cols-1 gap-4 mt-8">
+      <CreateForm isModalOpen={showModal} setIsModalOpen={setShowModal} />
+      <div className="mt-8">
         {statusIndex > 0 &&
         data.filter((props) =>
           props.status.includes(statusOptions[statusIndex])
@@ -132,14 +130,14 @@ export default function Content() {
           <>
             <DataTable
               data={filteredData}
-              isCardOpen={isCardOpen}
-              setIsCardOpen={setIsCardOpen}
+              showSelectedData={showSelectedData}
+              setShowSelectedData={setShowSelectedData}
               setPrevData={setPrevData}
             />
             <EditForm
               data={filteredData}
-              isCardOpen={isCardOpen}
-              setIsCardOpen={setIsCardOpen}
+              showSelectedData={showSelectedData}
+              setShowSelectedData={setShowSelectedData}
               prevData={prevData}
               setPrevData={setPrevData}
             />
