@@ -5,7 +5,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { AppForm } from "../types";
+import { AppForm } from "../types/form-types";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";

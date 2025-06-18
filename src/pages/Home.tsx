@@ -50,7 +50,10 @@ export default function Home() {
         </div>
         <div className="flex flex-row items-center space-x-4">
           <div className="w-[250px] lg:w-[300px] md:w-[300px]">
-            <img src="/mobile-wireframe.png" alt="Ontrack page" />
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/mobile-wireframe.png`}
+              alt="Ontrack page"
+            />
           </div>
         </div>
       </div>

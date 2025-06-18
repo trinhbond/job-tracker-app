@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { AppForm } from "../types";
+import { AppForm } from "../types/form-types";
 import useTheme from "../hooks/useTheme";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/AuthContext";

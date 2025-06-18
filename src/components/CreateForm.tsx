@@ -2,7 +2,7 @@ import { FormControl, MenuItem, Modal, Select } from "@mui/material";
 import clsx from "clsx";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { AppForm } from "../types";
+import { AppForm } from "../types/form-types";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { notify } from "../utils";

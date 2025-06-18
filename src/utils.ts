@@ -1,6 +1,6 @@
 import { TypeOptions, toast } from "react-toastify";
 import { Id } from "react-toastify/dist/types";
-import { AppForm } from "./types";
+import { AppForm } from "./types/form-types";
 
 export const handleChange = (
   event: React.ChangeEvent<
