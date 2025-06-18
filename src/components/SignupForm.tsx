@@ -147,7 +147,7 @@ export default function SignupForm({
         )}
       </div>
       <input
-        className="bg-black text-white min-w-fit py-4 px-1 rounded-full font-medium cursor-pointer select-none"
+        className="bg-black text-white min-w-fit w-[100px] px-4 py-2 rounded-full font-medium cursor-pointer select-none"
         type="submit"
         value="Continue"
       />

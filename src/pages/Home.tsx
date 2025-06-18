@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
+import { useWindowDimensions } from "../hooks";
+import clsx from "clsx";
 
 type User = {
   name: string;
@@ -11,6 +13,7 @@ type User = {
 
 export default function Home() {
   const { reset } = useForm<User>();
+  const { width } = useWindowDimensions();
   const [toggle, setToggle] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -19,22 +22,37 @@ export default function Home() {
   };
 
   return (
-    <div className="h-dvh flex flex-row justify-between [&>div]:w-full">
-      <div className="border border-[#c6c6c6] h-dvh place-content-center flex flex-col gap-6 p-6 bg-white">
-        <h1 className="text-2xl py-3 font-semibold block sm:block lg:hidden">
-          Welcome to Ontrack
-        </h1>
-        {toggle ? (
-          <LoginForm handleClick={handleClick} />
-        ) : (
-          <SignupForm handleClick={handleClick} />
-        )}
+    <div className="px-4 lg:px-20 md:px-20  py-20 bg-[#f2f2f3] relative h-dvh place-content-center overflow-y-auto">
+      <div className="mb-12">
+        <h1 className="mb-3 text-4xl font-medium">Ontrack</h1>
+        <p>
+          Stay organized and in control of your job hunt — Ontrack lets you
+          manage every application in one place.
+        </p>
       </div>
-      <div className="place-content-center text-center hidden sm:hidden lg:block p-6">
-        <h1 className="font-semibold text-3xl lg:text-3xl md:text-2xl py-3">
-          Welcome to Ontrack
-        </h1>
-        <p>A content management system for your job applications</p>
+      <div
+        className={clsx(
+          width < 999 && "flex-col space-y-16",
+          "flex flex-row items-center justify-between"
+        )}
+      >
+        <div
+          className={clsx(
+            width < 999 && "w-full",
+            "min-w-full lg:min-w-[400px] md:min-w-[400px]"
+          )}
+        >
+          {toggle ? (
+            <LoginForm handleClick={handleClick} />
+          ) : (
+            <SignupForm handleClick={handleClick} />
+          )}
+        </div>
+        <div className="flex flex-row items-center space-x-4">
+          <div className="w-[250px] lg:w-[300px] md:w-[300px]">
+            <img src="/mobile-wireframe.png" alt="Ontrack page" />
+          </div>
+        </div>
       </div>
     </div>
   );
