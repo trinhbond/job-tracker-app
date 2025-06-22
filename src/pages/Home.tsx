@@ -4,6 +4,7 @@ import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
 import { useWindowDimensions } from "../hooks";
 import clsx from "clsx";
+import * as motion from "motion/react-client";
 
 type User = {
   name: string;
@@ -22,7 +23,7 @@ export default function Home() {
   };
 
   return (
-    <div className="px-4 lg:px-20 md:px-20  py-20 bg-[#f2f2f3] relative h-dvh place-content-center overflow-y-auto">
+    <div className="px-4 lg:px-20 md:px-20 py-20 bg-[#f2f2f3] h-dvh place-content-center overflow-y-auto overflow-x-hidden">
       <div className="mb-12">
         <h1 className="mb-3 text-4xl font-medium">Ontrack</h1>
         <p>
@@ -48,14 +49,20 @@ export default function Home() {
             <SignupForm handleClick={handleClick} />
           )}
         </div>
-        <div className="flex flex-row items-center space-x-4">
+        <motion.div
+          transition={{
+            duration: 0.3,
+          }}
+          initial={{ x: "100%" }}
+          animate={{ x: "0" }}
+        >
           <div className="w-[250px] lg:w-[300px] md:w-[300px]">
             <img
               src={`${process.env.PUBLIC_URL}/assets/mobile-wireframe.png`}
               alt="Ontrack page"
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
