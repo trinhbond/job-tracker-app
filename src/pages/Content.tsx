@@ -84,11 +84,11 @@ export default function Content() {
 
   return (
     <div className="dark:bg-[#121212] dark:text-white px-6 py-8 relative">
-      <h1 className="font-semibold text-2xl">Your Applications</h1>
+      <h1 className="font-semibold text-2xl">Applications</h1>
       <div className="flex items-center space-x-4 mt-8">
         <button
           onClick={() => setShowModal((showModal) => !showModal)}
-          className="font-medium text-sm bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white px-4 py-2"
+          className="font-medium text-sm bg-black hover:bg-[#333] text-white dark:bg-white dark:text-[#121212] dark:hover:bg-[#ccc] rounded-full px-4 py-2"
         >
           Create
         </button>
@@ -99,7 +99,7 @@ export default function Content() {
           }}
         >
           <Select
-            className="focus:outline-none dark:text-white border dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+            className="focus:outline-none bg-white dark:text-white dark:bg-transparent dark:[&>svg]:fill-white border dark:border-[#ffffff18]"
             value={statusOptions[statusIndex]}
             onChange={(e: SelectChangeEvent) => {
               setStatusIndex(statusOptions.indexOf(e.target.value));

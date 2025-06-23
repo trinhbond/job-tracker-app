@@ -23,6 +23,12 @@ export default function Profile() {
     },
   });
 
+  const onClickEdit = () => {
+    if (!user) return;
+    setValue("name", user.displayName);
+    setIsOpen((isOpen) => !isOpen);
+  };
+
   if (!user || loading)
     return (
       <div className="place-content-center text-center fixed left-0 right-0 top-0 bottom-0">
@@ -33,59 +39,44 @@ export default function Profile() {
   return (
     <div className="dark:bg-[#121212] dark:text-white px-6 py-8">
       <div className="flex justify-between flex-row">
-        <h1 className="font-semibold text-2xl">{user.displayName}'s Profile</h1>
+        <h1 className="font-semibold text-2xl">Profile</h1>
         <button
-          onClick={() => {
-            setValue("name", user.displayName);
-            setIsOpen((isOpen) => !isOpen);
-          }}
-          className="font-medium text-sm bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white px-4 py-2"
+          onClick={onClickEdit}
+          className="font-medium text-sm bg-black hover:bg-[#333] text-white dark:bg-white dark:text-[#121212] dark:hover:bg-[#ccc] rounded-full px-4 py-2 self-center"
         >
           Edit
         </button>
       </div>
-      <div className="text-sm [&>div]:mb-3 grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-4 mt-8">
+      <div className="text-md grid grid-cols-1 space-y-6 mt-8">
         {user.displayName && (
           <div>
-            <label>Name</label>
-            <input
-              type="text"
-              className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1"
-              disabled
-              placeholder={user.displayName}
-            />
+            <span>Name</span>
+            <div className="text-gray-payne dark:text-gray-default">
+              {user.displayName}
+            </div>
           </div>
         )}
         {user.email && (
           <div>
-            <label>Email</label>
-            <input
-              type="text"
-              className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1"
-              disabled
-              placeholder={user.email}
-            />
+            <span>Email</span>
+            <div className="text-gray-payne dark:text-gray-default">
+              {user.email}
+            </div>
           </div>
         )}
         {user.metadata && (
           <div>
-            <label>Account created</label>
-            <input
-              type="text"
-              className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1"
-              disabled
-              placeholder={user.metadata.creationTime}
-            />
+            <span>Account created</span>
+            <div className="text-gray-payne dark:text-gray-default">
+              {user.metadata.creationTime}
+            </div>
           </div>
         )}
         <div>
-          <label>Verified</label>
-          <input
-            type="text"
-            className="w-full rounded-md border border-[#c6c6c6] px-4 py-2 mt-1"
-            disabled
-            placeholder={user.emailVerified ? "Yes" : "No"}
-          />
+          <span>Account verified</span>
+          <div className="text-gray-payne dark:text-gray-default">
+            {user.emailVerified ? "Yes" : "No"}
+          </div>
         </div>
       </div>
 

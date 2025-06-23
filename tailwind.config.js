@@ -7,7 +7,7 @@ module.exports = {
       colors: {
         gray: {
           default: "#808080",
-          payne: "#5A6881",
+          payne: "#95959D",
           night: "#121212",
         },
       },
