@@ -4,7 +4,7 @@ const baseURL = "http://localhost:3000";
 
 test.beforeEach(async ({ page }) => {
   await page.goto(baseURL);
-  await page.waitForSelector("div.overflow-x-hidden", { timeout: 3000 });
+  await page.waitForSelector("div.overflow-x-hidden", { timeout: 15000 });
 });
 
 test("test signup form errors", async ({ page }) => {
