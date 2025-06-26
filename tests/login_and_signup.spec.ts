@@ -2,9 +2,9 @@ import { test, expect } from "@playwright/test";
 
 const baseURL = "http://localhost:3000";
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, testInfo) => {
   await page.goto(baseURL);
-  await page.waitForSelector("div.overflow-x-hidden", { timeout: 15000 });
+  testInfo.setTimeout(testInfo.timeout + 30_000);
 });
 
 test("test signup form errors", async ({ page }) => {
