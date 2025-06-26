@@ -8,53 +8,65 @@ test.beforeEach(async ({ page }, testInfo) => {
 });
 
 test("test signup form errors", async ({ page }) => {
-  await page.locator("input", { hasText: "Continue" }).click();
+  const form = page.locator(
+    "#root > div.overflow-x-hidden > div.flex > div.min-w-full > form"
+  );
+
+  await form
+    .locator("input")
+    .getByText("Continue", { exact: true })
+    .click({ timeout: 5000 });
+
   await Promise.all([
-    expect(page.locator("p", { hasText: "Name is required" })).toBeVisible(),
-    expect(page.locator("p", { hasText: "Email is required" })).toBeVisible(),
+    expect(form.locator("p", { hasText: "Name is required" })).toBeVisible(),
+    expect(form.locator("p", { hasText: "Email is required" })).toBeVisible(),
     expect(
-      page.locator("p", { hasText: "Password is required" })
+      form.locator("p", { hasText: "Password is required" })
     ).toBeVisible(),
   ]);
 
-  await page.locator("form > div:nth-child(1) > input").fill("23");
-  await page.locator("input", { hasText: "Continue" }).click();
+  await form.locator("> div:nth-child(1) > input").fill("23");
+  await form.locator("input", { hasText: "Continue" }).click();
   await expect(
-    page.locator("p", {
+    form.locator("p", {
       hasText: "Name cannot have symbols or special characters",
     })
   ).toBeVisible();
 
-  await page.locator("form > div:nth-child(2) > input").fill("23");
-  await page.locator("input", { hasText: "Continue" }).click();
+  await form.locator("> div:nth-child(2) > input").fill("23");
+  await form.locator("input", { hasText: "Continue" }).click();
   await expect(
-    page.locator("p", { hasText: "Email is invalid" })
+    form.locator("p", { hasText: "Email is invalid" })
   ).toBeVisible();
 
-  await page.locator("form > div:nth-child(3) > input").fill("23");
-  await page.locator("input", { hasText: "Continue" }).click();
+  await form.locator("> div:nth-child(3) > input").fill("23");
+  await form.locator("input", { hasText: "Continue" }).click();
   await expect(
-    page.locator("p", { hasText: "Password must be 6 characters or more" })
+    form.locator("p", { hasText: "Password must be 6 characters or more" })
   ).toBeVisible();
 });
 
 test("test login form errors", async ({ page }) => {
-  await page.locator("button", { hasText: "Sign in" }).click();
-  await page.locator("input", { hasText: "Continue" }).click();
+  const form = page.locator(
+    "#root > div.overflow-x-hidden > div.flex > div.min-w-full > form"
+  );
+
+  await form.locator("button", { hasText: "Sign in" }).click({ timeout: 5000 });
+  await form.locator("input", { hasText: "Continue" }).click();
 
   await Promise.all([
-    expect(page.locator("p", { hasText: "Email is required" })).toBeVisible(),
+    expect(form.locator("p", { hasText: "Email is required" })).toBeVisible(),
     expect(
-      page.locator("p", { hasText: "Password is required" })
+      form.locator("p", { hasText: "Password is required" })
     ).toBeVisible(),
   ]);
 
-  await page.locator("form > div:nth-child(1) > input").fill("email@test.com");
-  await page.locator("form > div:nth-child(2) > input").fill("password");
-  await page.locator("input", { hasText: "Continue" }).click();
+  await form.locator("> div:nth-child(1) > input").fill("email@test.com");
+  await form.locator("> div:nth-child(2) > input").fill("password");
+  await form.locator("input", { hasText: "Continue" }).click();
 
   await expect(
-    page.locator("p", {
+    form.locator("p", {
       hasText: "Email or password is invalid",
     })
   ).toBeVisible();
