@@ -5,14 +5,11 @@ test.beforeEach(async ({ page, baseURL }) => {
 });
 
 test("basic test", async ({ page }) => {
-  await page.waitForSelector("body", { timeout: 7500 });
   await expect(page.getByRole("heading", { name: "Ontrack" })).toBeVisible({
     timeout: 3000,
   });
-  await page.screenshot({ path: "screenshot.png", fullPage: true });
 });
 
-/*
 test("test signup form errors", async ({ page }) => {
   const form = page.locator(
     "#root > div.overflow-x-hidden > div.flex > div.min-w-full > form"
@@ -51,9 +48,7 @@ test("test signup form errors", async ({ page }) => {
     form.locator("p", { hasText: "Password must be 6 characters or more" })
   ).toBeVisible();
 });
-*/
 
-/*
 test("test login form errors", async ({ page }) => {
   const form = page.locator(
     "#root > div.overflow-x-hidden > div.flex > div.min-w-full > form"
@@ -79,4 +74,3 @@ test("test login form errors", async ({ page }) => {
     })
   ).toBeVisible();
 });
-*/
