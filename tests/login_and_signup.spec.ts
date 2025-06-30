@@ -1,13 +1,15 @@
 import { test, expect } from "@playwright/test";
 
-// const baseURL = "http://localhost:3000";
-
-test.beforeEach(async ({ page }) => {
-  await page.goto("/");
+test.beforeEach(async ({ page, baseURL }) => {
+  await page.goto("./");
 });
 
 test("basic test", async ({ page }) => {
-  await expect(page.getByRole("heading", { name: "Ontrack" })).toBeVisible();
+  await page.waitForSelector("body", { timeout: 7500 });
+  await expect(page.getByRole("heading", { name: "Ontrack" })).toBeVisible({
+    timeout: 3000,
+  });
+  await page.screenshot({ path: "screenshot.png", fullPage: true });
 });
 
 /*
