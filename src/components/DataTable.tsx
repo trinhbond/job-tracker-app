@@ -29,8 +29,9 @@ export default function DataTable({
         <table className="table-fixed w-full overflow-x-scroll border-b border-[#c6c6c6] dark:border-[#ffffff18] text-sm">
           <tbody>
             <tr>
+              <th className="text-start font-medium py-2">ROLE</th>
               <th className="text-start font-medium py-2">COMPANY</th>
-              <th className="text-start font-medium py-2">LINK</th>
+              <th className="text-start font-medium py-2">LOCATION</th>
               <th className="text-start font-medium py-2">STATUS</th>
               <th className="text-start font-medium py-2">SALARY</th>
               <th className="text-start font-medium py-2">APPLIED</th>
@@ -40,27 +41,28 @@ export default function DataTable({
             {data.map((props) => (
               <tr className="border-t border-[#c6c6c6] dark:border-[#ffffff18]">
                 <td className="py-2 pr-2 align-top">
-                  <div className="text-gray-payne dark:text-gray-default">
+                  <div className="text-black font-medium dark:text-white">
                     {props.title}
                   </div>
-                  <div className="text-black font-medium dark:text-white">
-                    {props.company}
-                  </div>
-                  {props.location && (
-                    <div className="text-gray-payne dark:text-gray-default pt-2">
-                      {props.location}
-                    </div>
+                </td>
+                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
+                  {props.link ? (
+                    <a
+                      href={props.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline hover:no-underline inline-block"
+                    >
+                      {props.company}
+                    </a>
+                  ) : (
+                    <span className="inline-block">{props.company}</span>
                   )}
                 </td>
                 <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
-                  <a
-                    href={props.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-block underline hover:no-underline"
-                  >
-                    {props.link && props.company}
-                  </a>
+                  <div className="text-gray-payne dark:text-gray-default">
+                    {props.location}
+                  </div>
                 </td>
                 <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
                   {props.status.toUpperCase()}
@@ -97,9 +99,20 @@ export default function DataTable({
                   <div className="text-gray-payne dark:text-gray-default">
                     {props.title}
                   </div>
-                  <div className="text-black font-medium dark:text-white">
-                    {props.company}
-                  </div>
+                  {props.link ? (
+                    <a
+                      href={props.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline hover:no-underline inline-block text-black font-medium dark:text-white"
+                    >
+                      {props.company}
+                    </a>
+                  ) : (
+                    <span className="inline-block text-black font-medium dark:text-white">
+                      {props.company}
+                    </span>
+                  )}
                   {props.salary > 0 && (
                     <div className="text-gray-payne dark:text-gray-default pt-2">
                       &#36;{props.salary}
