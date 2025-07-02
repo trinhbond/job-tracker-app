@@ -72,6 +72,25 @@ export default function EditForm({
               >
                 <div>
                   <label>
+                    Role <span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    placeholder="Role"
+                    name="title"
+                    id="title"
+                    value={prevData.title}
+                    onChange={(event) =>
+                      handleChange(event, prevData, setPrevData)
+                    }
+                    className={clsx(
+                      !prevData.title.trim() &&
+                        "border-red-600 dark:border-red-600",
+                      "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                    )}
+                  />
+                </div>
+                <div>
+                  <label>
                     Company <span className="text-red-600">*</span>
                   </label>
                   <input
@@ -90,31 +109,12 @@ export default function EditForm({
                   />
                 </div>
                 <div>
-                  <label>
-                    Title <span className="text-red-600">*</span>
-                  </label>
+                  <label>Location</label>
                   <input
-                    placeholder="Title"
-                    name="title"
-                    id="title"
-                    value={prevData.title}
-                    onChange={(event) =>
-                      handleChange(event, prevData, setPrevData)
-                    }
-                    className={clsx(
-                      !prevData.title.trim() &&
-                        "border-red-600 dark:border-red-600",
-                      "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                    )}
-                  />
-                </div>
-                <div>
-                  <label>Link</label>
-                  <input
-                    placeholder="Link"
-                    name="link"
-                    id="link"
-                    value={prevData.link}
+                    placeholder="Location"
+                    name="location"
+                    id="location"
+                    value={prevData.location}
                     onChange={(event) =>
                       handleChange(event, prevData, setPrevData)
                     }
@@ -176,12 +176,12 @@ export default function EditForm({
                   </FormControl>
                 </div>
                 <div>
-                  <label>Location</label>
+                  <label>Link</label>
                   <input
-                    placeholder="Location"
-                    name="location"
-                    id="location"
-                    value={prevData.location}
+                    placeholder="Link"
+                    name="link"
+                    id="link"
+                    value={prevData.link}
                     onChange={(event) =>
                       handleChange(event, prevData, setPrevData)
                     }

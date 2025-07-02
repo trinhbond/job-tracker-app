@@ -34,7 +34,7 @@ export default function DataTable({
               <th className="text-start font-medium py-2">LOCATION</th>
               <th className="text-start font-medium py-2">STATUS</th>
               <th className="text-start font-medium py-2">SALARY</th>
-              <th className="text-start font-medium py-2">STATUS</th>
+              <th className="text-start font-medium py-2">DATE APPLIED</th>
               <th className="text-start font-medium py-2">NOTES</th>
               <th></th>
             </tr>

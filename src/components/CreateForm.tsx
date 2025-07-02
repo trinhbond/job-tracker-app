@@ -54,6 +54,34 @@ export default function CreateForm({
         >
           <div>
             <label>
+              Role <span className="text-red-600">*</span>
+            </label>
+            <Controller
+              control={control}
+              name={"title"}
+              render={() => (
+                <input
+                  placeholder="Role"
+                  {...register("title", {
+                    required: {
+                      value: true,
+                      message: "Title is required",
+                    },
+                    pattern: {
+                      value: /[^' ']+/,
+                      message: "Title is required",
+                    },
+                  })}
+                  className={clsx(
+                    errors.title && "border-red-600 dark:border-red-600",
+                    "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                  )}
+                />
+              )}
+            />
+          </div>
+          <div>
+            <label>
               Company <span className="text-red-600">*</span>
             </label>
             <Controller
@@ -81,42 +109,14 @@ export default function CreateForm({
             />
           </div>
           <div>
-            <label>
-              Title <span className="text-red-600">*</span>
-            </label>
+            <label>Location</label>
             <Controller
               control={control}
-              name={"title"}
+              name={"location"}
               render={() => (
                 <input
-                  placeholder="Title"
-                  {...register("title", {
-                    required: {
-                      value: true,
-                      message: "Title is required",
-                    },
-                    pattern: {
-                      value: /[^' ']+/,
-                      message: "Title is required",
-                    },
-                  })}
-                  className={clsx(
-                    errors.title && "border-red-600 dark:border-red-600",
-                    "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                  )}
-                />
-              )}
-            />
-          </div>
-          <div>
-            <label>Link</label>
-            <Controller
-              control={control}
-              name={"link"}
-              render={() => (
-                <input
-                  placeholder="Link"
-                  {...register("link")}
+                  placeholder="Location"
+                  {...register("location")}
                   className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                 />
               )}
@@ -177,14 +177,14 @@ export default function CreateForm({
             />
           </div>
           <div>
-            <label>Location</label>
+            <label>Link</label>
             <Controller
               control={control}
-              name={"location"}
+              name={"link"}
               render={() => (
                 <input
-                  placeholder="Location"
-                  {...register("location")}
+                  placeholder="Link"
+                  {...register("link")}
                   className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                 />
               )}
