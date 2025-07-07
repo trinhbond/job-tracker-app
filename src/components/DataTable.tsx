@@ -34,9 +34,9 @@ export default function DataTable({
               <th className="text-start font-medium py-2">LOCATION</th>
               <th className="text-start font-medium py-2">STATUS</th>
               <th className="text-start font-medium py-2">SALARY</th>
-              <th className="text-start font-medium py-2">DATE APPLIED</th>
-              <th className="text-start font-medium py-2">NOTES</th>
-              <th></th>
+              <th className="text-start font-medium py-2">DATE</th>
+              <th className="text-start font-medium py-2 w-1/4">NOTES</th>
+              <th className="w-[40px]"></th>
             </tr>
             {data.map((props) => (
               <tr className="border-t border-[#c6c6c6] dark:border-[#ffffff18]">
@@ -75,10 +75,10 @@ export default function DataTable({
                     "en-NZ"
                   )}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 align-top">
+                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 align-top w-1/4">
                   <p>{props.notes}</p>
                 </td>
-                <td className="text-gray-payne dark:text-gray-default text-end py-2 align-top">
+                <td className="text-gray-payne dark:text-gray-default text-end py-2 align-top w-[40px]">
                   <button
                     onClick={() => toggleEdit(props.id, props)}
                     className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white p-1"
