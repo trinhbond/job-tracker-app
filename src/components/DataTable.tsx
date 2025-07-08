@@ -36,7 +36,7 @@ export default function DataTable({
               <th className="text-start font-medium py-2">SALARY</th>
               <th className="text-start font-medium py-2">DATE</th>
               <th className="text-start font-medium py-2 w-1/4">NOTES</th>
-              <th className="w-[40px]"></th>
+              <th className="w-[30px]"></th>
             </tr>
             {data.map((props) => (
               <tr className="border-t border-[#c6c6c6] dark:border-[#ffffff18]">
@@ -95,10 +95,12 @@ export default function DataTable({
           <tbody>
             {data.map((props) => (
               <tr className="border-t border-[#c6c6c6] dark:border-[#ffffff18]">
-                <td className="py-2 align-top pr-1">
+                <td className="py-2 pr-2 align-top">
                   <div className="text-gray-payne dark:text-gray-default">
                     {props.title}
                   </div>
+                </td>
+                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
                   {props.link ? (
                     <a
                       href={props.link}
@@ -124,15 +126,15 @@ export default function DataTable({
                     </div>
                   )}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-1 text-end align-top">
+                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
                   {props.status.toUpperCase()}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-1 text-end align-top">
+                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
                   {new Date(props.date.seconds * 1000).toLocaleDateString(
                     "en-NZ"
                   )}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default text-end py-2 align-top">
+                <td className="text-gray-payne dark:text-gray-default text-end py-2 align-top w-[30px]">
                   <button
                     onClick={() => toggleEdit(props.id, props)}
                     className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white p-1"
