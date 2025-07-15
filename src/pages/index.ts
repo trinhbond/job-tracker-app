@@ -1,5 +1,5 @@
-import Content from "./Content";
+import Applications from "./Applications";
 import Home from "./Home";
 import Profile from "./Profile";
 
-export { Content, Home, Profile };
+export { Applications, Home, Profile };

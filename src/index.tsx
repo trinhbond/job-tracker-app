@@ -3,10 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./styles/index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { ToastContainer } from "react-toastify";
-import { ThemeProvider } from "@emotion/react";
-import { createTheme } from "@mui/material";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,12 +19,10 @@ const themeOptions = createTheme({
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <ThemeProvider theme={themeOptions}>
-          <App />
-          <ToastContainer />
-        </ThemeProvider>
-      </AuthProvider>
+      <ThemeProvider theme={themeOptions}>
+        <App />
+        <ToastContainer />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
