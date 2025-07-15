@@ -75,12 +75,7 @@ export default function Content() {
     })();
   }, [data, user]);
 
-  if (isLoadingData || loading)
-    return (
-      <div className="place-content-center text-center fixed left-0 right-0 top-0 bottom-0">
-        <Loading theme={theme} />
-      </div>
-    );
+  if (isLoadingData) return null;
 
   return (
     <div className="dark:bg-[#121212] dark:text-white px-6 py-8 relative">

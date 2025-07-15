@@ -1,40 +1,28 @@
-import {
-  Outlet,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import { useContext, useEffect } from "react";
-import { AuthContext, AuthProvider } from "./context/AuthContext";
-import { Applications, Home, Profile } from "./pages";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import { Home, Applications, Profile } from "./pages";
 
-function Layout() {
-  return (
-    <AuthProvider>
-      <Header />
-      <Outlet />
-    </AuthProvider>
-  );
-}
-
-function App() {
+export default function App() {
   const { user } = useContext(AuthContext);
-  const location = useLocation();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      if (location.pathname === "/") {
-        navigate("/profile", { replace: true });
-      }
-    }
-  }, [user]);
+  function Layout() {
+    return (
+      <>
+        <Header />
+        <Outlet />
+      </>
+    );
+  }
 
   return (
     <Routes>
-      <Route path="/" index element={<Home />} />
+      <Route
+        path="/"
+        index
+        element={user ? <Navigate to="/profile" replace /> : <Home />}
+      />
       <Route element={<Layout />}>
         <Route path="profile" element={<Profile />} />
         <Route path="applications" element={<Applications />} />
@@ -44,5 +32,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;

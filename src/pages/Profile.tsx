@@ -4,12 +4,9 @@ import { Modal } from "@mui/material";
 import { updateProfile } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
-import useTheme from "../hooks/useTheme";
-import Loading from "../components/Loading";
 
 export default function Profile() {
-  const { user, loading } = useContext(AuthContext);
-  const { theme } = useTheme();
+  const { user } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
     register,
@@ -29,12 +26,7 @@ export default function Profile() {
     setIsOpen((isOpen) => !isOpen);
   };
 
-  if (!user || loading)
-    return (
-      <div className="place-content-center text-center fixed left-0 right-0 top-0 bottom-0">
-        <Loading theme={theme} />
-      </div>
-    );
+  if (!user) return null;
 
   return (
     <div className="dark:bg-[#121212] dark:text-white px-6 py-8">
