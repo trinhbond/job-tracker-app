@@ -212,7 +212,7 @@ export default function CreateForm({
               name={"notes"}
               render={() => (
                 <textarea
-                  className="resize-none min-h-28 w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                  className="resize-none min-h-[150px] w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                   placeholder="Notes"
                   {...register("notes")}
                 />
