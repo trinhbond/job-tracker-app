@@ -57,7 +57,7 @@ export default function Content() {
       : data;
 
   useEffect(() => {
-    (async () => {
+    const fetchApplications = async () => {
       const query = await getDocs(
         collection(db, "applications", "user/", user?.uid as string)
       );
@@ -72,8 +72,10 @@ export default function Content() {
       } catch (error) {
         console.log(error);
       }
-    })();
-  }, [data, user]);
+    };
+
+    fetchApplications();
+  }, [user]);
 
   if (isLoadingData) return null;
 
