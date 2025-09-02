@@ -48,11 +48,12 @@ export default function LoginForm({
 
   return (
     <Box
+      className="login-form"
       component="form"
       display="flex"
       flexDirection="column"
-      fontSize={14}
       gap={2}
+      fontSize={14}
       onSubmit={handleLogin}
     >
       <Box display="flex" flexDirection="column" gap={0.5}>
@@ -65,11 +66,9 @@ export default function LoginForm({
             name={"email"}
             render={() => (
               <Input
+                error={!!errors.email}
                 sx={{
                   margin: "0 !important",
-                  "& .MuiInputBase-input": {
-                    border: errors.email && "1px solid #dc2626",
-                  },
                 }}
                 placeholder="Email"
                 {...register("email", {
@@ -86,12 +85,7 @@ export default function LoginForm({
             )}
           />
           {errors.email && (
-            <Typography
-              component="p"
-              fontSize={14}
-              color="#dc2626"
-              role="alert"
-            >
+            <Typography component="p" role="alert">
               {errors.email.message}
             </Typography>
           )}
@@ -107,13 +101,11 @@ export default function LoginForm({
             name={"password"}
             render={() => (
               <Input
+                error={!!errors.password}
                 type="password"
                 placeholder="Password (6 or more characters)"
                 sx={{
                   margin: "0 !important",
-                  "& .MuiInputBase-input": {
-                    border: errors.email && "1px solid #dc2626",
-                  },
                 }}
                 {...register("password", {
                   required: {
@@ -129,12 +121,7 @@ export default function LoginForm({
             )}
           />
           {errors.password && (
-            <Typography
-              component="p"
-              fontSize={14}
-              color="#dc2626"
-              role="alert"
-            >
+            <Typography component="p" role="alert">
               {errors.password.message}
             </Typography>
           )}

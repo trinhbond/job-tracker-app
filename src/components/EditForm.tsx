@@ -63,11 +63,11 @@ export default function EditForm({
     <>
       {data.map((props) => (
         <Modal keepMounted open={showSelectedData[props.id]}>
-          <div className="p-4 shadow-lg text-black dark:text-white bg-white dark:bg-[#18181B] fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
+          <div className="p-4 shadow-lg text-black dark:text-white bg-white dark:bg-[#18181B] fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll text-sm">
             <div>
-              <h1 className="text-xl font-semibold">Edit application</h1>
+              <div className="text-xl font-medium">Edit application</div>
               <form
-                className="flex flex-col gap-4 mt-6 text-sm"
+                className="flex flex-col gap-4 mt-6"
                 onSubmit={(event) => handleEditApplication(props.id, event)}
               >
                 <div>
@@ -151,7 +151,6 @@ export default function EditForm({
                           },
                         },
                       }}
-                      inputProps={{ "aria-label": "Without label" }}
                     >
                       <MenuItem value={""}>
                         <em>None</em>

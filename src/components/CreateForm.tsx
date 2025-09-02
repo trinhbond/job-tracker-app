@@ -46,10 +46,10 @@ export default function CreateForm({
 
   return (
     <Modal keepMounted open={isModalOpen}>
-      <div className="p-4 shadow-lg bg-white dark:bg-[#18181B] dark:text-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll">
-        <h1 className="text-xl font-semibold">New application</h1>
+      <div className="p-4 shadow-lg bg-white dark:bg-[#18181B] dark:text-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll text-sm">
+        <div className="text-xl font-medium">New application</div>
         <form
-          className="flex flex-col gap-4 mt-6 text-sm"
+          className="flex flex-col gap-4 mt-6"
           onSubmit={handleAddApplication}
         >
           <div>
@@ -150,7 +150,6 @@ export default function CreateForm({
                     }}
                     displayEmpty
                     defaultValue={""}
-                    inputProps={{ "aria-label": "Without label" }}
                   >
                     <MenuItem value="">
                       <em>None</em>

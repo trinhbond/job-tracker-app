@@ -50,11 +50,12 @@ export default function SignupForm({
 
   return (
     <Box
+      className="signup-form"
       component="form"
       display="flex"
       flexDirection="column"
-      fontSize={14}
       gap={2}
+      fontSize={14}
       onSubmit={handleSignup}
     >
       <Box display="flex" flexDirection="column" gap={0.5}>
@@ -67,11 +68,9 @@ export default function SignupForm({
             name={"name"}
             render={() => (
               <Input
+                error={!!errors.name}
                 sx={{
                   margin: "0 !important",
-                  "& .MuiInputBase-input": {
-                    border: errors.name && "1px solid #dc2626",
-                  },
                 }}
                 placeholder="Name"
                 {...register("name", {
@@ -88,12 +87,7 @@ export default function SignupForm({
             )}
           />
           {errors.name && (
-            <Typography
-              component="p"
-              fontSize={14}
-              color="#dc2626"
-              role="alert"
-            >
+            <Typography component="p" role="alert">
               {errors.name.message}
             </Typography>
           )}
@@ -109,11 +103,9 @@ export default function SignupForm({
             name={"email"}
             render={() => (
               <Input
+                error={!!errors.email}
                 sx={{
                   margin: "0 !important",
-                  "& .MuiInputBase-input": {
-                    border: errors.email && "1px solid #dc2626",
-                  },
                 }}
                 placeholder="Email"
                 {...register("email", {
@@ -130,12 +122,7 @@ export default function SignupForm({
             )}
           />
           {errors.email && (
-            <Typography
-              component="p"
-              fontSize={14}
-              color="#dc2626"
-              role="alert"
-            >
+            <Typography component="p" role="alert">
               {errors.email.message}
             </Typography>
           )}
@@ -151,11 +138,9 @@ export default function SignupForm({
             name={"password"}
             render={() => (
               <Input
+                error={!!errors.password}
                 sx={{
                   margin: "0 !important",
-                  "& .MuiInputBase-input": {
-                    border: errors.password && "1px solid #dc2626",
-                  },
                 }}
                 type="password"
                 placeholder="Password (6 or more characters)"
@@ -173,12 +158,7 @@ export default function SignupForm({
             )}
           />
           {errors.password && (
-            <Typography
-              component="p"
-              fontSize={14}
-              color="#dc2626"
-              role="alert"
-            >
+            <Typography component="p" role="alert">
               {errors.password.message}
             </Typography>
           )}

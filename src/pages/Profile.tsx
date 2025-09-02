@@ -31,7 +31,7 @@ export default function Profile() {
   return (
     <div className="dark:bg-[#121212] dark:text-white px-6 py-8">
       <div className="flex justify-between flex-row">
-        <h1 className="font-semibold text-2xl">Profile</h1>
+        <h1>Profile</h1>
         <button
           onClick={onClickEdit}
           className="font-medium text-sm bg-black hover:bg-[#333] text-white dark:bg-white dark:text-[#121212] dark:hover:bg-[#ccc] rounded-full px-4 py-2 self-center"
@@ -39,7 +39,7 @@ export default function Profile() {
           Edit
         </button>
       </div>
-      <div className="text-md grid grid-cols-1 space-y-6 mt-8">
+      <div className="text-sm grid grid-cols-1 space-y-6 mt-8">
         {user.displayName && (
           <div>
             <span>Name</span>
@@ -74,7 +74,7 @@ export default function Profile() {
 
       <Modal keepMounted open={isOpen}>
         <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0">
-          <h1 className="text-xl font-semibold">Edit details</h1>
+          <div className="text-xl font-medium">Edit details</div>
           <form
             onSubmit={handleSubmit(async (data) =>
               updateProfile(user, { displayName: data.name }).then(() => {

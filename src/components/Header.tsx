@@ -28,14 +28,10 @@ export default function Header() {
         <div className="flex items-center space-x-8">
           <span className="font-semibold text-lg select-none">Ontrack</span>
           {width >= 640 && (
-            <>
-              <Link to="applications" className="inline-block cursor-pointer">
-                Applications
-              </Link>
-              <Link to="profile" className="inline-block cursor-pointer">
-                Profile
-              </Link>
-            </>
+            <div className="flex space-x-3 text-md">
+              <Link to="applications">Applications</Link>
+              <Link to="profile">Profile</Link>
+            </div>
           )}
         </div>
         <div className="relative" ref={ref}>
@@ -66,8 +62,8 @@ export default function Header() {
                     {placeholder}
                   </Avatar>
                   <div>
-                    <h2 className="font-medium">{user?.displayName}</h2>
-                    <div>{user?.email}</div>
+                    <span className="block">{user?.displayName}</span>
+                    <span>{user?.email}</span>
                   </div>
                 </div>
               </div>
@@ -75,13 +71,13 @@ export default function Header() {
                 <div>
                   <Link
                     to="profile"
-                    className="inline-block w-full mt-1 py-2 px-4 cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
+                    className="inline-block w-full mt-1 py-2 px-4 dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
                   >
                     Profile
                   </Link>
                   <Link
                     to="applications"
-                    className="inline-block w-full mb-1 py-2 px-4 cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
+                    className="inline-block w-full mb-1 py-2 px-4 dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
                   >
                     Applications
                   </Link>
@@ -101,7 +97,7 @@ export default function Header() {
               </div>
               <div>
                 <button
-                  className="inline-block w-full text-start mt-1 mb-2 py-2 px-4 cursor-pointer dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
+                  className="inline-block w-full text-start mt-1 mb-2 py-2 px-4 dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
                   onClick={signOutUser}
                 >
                   Sign out

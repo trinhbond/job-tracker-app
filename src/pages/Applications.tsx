@@ -79,7 +79,7 @@ export default function Content() {
 
   return (
     <div className="dark:bg-[#121212] dark:text-white px-6 py-8 relative">
-      <h1 className="font-semibold text-2xl">Applications</h1>
+      <h1>Applications</h1>
       <div className="flex items-center space-x-4 mt-8">
         <button
           onClick={() => setShowModal((showModal) => !showModal)}
@@ -110,8 +110,6 @@ export default function Content() {
                 },
               },
             }}
-            displayEmpty
-            inputProps={{ "aria-label": "Without label" }}
           >
             {statusOptions.map((option, index) => (
               <MenuItem
