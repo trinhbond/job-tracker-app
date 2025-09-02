@@ -48,9 +48,7 @@ export default function Content() {
   ];
 
   const filteredData =
-    statusIndex > 0 &&
-    data.filter((props) => props.status.includes(statusOptions[statusIndex]))
-      .length > 0
+    statusIndex > 0
       ? data.filter((props) =>
           props.status.includes(statusOptions[statusIndex])
         )
