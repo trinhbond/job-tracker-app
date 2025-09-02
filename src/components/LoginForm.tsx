@@ -154,7 +154,7 @@ export default function LoginForm({
           sx={{ color: "#0000EE", textDecoration: "underline" }}
           onClick={handleToggle}
         >
-          Sign in
+          Sign up
         </Button>
       </Box>
     </Box>
