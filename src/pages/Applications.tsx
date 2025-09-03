@@ -6,9 +6,11 @@ import useTheme from "../hooks/useTheme";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/AuthContext";
 import Loading from "../components/Loading";
-import DataTable from "../components/DataTable";
-import EditForm from "../components/EditForm";
-import CreateForm from "../components/CreateForm";
+import {
+  DataTable,
+  CreateForm,
+  EditForm,
+} from "../components/forms/Application";
 import {
   capitalize,
   FormControl,

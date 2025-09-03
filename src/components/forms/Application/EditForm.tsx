@@ -5,16 +5,16 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { AppForm } from "../types/form-types";
+import { AppForm } from "../../../types/form-types";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
-import { handleChange, notify } from "../utils";
+import { db } from "../../../config/firebase";
+import { handleChange, notify } from "../../../utils";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext, useRef } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { useTheme } from "../hooks";
+import { AuthContext } from "../../../context/AuthContext";
+import { useTheme } from "../../../hooks";
 
 export default function EditForm({
   data,

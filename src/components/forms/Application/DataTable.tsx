@@ -1,6 +1,6 @@
 import React from "react";
-import { AppForm } from "../types/form-types";
-import { useWindowDimensions } from "../hooks";
+import { AppForm } from "../../../types/form-types";
+import { useWindowDimensions } from "../../../hooks";
 import { MoreHoriz } from "@mui/icons-material";
 
 export default function DataTable({

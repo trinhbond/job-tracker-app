@@ -1,11 +1,11 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Controller, useForm } from "react-hook-form";
-import { auth } from "../config/firebase";
+import { auth } from "../../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { Box, Button, FormControl, Input, Typography } from "@mui/material";
 
-export default function LoginForm({
+export default function SignupForm({
   handleToggle,
 }: {
   handleToggle: () => void;
@@ -14,48 +14,85 @@ export default function LoginForm({
   const {
     register,
     handleSubmit,
-    setError,
     reset,
     control,
     formState: { errors },
   } = useForm({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
   });
 
-  const handleLogin = handleSubmit(async (data) => {
+  const handleSignup = handleSubmit(async (data) => {
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password).then(
-        () => {
-          navigate("/profile");
-        }
-      );
+      await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      ).then(() => {
+        if (auth.currentUser)
+          updateProfile(auth.currentUser, { displayName: data.name }).then(
+            () => {
+              navigate("/profile");
+            }
+          );
+      });
       reset();
     } catch (error: unknown) {
+      console.log({ error });
       if (error instanceof FirebaseError) {
         console.log({ error });
-        if (error.code === "auth/invalid-credential") {
-          setError("email", {
-            type: "custom",
-            message: "Email or password is invalid",
-          });
-        }
       }
     }
   });
 
   return (
     <Box
-      className="login-form"
+      className="signup-form"
       component="form"
       display="flex"
       flexDirection="column"
       gap={2}
       fontSize={14}
-      onSubmit={handleLogin}
+      onSubmit={handleSignup}
     >
+      <Box display="flex" flexDirection="column" gap={0.5}>
+        <FormControl>
+          <Box component="label" mb={0.5}>
+            Name
+          </Box>
+          <Controller
+            control={control}
+            name={"name"}
+            render={() => (
+              <Input
+                error={!!errors.name}
+                sx={{
+                  margin: "0 !important",
+                }}
+                placeholder="Name"
+                {...register("name", {
+                  pattern: {
+                    value: /^[A-Za-z]+$/i,
+                    message: "Name cannot have symbols or special characters",
+                  },
+                  required: {
+                    value: true,
+                    message: "Name is required",
+                  },
+                })}
+              />
+            )}
+          />
+          {errors.name && (
+            <Typography component="p" role="alert">
+              {errors.name.message}
+            </Typography>
+          )}
+        </FormControl>
+      </Box>
       <Box display="flex" flexDirection="column" gap={0.5}>
         <FormControl>
           <Box component="label" mb={0.5}>
@@ -102,11 +139,11 @@ export default function LoginForm({
             render={() => (
               <Input
                 error={!!errors.password}
-                type="password"
-                placeholder="Password (6 or more characters)"
                 sx={{
                   margin: "0 !important",
                 }}
+                type="password"
+                placeholder="Password (6 or more characters)"
                 {...register("password", {
                   required: {
                     value: true,
@@ -135,13 +172,13 @@ export default function LoginForm({
         Continue
       </Button>
       <Box>
-        Don't have an account?{" "}
+        Already have an account?{" "}
         <Button
           variant="text"
           sx={{ color: "#0000EE", textDecoration: "underline" }}
           onClick={handleToggle}
         >
-          Sign up
+          Sign in
         </Button>
       </Box>
     </Box>

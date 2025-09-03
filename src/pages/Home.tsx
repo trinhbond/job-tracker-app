@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignupForm";
 import * as motion from "motion/react-client";
 import { Box, Typography } from "@mui/material";
+import { LoginForm, SignupForm } from "../components/forms/Auth";
 
 type User = {
   name: string;
