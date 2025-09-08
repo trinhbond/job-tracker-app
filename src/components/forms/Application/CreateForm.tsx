@@ -79,6 +79,7 @@ export default function CreateForm({
                 />
               )}
             />
+            {errors.title && <p role="alert">Title is required</p>}
           </div>
           <div>
             <label>
@@ -107,6 +108,7 @@ export default function CreateForm({
                 />
               )}
             />
+            {errors.company && <p role="alert">Company is required</p>}
           </div>
           <div>
             <label>Location</label>

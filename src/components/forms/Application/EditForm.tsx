@@ -88,6 +88,9 @@ export default function EditForm({
                       "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                     )}
                   />
+                  {!prevData.title.trim() && (
+                    <p role="alert">Title is required</p>
+                  )}
                 </div>
                 <div>
                   <label>
@@ -107,6 +110,9 @@ export default function EditForm({
                       "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
                     )}
                   />
+                  {!prevData.company.trim() && (
+                    <p role="alert">Company is required</p>
+                  )}
                 </div>
                 <div>
                   <label>Location</label>
