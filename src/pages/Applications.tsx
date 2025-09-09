@@ -58,20 +58,24 @@ export default function Content() {
 
   useEffect(() => {
     const fetchApplications = async () => {
-      const query = await getDocs(
+      const q = query(
         collection(db, "applications", "user/", user?.uid as string)
       );
-      const docsData: any = [];
-      setIsLoadingData(true);
-      try {
-        query.forEach((doc) => {
-          docsData.push({ id: doc.id, ...doc.data() });
-        });
-        setData(docsData);
-        setIsLoadingData(false);
-      } catch (error) {
-        console.log(error);
-      }
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const docsData: any = [];
+        setIsLoadingData(true);
+        try {
+          querySnapshot.forEach((doc) => {
+            docsData.push({ id: doc.id, ...doc.data() });
+          });
+          setData(docsData);
+          setIsLoadingData(false);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+
+      return () => unsubscribe();
     };
 
     fetchApplications();
