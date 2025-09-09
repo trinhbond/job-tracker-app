@@ -12,6 +12,7 @@ html.dark {
 body {
   background: #f2f2f3;
   font-family: "Poppins", sans-serif;
+  font-size: 14px;
   margin: 0;
   padding: 0;
 }
@@ -21,9 +22,15 @@ button {
   cursor: pointer;
 }
 
+div.MuiInputBase-root.MuiOutlinedInput-root {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+}
+
 p[role="alert"] {
   color: #dc2626;
   font-size: 14px;
+  margin-top: 4px;
 }
 
 h1 {

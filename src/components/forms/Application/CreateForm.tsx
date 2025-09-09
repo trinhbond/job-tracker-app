@@ -45,8 +45,11 @@ export default function CreateForm({
   });
 
   return (
-    <Modal keepMounted open={isModalOpen}>
-      <div className="p-4 shadow-lg bg-white dark:bg-[#18181B] dark:text-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll text-sm">
+    <Modal
+      open={isModalOpen}
+      onClose={() => setIsModalOpen((isModalOpen) => !isModalOpen)}
+    >
+      <div className="p-4 shadow-lg bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll text-sm">
         <div className="text-xl font-medium">New application</div>
         <form
           className="flex flex-col gap-4 mt-6"
@@ -73,8 +76,8 @@ export default function CreateForm({
                     },
                   })}
                   className={clsx(
-                    errors.title && "border-red-600 dark:border-red-600",
-                    "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                    errors.title && "border-red-600",
+                    "w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                   )}
                 />
               )}
@@ -92,8 +95,8 @@ export default function CreateForm({
                 <input
                   placeholder="Company"
                   className={clsx(
-                    errors.company && "border-red-600 dark:border-red-600",
-                    "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                    errors.company && "border-red-600",
+                    "w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                   )}
                   {...register("company", {
                     required: {
@@ -119,13 +122,13 @@ export default function CreateForm({
                 <input
                   placeholder="Location"
                   {...register("location")}
-                  className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                  className="w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                 />
               )}
             />
           </div>
           <div>
-            <label className="dark:text-white text-black">Status</label>
+            <label className="text-black">Status</label>
             <Controller
               control={control}
               name={"status"}
@@ -137,19 +140,9 @@ export default function CreateForm({
                   }}
                 >
                   <Select
-                    className="w-full mt-1 focus:outline-none dark:text-white border dark:[&>svg]:fill-white dark:border-[#ffffff18]"
+                    fullWidth
+                    className="mt-1"
                     {...register("status")}
-                    MenuProps={{
-                      sx: {
-                        top: 2,
-                        ".MuiPaper-root": {
-                          background: isThemeDark ? "#252525" : "#fff",
-                        },
-                        ul: {
-                          color: isThemeDark ? "#fff" : "#000",
-                        },
-                      },
-                    }}
                     displayEmpty
                     defaultValue={""}
                   >
@@ -186,7 +179,7 @@ export default function CreateForm({
                 <input
                   placeholder="Link"
                   {...register("link")}
-                  className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                  className="w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                 />
               )}
             />
@@ -201,7 +194,7 @@ export default function CreateForm({
                   type="number"
                   placeholder="Salary"
                   {...register("salary")}
-                  className="w-full focus:outline-none dark:bg-inherit bg-white dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                  className="w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                 />
               )}
             />
@@ -213,7 +206,7 @@ export default function CreateForm({
               name={"notes"}
               render={() => (
                 <textarea
-                  className="resize-none min-h-[150px] w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                  className="resize-none min-h-[150px] w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                   placeholder="Notes"
                   {...register("notes")}
                 />
@@ -222,12 +215,12 @@ export default function CreateForm({
           </div>
           <div className="text-xs">
             <input
-              className="cursor-pointer	font-medium bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white px-4 py-2"
+              className="cursor-pointer	font-medium bg-[#f2f2f3] hover:bg-[#eaeaeb] rounded-full text-black px-4 py-2"
               type="submit"
               value="Confirm"
             />
             <input
-              className="cursor-pointer	font-medium bg-white dark:bg-inherit text-black dark:text-white underline hover:no-underline px-4 py-2 rounded-full"
+              className="cursor-pointer	font-medium bg-white text-black underline hover:no-underline px-4 py-2 rounded-full"
               type="button"
               value="Cancel"
               onClick={() => {

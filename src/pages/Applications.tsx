@@ -80,35 +80,32 @@ export default function Content() {
   if (isLoadingData) return null;
 
   return (
-    <div className="dark:bg-[#121212] dark:text-white px-6 py-8 relative">
-      <h1>Applications</h1>
-      <div className="flex items-center space-x-4 mt-8">
+    <div className="px-6 py-8 relative">
+      <div className="flex items-center space-x-4">
         <button
           onClick={() => setShowModal((showModal) => !showModal)}
-          className="font-medium text-sm bg-black hover:bg-[#333] text-white dark:bg-white dark:text-[#121212] dark:hover:bg-[#ccc] rounded-full px-4 py-2"
+          className="font-medium text-sm bg-black hover:bg-[#333] text-white rounded-full px-4 py-2"
         >
           Create
         </button>
-        <div className="h-9 border-l dark:border-[#ffffff18]"></div>
+        <div className="h-9 border-l"></div>
         <FormControl
           sx={{
             minWidth: 140,
           }}
         >
           <Select
-            className="focus:outline-none bg-white dark:text-white dark:bg-transparent dark:[&>svg]:fill-white border dark:border-[#ffffff18]"
             value={statusOptions[statusIndex]}
             onChange={(e: SelectChangeEvent) => {
               setStatusIndex(statusOptions.indexOf(e.target.value));
             }}
             MenuProps={{
               sx: {
-                top: 2,
                 ".MuiPaper-root": {
-                  background: isThemeDark ? "#252525" : "#fff",
+                  background: "#fff",
                 },
                 ul: {
-                  color: isThemeDark ? "#fff" : "#000",
+                  color: "#000",
                 },
               },
             }}

@@ -1,26 +1,19 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Modal } from "@mui/material";
-import { updateProfile } from "firebase/auth";
+import { Box, Button, Modal } from "@mui/material";
 import { useForm } from "react-hook-form";
-import clsx from "clsx";
+import EditUserForm from "../components/forms/EditUserForm";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
+  const { setValue } = useForm({
     defaultValues: {
       name: user?.displayName,
     },
   });
 
-  const onClickEdit = () => {
+  const handleUserChange = () => {
     if (!user) return;
     setValue("name", user.displayName);
     setIsOpen((isOpen) => !isOpen);
@@ -29,107 +22,35 @@ export default function Profile() {
   if (!user) return null;
 
   return (
-    <div className="dark:bg-[#121212] dark:text-white px-6 py-8">
-      <div className="flex justify-between flex-row">
-        <h1>Profile</h1>
-        <button
-          onClick={onClickEdit}
-          className="font-medium text-sm bg-black hover:bg-[#333] text-white dark:bg-white dark:text-[#121212] dark:hover:bg-[#ccc] rounded-full px-4 py-2 self-center"
-        >
+    <Box paddingX={3} paddingY={4}>
+      <Box alignItems="flex-start" display="flex" justifyItems="between">
+        <Box width="100%" display="flex" flexDirection="column" gap={1}>
+          <Box>
+            <Box component="span">Name</Box>
+            <Box color="#95959D">{user.displayName}</Box>
+          </Box>
+          <Box>
+            <Box component="span">Email</Box>
+            <Box color="#95959D">{user.email}</Box>
+          </Box>
+          <Box>
+            <Box component="span">Account created</Box>
+            <Box color="#95959D">{user.metadata.creationTime}</Box>
+          </Box>
+          <Box>
+            <Box component="span">Account verified</Box>
+            <Box color="#95959D">{user.emailVerified ? "Yes" : "No"}</Box>
+          </Box>
+        </Box>
+        <Button variant="contained" onClick={handleUserChange}>
           Edit
-        </button>
-      </div>
-      <div className="text-sm grid grid-cols-1 space-y-6 mt-8">
-        {user.displayName && (
-          <div>
-            <span>Name</span>
-            <div className="text-gray-payne dark:text-gray-default">
-              {user.displayName}
-            </div>
-          </div>
-        )}
-        {user.email && (
-          <div>
-            <span>Email</span>
-            <div className="text-gray-payne dark:text-gray-default">
-              {user.email}
-            </div>
-          </div>
-        )}
-        {user.metadata && (
-          <div>
-            <span>Account created</span>
-            <div className="text-gray-payne dark:text-gray-default">
-              {user.metadata.creationTime}
-            </div>
-          </div>
-        )}
-        <div>
-          <span>Account verified</span>
-          <div className="text-gray-payne dark:text-gray-default">
-            {user.emailVerified ? "Yes" : "No"}
-          </div>
-        </div>
-      </div>
-
-      <Modal keepMounted open={isOpen}>
-        <div className="p-4 shadow-lg dark:bg-[#18181B] dark:text-white bg-white text-black fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0">
-          <div className="text-xl font-medium">Edit details</div>
-          <form
-            onSubmit={handleSubmit(async (data) =>
-              updateProfile(user, { displayName: data.name }).then(() => {
-                window.location.reload();
-              })
-            )}
-            className="flex flex-col gap-4 mt-6 text-sm"
-          >
-            <div>
-              <label>Name</label>
-              <input
-                type="text"
-                className={clsx(
-                  errors.name && "border-red-600 dark:border-red-600",
-                  "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
-                )}
-                {...register("name", {
-                  pattern: {
-                    value: /^[A-Za-z]+$/i,
-                    message: "Name cannot have symbols or special characters",
-                  },
-                  required: {
-                    value: true,
-                    message: "Name is required",
-                  },
-                })}
-                onChange={(e) =>
-                  setValue("name", e.target.value, { shouldValidate: true })
-                }
-              />
-              {errors.name && (
-                <p className="text-red-600 mt-1" role="alert">
-                  {errors.name.message}
-                </p>
-              )}
-            </div>
-            <div className="text-xs">
-              <input
-                className="cursor-pointer	font-medium bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white rounded-full px-4 py-2"
-                type="submit"
-                value="Confirm"
-              />
-              <input
-                className="cursor-pointer	font-medium bg-white dark:bg-inherit text-black dark:text-white underline px-4 py-2 rounded-full hover:no-underline"
-                type="button"
-                value="Cancel"
-                onClick={() => {
-                  setIsOpen((isOpen) => !isOpen);
-                  reset();
-                }}
-              />
-            </div>
-          </form>
-        </div>
+        </Button>
+      </Box>
+      <Modal open={isOpen} onClose={() => setIsOpen((isOpen) => !isOpen)}>
+        <Box>
+          <EditUserForm onClick={handleUserChange} />
+        </Box>
       </Modal>
-    </div>
+    </Box>
   );
 }

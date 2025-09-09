@@ -1,10 +1,8 @@
 import { useContext, useRef, CSSProperties } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Toggle, { AntSwitch } from "./Toggle";
-import clsx from "clsx";
-import { Avatar, Backdrop, IconButton } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { Avatar, Backdrop, Box, Typography } from "@mui/material";
 import { useWindowDimensions, useMouse, useTheme } from "../hooks/index";
 
 export default function Header() {
@@ -23,19 +21,31 @@ export default function Header() {
   } as CSSProperties;
 
   return (
-    <div className="sticky top-0 z-10">
-      <header className="flex items-center justify-between dark:bg-[#121212] border-b dark:border-[#ffffff18] bg-[#f2f2f3] px-6 py-4 h-16">
-        <div className="flex items-center space-x-8">
-          <span className="font-semibold text-lg select-none">Ontrack</span>
-          {width >= 640 && (
-            <div className="flex space-x-3 text-md">
-              <Link to="applications">Applications</Link>
-              <Link to="profile">Profile</Link>
-            </div>
+    <Box position="sticky" top={0} zIndex={10}>
+      <Box
+        component="header"
+        height={"64px"}
+        paddingX={3}
+        paddingY={2}
+        width="100%"
+        sx={{ background: "#f2f2f3" }}
+      >
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          {width >= 600 && (
+            <Box display="flex" gap={3}>
+              <NavLink to="applications">Applications</NavLink>
+              <NavLink to="profile">Profile</NavLink>
+            </Box>
           )}
-        </div>
-        <div className="relative" ref={ref}>
-          {width >= 640 ? (
+          <Typography
+            variant="h1"
+            fontSize={18}
+            fontWeight={500}
+            sx={{ userSelect: "none" }}
+          >
+            Ontrack
+          </Typography>
+          <Box position="relative" ref={ref}>
             <Avatar
               onClick={handleClick}
               alt={user?.displayName as string}
@@ -43,70 +53,70 @@ export default function Header() {
             >
               {placeholder}
             </Avatar>
-          ) : (
-            <IconButton sx={{ padding: 0 }} onClick={handleClick}>
-              <Menu sx={{ color: theme === "dark" ? "#fff" : "#000" }} />
-            </IconButton>
-          )}
-          <div>
-            <Backdrop open={clicked} onClick={handleClick} />
-            <div
-              className={clsx(
-                clicked && "!block",
-                "hidden divide-y-[1px] dark:divide-[#ffffff18] border border-[#c6c6c6] dark:border-none fixed h-dvh top-0 right-0 z-40 shadow-lg min-w-64 w-auto dark:bg-[#18181B] bg-white text-sm"
-              )}
-            >
-              <div className="p-4">
-                <div className="flex flex-row items-center space-x-3">
-                  <Avatar alt={user?.displayName as string} sx={avatarCSS}>
-                    {placeholder}
-                  </Avatar>
-                  <div>
+            <Box>
+              <Backdrop open={clicked} onClick={handleClick} />
+              <Box
+                sx={{ background: "#fff" }}
+                position="fixed"
+                right={0}
+                top={0}
+                zIndex={40}
+                height="100%"
+                width="auto"
+                display={clicked ? "block" : "none"}
+                className="divide-y-[1px] min-w-64"
+              >
+                <div className="p-4">
+                  <div className="flex flex-row items-center space-x-3">
+                    <Avatar alt={user?.displayName as string} sx={avatarCSS}>
+                      {placeholder}
+                    </Avatar>
                     <span className="block">{user?.displayName}</span>
-                    <span>{user?.email}</span>
                   </div>
                 </div>
-              </div>
-              {width < 640 && (
-                <div>
-                  <Link
-                    to="profile"
-                    className="inline-block w-full mt-1 py-2 px-4 dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
+                {width < 600 && (
+                  <Box>
+                    <NavLink
+                      to="profile"
+                      className="inline-block w-full mt-1 py-2 px-4 hover:bg-[#f5f5f5]"
+                    >
+                      Profile
+                    </NavLink>
+                    <NavLink
+                      to="applications"
+                      className="inline-block w-full mb-1 py-2 px-4 hover:bg-[#f5f5f5]"
+                    >
+                      Applications
+                    </NavLink>
+                  </Box>
+                )}
+                <Box>
+                  <div className="my-1 py-2 px-4 flex flex-row justify-between items-center">
+                    <span>Dark mode</span>
+                    <Toggle
+                      sx={{ m: 0 }}
+                      label={false}
+                      disabled
+                      // checked={false}
+                      // onClick={handleThemeChange}
+                      // checked={theme === "dark"}
+                      control={<AntSwitch />}
+                    />
+                  </div>
+                </Box>
+                <Box>
+                  <button
+                    className="inline-block w-full text-start mt-1 mb-2 py-2 px-4 hover:bg-[#f5f5f5]"
+                    onClick={signOutUser}
                   >
-                    Profile
-                  </Link>
-                  <Link
-                    to="applications"
-                    className="inline-block w-full mb-1 py-2 px-4 dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
-                  >
-                    Applications
-                  </Link>
-                </div>
-              )}
-              <div>
-                <div className="my-1 py-2 px-4 flex flex-row justify-between items-center">
-                  <span>Dark mode</span>
-                  <Toggle
-                    sx={{ m: 0 }}
-                    label={false}
-                    onClick={handleThemeChange}
-                    checked={theme === "dark"}
-                    control={<AntSwitch />}
-                  />
-                </div>
-              </div>
-              <div>
-                <button
-                  className="inline-block w-full text-start mt-1 mb-2 py-2 px-4 dark:hover:bg-[#2b2b2b] hover:bg-[#f5f5f5]"
-                  onClick={signOutUser}
-                >
-                  Sign out
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-    </div>
+                    Sign out
+                  </button>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }

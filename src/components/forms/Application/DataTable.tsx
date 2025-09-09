@@ -26,7 +26,7 @@ export default function DataTable({
   return (
     <div>
       {width > 768 ? (
-        <table className="table-fixed w-full overflow-x-scroll border-b border-[#c6c6c6] dark:border-[#ffffff18] text-sm">
+        <table className="table-fixed w-full overflow-x-scroll border-b border-[#c6c6c6] text-sm">
           <tbody>
             <tr>
               <th className="text-start font-medium py-2">ROLE</th>
@@ -39,13 +39,11 @@ export default function DataTable({
               <th className="w-[30px]"></th>
             </tr>
             {data.map((props) => (
-              <tr className="border-t border-[#c6c6c6] dark:border-[#ffffff18]">
+              <tr className="border-t border-[#c6c6c6]">
                 <td className="py-2 pr-2 align-top">
-                  <div className="text-black font-medium dark:text-white">
-                    {props.title}
-                  </div>
+                  <div className="text-black font-medium">{props.title}</div>
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
+                <td className="text-gray-payne py-2 pr-2 text-start align-top">
                   {props.link ? (
                     <a
                       href={props.link}
@@ -59,29 +57,27 @@ export default function DataTable({
                     <span className="inline-block">{props.company}</span>
                   )}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
-                  <div className="text-gray-payne dark:text-gray-default">
-                    {props.location}
-                  </div>
+                <td className="text-gray-payne py-2 pr-2 text-start align-top">
+                  <div className="text-gray-payne">{props.location}</div>
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
+                <td className="text-gray-payne py-2 pr-2 text-start align-top">
                   {props.status.toUpperCase()}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
+                <td className="text-gray-payne py-2 pr-2 text-start align-top">
                   {props.salary && <>&#36;{props.salary}</>}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
+                <td className="text-gray-payne py-2 pr-2 text-start align-top">
                   {new Date(props.date.seconds * 1000).toLocaleDateString(
                     "en-NZ"
                   )}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 align-top w-1/4">
+                <td className="text-gray-payne py-2 pr-2 align-top w-1/4">
                   <p>{props.notes}</p>
                 </td>
-                <td className="text-gray-payne dark:text-gray-default text-end py-2 align-top w-[40px]">
+                <td className="text-gray-payne text-end py-2 align-top w-[40px]">
                   <button
                     onClick={() => toggleEdit(props.id, props)}
-                    className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white p-1"
+                    className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] rounded-full text-black p-1"
                   >
                     <MoreHoriz fontSize="small" />
                   </button>
@@ -91,53 +87,49 @@ export default function DataTable({
           </tbody>
         </table>
       ) : (
-        <table className="w-full table-fixed overflow-x-scroll border-b border-[#c6c6c6] dark:border-[#ffffff18] text-[13px]">
+        <table className="w-full table-fixed overflow-x-scroll border-b border-[#c6c6c6] text-[13px]">
           <tbody>
             {data.map((props) => (
-              <tr className="border-t border-[#c6c6c6] dark:border-[#ffffff18]">
+              <tr className="border-t border-[#c6c6c6]">
                 <td className="py-2 pr-2 align-top">
-                  <div className="text-gray-payne dark:text-gray-default">
-                    {props.title}
-                  </div>
+                  <div className="text-gray-payne">{props.title}</div>
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
+                <td className="text-gray-payne py-2 pr-2 text-start align-top">
                   {props.link ? (
                     <a
                       href={props.link}
                       target="_blank"
                       rel="noreferrer"
-                      className="underline hover:no-underline inline-block text-black font-medium dark:text-white"
+                      className="underline hover:no-underline inline-block text-black font-medium"
                     >
                       {props.company}
                     </a>
                   ) : (
-                    <span className="inline-block text-black font-medium dark:text-white">
+                    <span className="inline-block text-black font-medium">
                       {props.company}
                     </span>
                   )}
                   {props.salary > 0 && (
-                    <div className="text-gray-payne dark:text-gray-default pt-2">
+                    <div className="text-gray-payne pt-2">
                       &#36;{props.salary}
                     </div>
                   )}
                   {props.location && (
-                    <div className="text-gray-payne dark:text-gray-default pt-2">
-                      {props.location}
-                    </div>
+                    <div className="text-gray-payne pt-2">{props.location}</div>
                   )}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
+                <td className="text-gray-payne py-2 pr-2 text-start align-top">
                   {props.status.toUpperCase()}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default py-2 pr-2 text-start align-top">
+                <td className="text-gray-payne py-2 pr-2 text-start align-top">
                   {new Date(props.date.seconds * 1000).toLocaleDateString(
                     "en-NZ"
                   )}
                 </td>
-                <td className="text-gray-payne dark:text-gray-default text-end py-2 align-top w-[30px]">
+                <td className="text-gray-payne text-end py-2 align-top w-[30px]">
                   <button
                     onClick={() => toggleEdit(props.id, props)}
-                    className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white p-1"
+                    className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] rounded-full text-black p-1"
                   >
                     <MoreHoriz fontSize="small" />
                   </button>

@@ -68,31 +68,34 @@ export const createMuiTheme = () => {
         styleOverrides: {
           root: {
             boxShadow: "none",
-            cursor: "pointer",
             lineHeight: "normal",
+            minWidth: "auto",
             textTransform: "none",
             variants: [
               {
                 props: { variant: "text" },
                 style: {
+                  textDecoration: "underline",
                   borderRadius: 0,
-                  fontWeight: 400,
-                  minWidth: "auto",
                   padding: 0,
+                  verticalAlign: "baseline",
                   "&:hover": {
                     background: "transparent",
+                    textDecoration: "none",
                   },
-                  verticalAlign: "baseline",
                 },
               },
               {
                 props: { variant: "contained" },
                 style: {
+                  background: "#000",
+                  color: "#fff",
                   borderRadius: 32,
-                  padding: "8px 16px",
                   fontWeight: 500,
+                  padding: "8px 16px",
                   "&:hover": {
                     boxShadow: "none !important",
+                    opacity: 0.85,
                   },
                 },
               },

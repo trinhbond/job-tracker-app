@@ -53,7 +53,6 @@ export default function LoginForm({
       display="flex"
       flexDirection="column"
       gap={2}
-      fontSize={14}
       onSubmit={handleLogin}
     >
       <Box display="flex" flexDirection="column" gap={0.5}>

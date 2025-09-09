@@ -62,8 +62,11 @@ export default function EditForm({
   return (
     <>
       {data.map((props) => (
-        <Modal keepMounted open={showSelectedData[props.id]}>
-          <div className="p-4 shadow-lg text-black dark:text-white bg-white dark:bg-[#18181B] fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll text-sm">
+        <Modal
+          open={showSelectedData[props.id]}
+          onClose={() => setShowSelectedData({})}
+        >
+          <div className="p-4 shadow-lg text-black bg-white fixed z-40 h-full w-full sm:w-96 lg:w-min-96 top-0 right-0 overflow-y-scroll text-sm">
             <div>
               <div className="text-xl font-medium">Edit application</div>
               <form
@@ -83,9 +86,8 @@ export default function EditForm({
                       handleChange(event, prevData, setPrevData)
                     }
                     className={clsx(
-                      !prevData.title.trim() &&
-                        "border-red-600 dark:border-red-600",
-                      "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                      !prevData.title.trim() && "border-red-600",
+                      "w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                     )}
                   />
                   {!prevData.title.trim() && (
@@ -105,9 +107,8 @@ export default function EditForm({
                       handleChange(event, prevData, setPrevData)
                     }
                     className={clsx(
-                      !prevData.company.trim() &&
-                        "border-red-600 dark:border-red-600",
-                      "w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                      !prevData.company.trim() && "border-red-600",
+                      "w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                     )}
                   />
                   {!prevData.company.trim() && (
@@ -124,7 +125,7 @@ export default function EditForm({
                     onChange={(event) =>
                       handleChange(event, prevData, setPrevData)
                     }
-                    className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                    className="w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                   />
                 </div>
                 <div>
@@ -136,7 +137,8 @@ export default function EditForm({
                     }}
                   >
                     <Select
-                      className="w-full mt-1 focus:outline-none dark:text-white border dark:border-[#ffffff18] dark:[&>svg]:fill-white"
+                      fullWidth
+                      className="mt-1"
                       name="status"
                       id="status"
                       value={prevData.status}
@@ -146,17 +148,6 @@ export default function EditForm({
                       }}
                       displayEmpty
                       defaultValue={""}
-                      MenuProps={{
-                        sx: {
-                          top: 2,
-                          ".MuiPaper-root": {
-                            background: isThemeDark ? "#252525" : "#fff",
-                          },
-                          ul: {
-                            color: isThemeDark ? "#fff" : "#000",
-                          },
-                        },
-                      }}
                     >
                       <MenuItem value={""}>
                         <em>None</em>
@@ -190,13 +181,13 @@ export default function EditForm({
                     onChange={(event) =>
                       handleChange(event, prevData, setPrevData)
                     }
-                    className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                    className="w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                   />
                 </div>
                 <div>
                   <label>Salary</label>
                   <input
-                    className="w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                    className="w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                     type="number"
                     placeholder="Salary"
                     name="salary"
@@ -210,7 +201,7 @@ export default function EditForm({
                 <div>
                   <label>Notes</label>
                   <textarea
-                    className="resize-none min-h-[150px] w-full focus:outline-none bg-white dark:bg-inherit dark:text-white border dark:border-[#ffffff18] px-4 py-2 mt-1 rounded-md"
+                    className="resize-none min-h-[150px] w-full focus:outline-none bg-white border px-4 py-2 mt-1 rounded-md"
                     placeholder="Notes"
                     name="notes"
                     id="notes"
@@ -223,13 +214,13 @@ export default function EditForm({
                 <div className="w-full flex justify-between flex-wrap gap-2 items-center text-xs">
                   <div>
                     <input
-                      className="cursor-pointer font-medium bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white px-4 py-2"
+                      className="cursor-pointer font-medium bg-[#f2f2f3] hover:bg-[#eaeaeb] rounded-full text-black px-4 py-2"
                       type="submit"
                       value="Confirm"
                       id="confirm"
                     />
                     <input
-                      className="cursor-pointer	font-medium dark:bg-inherit text-black dark:text-white bg-white underline hover:no-underline px-4 py-2 rounded-full"
+                      className="cursor-pointer	font-medium text-black bg-white underline hover:no-underline px-4 py-2 rounded-full"
                       type="button"
                       value="Cancel"
                       onClick={() => {
@@ -241,7 +232,7 @@ export default function EditForm({
                   <div className="float-right">
                     <button
                       onClick={() => handleDelete(prevData.id)}
-                      className="flex items-center gap-1.5 font-medium bg-[#f2f2f3] hover:bg-[#eaeaeb] dark:bg-[#252525] dark:hover:bg-[#2b2b2b] rounded-full text-black dark:text-white pl-3 pr-4 py-2"
+                      className="flex items-center gap-1.5 font-medium bg-[#f2f2f3] hover:bg-[#eaeaeb] rounded-full text-black pl-3 pr-4 py-2"
                     >
                       <DeleteIcon className="shrink-0" fontSize="small" />
                       <span>Delete</span>

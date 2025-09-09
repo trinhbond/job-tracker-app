@@ -55,7 +55,6 @@ export default function SignupForm({
       display="flex"
       flexDirection="column"
       gap={2}
-      fontSize={14}
       onSubmit={handleSignup}
     >
       <Box display="flex" flexDirection="column" gap={0.5}>
@@ -173,11 +172,7 @@ export default function SignupForm({
       </Button>
       <Box>
         Already have an account?{" "}
-        <Button
-          variant="text"
-          sx={{ color: "#0000EE", textDecoration: "underline" }}
-          onClick={handleToggle}
-        >
+        <Button variant="text" sx={{ color: "#0000EE" }} onClick={handleToggle}>
           Sign in
         </Button>
       </Box>
