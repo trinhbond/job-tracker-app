@@ -12,6 +12,10 @@ const BasicTextArea = styled("textarea")({
   },
 });
 
-export const TextArea: React.FC<TextareaHTMLAttributes<HTMLTextAreaElement>> = (
-  props
-) => <BasicTextArea {...props} />;
+interface BasicTextAreaProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
+
+export const TextArea = React.forwardRef<
+  HTMLTextAreaElement,
+  BasicTextAreaProps
+>(({ ...props }, ref) => <BasicTextArea ref={ref} {...props} />);
