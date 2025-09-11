@@ -10,7 +10,7 @@ import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
-import { handleChange, notify } from "../../../utils";
+import { handleChange, notify, statusValues } from "../../../utils";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
@@ -130,14 +130,8 @@ export default function EditForm({
                 </div>
                 <div>
                   <label>Status</label>
-                  <FormControl
-                    sx={{
-                      minWidth: 130,
-                      display: "block",
-                    }}
-                  >
+                  <FormControl fullWidth>
                     <Select
-                      fullWidth
                       className="mt-1"
                       name="status"
                       id="status"
@@ -152,22 +146,12 @@ export default function EditForm({
                       <MenuItem value={""}>
                         <em>None</em>
                       </MenuItem>
-                      {[
-                        "all",
-                        "applied",
-                        "interview",
-                        "offer",
-                        "rejected",
-                        "screening",
-                        "assessment",
-                      ]
-                        .slice(1)
-                        .map((option) => (
-                          <MenuItem value={option}>
-                            {option.slice(0, 1).toUpperCase() +
-                              option.substring(1)}
-                          </MenuItem>
-                        ))}
+                      {statusValues.slice(1).map((option) => (
+                        <MenuItem value={option}>
+                          {option.slice(0, 1).toUpperCase() +
+                            option.substring(1)}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 </div>

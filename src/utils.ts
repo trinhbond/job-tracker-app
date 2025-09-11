@@ -29,3 +29,13 @@ export const notify = (
     });
   }
 };
+
+export const statusValues = [
+  "all",
+  "applied",
+  "interview",
+  "offer",
+  "rejected",
+  "screening",
+  "assessment",
+];

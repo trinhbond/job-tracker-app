@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { AppForm } from "../types/form-types";
-import useTheme from "../hooks/useTheme";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/AuthContext";
 import Loading from "../components/Loading";
@@ -12,16 +11,18 @@ import {
   EditForm,
 } from "../components/forms/Application";
 import {
+  Box,
+  Button,
   capitalize,
   FormControl,
   MenuItem,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
+import { statusValues } from "../utils";
 
 export default function Content() {
   const { user, loading } = useContext(AuthContext);
-  const { theme, isThemeDark } = useTheme();
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -38,22 +39,11 @@ export default function Content() {
     location: "",
     status: "",
   });
-
-  const statusOptions = [
-    "all",
-    "applied",
-    "interview",
-    "offer",
-    "rejected",
-    "screening",
-    "assessment",
-  ];
+  const toggleModal = () => setShowModal((showModal) => !showModal);
 
   const filteredData =
     statusIndex > 0
-      ? data.filter((props) =>
-          props.status.includes(statusOptions[statusIndex])
-        )
+      ? data.filter((props) => props.status.includes(statusValues[statusIndex]))
       : data;
 
   useEffect(() => {
@@ -84,14 +74,11 @@ export default function Content() {
   if (isLoadingData) return null;
 
   return (
-    <div className="px-6 py-8 relative">
-      <div className="flex items-center space-x-4">
-        <button
-          onClick={() => setShowModal((showModal) => !showModal)}
-          className="font-medium text-sm bg-black hover:bg-[#333] text-white rounded-full px-4 py-2"
-        >
+    <Box position="relative" paddingX={3} paddingY={4}>
+      <Box display="flex" alignItems="center" gap={2}>
+        <Button variant="contained" onClick={toggleModal}>
           Create
-        </button>
+        </Button>
         <div className="h-9 border-l"></div>
         <FormControl
           sx={{
@@ -99,22 +86,12 @@ export default function Content() {
           }}
         >
           <Select
-            value={statusOptions[statusIndex]}
+            value={statusValues[statusIndex]}
             onChange={(e: SelectChangeEvent) => {
-              setStatusIndex(statusOptions.indexOf(e.target.value));
-            }}
-            MenuProps={{
-              sx: {
-                ".MuiPaper-root": {
-                  background: "#fff",
-                },
-                ul: {
-                  color: "#000",
-                },
-              },
+              setStatusIndex(statusValues.indexOf(e.target.value));
             }}
           >
-            {statusOptions.map((option, index) => (
+            {statusValues.map((option, index) => (
               <MenuItem
                 value={option}
                 key={index}
@@ -125,13 +102,12 @@ export default function Content() {
             ))}
           </Select>
         </FormControl>
-      </div>
+      </Box>
       <CreateForm isModalOpen={showModal} setIsModalOpen={setShowModal} />
-      <div className="mt-8">
+      <Box mt={4}>
         {statusIndex > 0 &&
-        data.filter((props) =>
-          props.status.includes(statusOptions[statusIndex])
-        ).length == 0 ? (
+        data.filter((props) => props.status.includes(statusValues[statusIndex]))
+          .length == 0 ? (
           <>No results</>
         ) : (
           <>
@@ -150,7 +126,7 @@ export default function Content() {
             />
           </>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

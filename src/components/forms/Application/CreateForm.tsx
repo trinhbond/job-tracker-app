@@ -5,7 +5,7 @@ import { db } from "../../../config/firebase";
 import { AppForm } from "../../../types/form-types";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import { notify } from "../../../utils";
+import { notify, statusValues } from "../../../utils";
 import { Controller, useForm } from "react-hook-form";
 import { useTheme } from "../../../hooks";
 
@@ -133,14 +133,8 @@ export default function CreateForm({
               control={control}
               name={"status"}
               render={() => (
-                <FormControl
-                  sx={{
-                    minWidth: 130,
-                    display: "block",
-                  }}
-                >
+                <FormControl fullWidth>
                   <Select
-                    fullWidth
                     className="mt-1"
                     {...register("status")}
                     displayEmpty
@@ -149,22 +143,11 @@ export default function CreateForm({
                     <MenuItem value="">
                       <em>None</em>
                     </MenuItem>
-                    {[
-                      "all",
-                      "applied",
-                      "interview",
-                      "offer",
-                      "rejected",
-                      "screening",
-                      "assessment",
-                    ]
-                      .slice(1)
-                      .map((option) => (
-                        <MenuItem value={option}>
-                          {option.slice(0, 1).toUpperCase() +
-                            option.substring(1)}
-                        </MenuItem>
-                      ))}
+                    {statusValues.slice(1).map((option) => (
+                      <MenuItem value={option}>
+                        {option.slice(0, 1).toUpperCase() + option.substring(1)}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               )}
