@@ -66,9 +66,6 @@ export default function LoginForm({
             render={() => (
               <Input
                 error={!!errors.email}
-                sx={{
-                  margin: "0 !important",
-                }}
                 placeholder="Email"
                 {...register("email", {
                   required: {
@@ -101,9 +98,6 @@ export default function LoginForm({
             render={() => (
               <Input
                 error={!!errors.password}
-                sx={{
-                  margin: "0 !important",
-                }}
                 type="password"
                 placeholder="Password (6 or more characters)"
                 {...register("password", {

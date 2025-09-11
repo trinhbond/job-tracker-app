@@ -46,14 +46,13 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
           })
         )}
       >
-        <Box display="flex" flexDirection="column" gap={0.5}>
+        <Box display="flex" flexDirection="column">
           <Box component="label">Name</Box>
           <Controller
             control={control}
             name={"name"}
             render={() => (
               <Input
-                fullWidth
                 error={!!errors.name}
                 {...register("name", {
                   pattern: {
