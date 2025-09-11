@@ -1,8 +1,8 @@
 import { styled } from "@mui/material/styles";
-import { TextareaHTMLAttributes } from "react";
+import React, { TextareaHTMLAttributes } from "react";
 
 const BasicTextArea = styled("textarea")({
-  border: "1px solid #e5e7eb",
+  border: "1px solid #c6c6c6",
   borderRadius: 6,
   minHeight: "150px",
   padding: "8px 16px",
