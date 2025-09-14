@@ -38,8 +38,8 @@ export default function DataTable({
               <th className="text-start font-medium py-2 w-1/4">NOTES</th>
               <th className="w-[30px]"></th>
             </tr>
-            {data.map((props) => (
-              <tr className="border-t border-[#c6c6c6]">
+            {data.map((props, index) => (
+              <tr className="border-t border-[#c6c6c6]" key={index}>
                 <td className="py-2 pr-2 align-top">
                   <div className="text-black font-medium">{props.title}</div>
                 </td>
@@ -89,8 +89,8 @@ export default function DataTable({
       ) : (
         <table className="w-full table-fixed overflow-x-scroll border-b border-[#c6c6c6] text-[13px]">
           <tbody>
-            {data.map((props) => (
-              <tr className="border-t border-[#c6c6c6]">
+            {data.map((props, index) => (
+              <tr className="border-t border-[#c6c6c6]" key={index}>
                 <td className="py-2 pr-2 align-top">
                   <div className="text-gray-payne">{props.title}</div>
                 </td>

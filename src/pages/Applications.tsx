@@ -48,9 +48,9 @@ export default function Content() {
 
   useEffect(() => {
     const fetchApplications = async () => {
-      const q = query(
-        collection(db, "applications", "user/", user?.uid as string)
-      );
+      if (!user) return null;
+
+      const q = query(collection(db, "applications", "user/", user.uid));
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const docsData: any = [];
         setIsLoadingData(true);

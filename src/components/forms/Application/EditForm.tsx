@@ -24,7 +24,7 @@ export default function EditForm({
   prevData,
   setPrevData,
   setShowSelectedData,
-  showSelectedData,
+  showSelectedData = false,
 }: {
   data: AppForm[];
   prevData: AppForm;
@@ -68,8 +68,12 @@ export default function EditForm({
   };
   return (
     <>
-      {data.map((props) => (
-        <Modal open={showSelectedData[props.id]} onClose={handleToggle}>
+      {data.map((props, index) => (
+        <Modal
+          open={showSelectedData[props.id] || false}
+          onClose={handleToggle}
+          key={index}
+        >
           <ModalContentWrapper
             width={{ xs: "100%", sm: 384, md: 384, lg: 384 }}
           >
@@ -155,7 +159,7 @@ export default function EditForm({
                     <em>None</em>
                   </MenuItem>
                   {statusValues.slice(1).map((option) => (
-                    <MenuItem value={option}>
+                    <MenuItem value={option} key={option}>
                       {option.slice(0, 1).toUpperCase() + option.substring(1)}
                     </MenuItem>
                   ))}

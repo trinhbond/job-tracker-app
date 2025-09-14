@@ -165,7 +165,7 @@ export default function CreateForm({
                         <em>None</em>
                       </MenuItem>
                       {statusValues.slice(1).map((option) => (
-                        <MenuItem value={option}>
+                        <MenuItem value={option} key={option}>
                           {option.slice(0, 1).toUpperCase() +
                             option.substring(1)}
                         </MenuItem>

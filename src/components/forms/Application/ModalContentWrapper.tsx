@@ -17,11 +17,11 @@ const ModalContentWrapperStyled = styled(Box)({
   zIndex: 40,
 });
 
-export const ModalContentWrapper: React.FC<ModalContentWrapperProps> = ({
-  children,
-  ...props
-}) => {
-  return (
-    <ModalContentWrapperStyled {...props}>{children}</ModalContentWrapperStyled>
-  );
-};
+export const ModalContentWrapper = React.forwardRef<
+  HTMLDivElement,
+  ModalContentWrapperProps
+>(({ children, ...props }, ref) => (
+  <ModalContentWrapperStyled {...props} ref={ref}>
+    {children}
+  </ModalContentWrapperStyled>
+));
