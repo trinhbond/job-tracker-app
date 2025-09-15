@@ -10,7 +10,6 @@ const ModalContentWrapperStyled = styled(Box)({
   background: "#fff",
   height: "100%",
   overflowY: "scroll",
-  padding: 16,
   position: "fixed",
   right: 0,
   top: 0,

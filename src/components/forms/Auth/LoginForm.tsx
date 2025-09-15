@@ -4,6 +4,7 @@ import { auth } from "../../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { Box, Button, FormControl, Input, Typography } from "@mui/material";
+import { FormContainer } from "../../FormContainer";
 
 export default function LoginForm({
   handleToggle,
@@ -47,14 +48,7 @@ export default function LoginForm({
   });
 
   return (
-    <Box
-      className="login-form"
-      component="form"
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      onSubmit={handleLogin}
-    >
+    <FormContainer className="login-form" onSubmit={handleLogin}>
       <Box display="flex" flexDirection="column" gap={0.5}>
         <FormControl>
           <Box component="label" mb={0.5}>
@@ -137,6 +131,6 @@ export default function LoginForm({
           Sign up
         </Button>
       </Box>
-    </Box>
+    </FormContainer>
   );
 }

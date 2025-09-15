@@ -26,7 +26,8 @@ form.create-form .MuiFormControl-root div.Mui-error input,
 form.edit-form .MuiFormControl-root div.Mui-error input,
 form.signup-form .MuiFormControl-root div.Mui-error input,
 form.login-form .MuiFormControl-root div.Mui-error input,
-form.edit-form div.Mui-error input {
+form.edit-form div.Mui-error input,
+form.edit-user-form div.Mui-error input {
   border: 1px solid #dc2626;
 }
 

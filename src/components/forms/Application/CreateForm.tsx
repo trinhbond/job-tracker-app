@@ -16,7 +16,8 @@ import { AuthContext } from "../../../context/AuthContext";
 import { notify, statusValues } from "../../../utils";
 import { Controller, useForm } from "react-hook-form";
 import { TextArea } from "../../TextArea";
-import { ModalContentWrapper } from "./ModalContentWrapper";
+import { ModalContentWrapper } from "../../ModalContentWrapper";
+import { FormContainer } from "../../FormContainer";
 
 export default function CreateForm({
   isModalOpen,
@@ -36,14 +37,13 @@ export default function CreateForm({
   const toastId = useRef("toast");
 
   const handleAddApplication = handleSubmit(async (data) => {
+    if (!user) return null;
+
     try {
-      await addDoc(
-        collection(db, "applications", "user/", user?.uid as string),
-        {
-          ...data,
-          date: new Date(),
-        }
-      );
+      await addDoc(collection(db, "applications", "user/", user.uid), {
+        ...data,
+        date: new Date(),
+      });
       notify("Application added", "success", toastId);
       setIsModalOpen((isModalOpen) => !isModalOpen);
       reset();
@@ -59,19 +59,14 @@ export default function CreateForm({
 
   return (
     <Modal open={isModalOpen} onClose={toggleModal}>
-      <ModalContentWrapper width={{ xs: "100%", sm: 384, md: 384, lg: 384 }}>
-        <Box component="div" fontSize={20} fontWeight={500}>
+      <ModalContentWrapper
+        p={2}
+        width={{ xs: "100%", sm: 384, md: 384, lg: 384 }}
+      >
+        <Box component="div" fontSize={20} fontWeight={500} mb={3}>
           New application
         </Box>
-        <Box
-          className="create-form"
-          component="form"
-          display="flex"
-          flexDirection="column"
-          gap={2}
-          mt={3}
-          onSubmit={handleAddApplication}
-        >
+        <FormContainer className="create-form" onSubmit={handleAddApplication}>
           <Box display="flex" flexDirection="column">
             <FormControl>
               <Box component="label">
@@ -159,7 +154,7 @@ export default function CreateForm({
                     <Select
                       {...register("status")}
                       displayEmpty
-                      defaultValue={""}
+                      defaultValue=""
                     >
                       <MenuItem value="">
                         <em>None</em>
@@ -232,7 +227,7 @@ export default function CreateForm({
               </Button>
             </Box>
           </Box>
-        </Box>
+        </FormContainer>
       </ModalContentWrapper>
     </Modal>
   );

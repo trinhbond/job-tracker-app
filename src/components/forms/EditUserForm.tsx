@@ -3,6 +3,8 @@ import { updateProfile } from "firebase/auth";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
+import { ModalContentWrapper } from "../ModalContentWrapper";
+import { FormContainer } from "../FormContainer";
 
 export default function EditUserForm({ onClick }: { onClick: () => void }) {
   const { user } = useContext(AuthContext);
@@ -20,32 +22,21 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
 
   if (!user) return null;
 
+  const handleUserChange = handleSubmit(async (data) => {
+    updateProfile(user, { displayName: data.name }).then(() => {
+      window.location.reload();
+    });
+  });
+
   return (
-    <Box
-      padding={2}
-      position="fixed"
-      zIndex={40}
-      top={0}
-      right={0}
-      height="100%"
+    <ModalContentWrapper
+      p={2}
       width={{ xs: "100%", sm: "384px", md: "384px", lg: "384px" }}
-      sx={{ background: "#fff" }}
     >
-      <Box fontSize={20} fontWeight={500}>
+      <Box fontSize={20} fontWeight={500} mb={3}>
         Edit details
       </Box>
-      <Box
-        component="form"
-        display="flex"
-        flexDirection="column"
-        gap={2}
-        marginTop={3}
-        onSubmit={handleSubmit(async (data) =>
-          updateProfile(user, { displayName: data.name }).then(() => {
-            window.location.reload();
-          })
-        )}
-      >
+      <FormContainer className="edit-user-form" onSubmit={handleUserChange}>
         <Box display="flex" flexDirection="column">
           <Box component="label">Name</Box>
           <Controller
@@ -92,7 +83,7 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
             </Button>
           </Box>
         </Box>
-      </Box>
-    </Box>
+      </FormContainer>
+    </ModalContentWrapper>
   );
 }

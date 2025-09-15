@@ -17,7 +17,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { TextArea } from "../../TextArea";
-import { ModalContentWrapper } from "./ModalContentWrapper";
+import { ModalContentWrapper } from "../../ModalContentWrapper";
+import { FormContainer } from "../../FormContainer";
 
 export default function EditForm({
   data,
@@ -43,11 +44,13 @@ export default function EditForm({
     event.preventDefault();
     setPrevData(prevData);
 
+    if (!user) return null;
+
     try {
       if (!prevData.company.trim() || !prevData.title.trim()) {
         return;
       }
-      updateDoc(doc(db, "applications", "user/", user?.uid as string, id), {
+      updateDoc(doc(db, "applications", "user/", user.uid, id), {
         ...prevData,
       });
       notify("Application updated", "success", toastId);
@@ -58,7 +61,8 @@ export default function EditForm({
   };
 
   const handleDelete = (id: string) => {
-    deleteDoc(doc(db, "applications", "user/", user?.uid as string, id));
+    if (!user) return;
+    deleteDoc(doc(db, "applications", "user/", user.uid, id));
     notify("Application deleted", "success", toastId);
   };
 
@@ -66,6 +70,7 @@ export default function EditForm({
     setShowSelectedData({});
     reset();
   };
+
   return (
     <>
       {data.map((props, index) => (
@@ -75,18 +80,14 @@ export default function EditForm({
           key={index}
         >
           <ModalContentWrapper
+            p={2}
             width={{ xs: "100%", sm: 384, md: 384, lg: 384 }}
           >
-            <Box component="div" fontSize={20} fontWeight={500}>
+            <Box component="div" fontSize={20} fontWeight={500} mb={3}>
               Edit application
             </Box>
-            <Box
+            <FormContainer
               className="edit-form"
-              component="form"
-              display="flex"
-              flexDirection="column"
-              gap={2}
-              mt={3}
               onSubmit={(event) => handleEditApplication(props.id, event)}
             >
               <Box display="flex" flexDirection="column">
@@ -153,9 +154,9 @@ export default function EditForm({
                     setPrevData({ ...prevData, [name]: value });
                   }}
                   displayEmpty
-                  defaultValue={""}
+                  defaultValue=""
                 >
-                  <MenuItem value={""}>
+                  <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
                   {statusValues.slice(1).map((option) => (
@@ -235,7 +236,7 @@ export default function EditForm({
                   </Box>
                 </Button>
               </Box>
-            </Box>
+            </FormContainer>
           </ModalContentWrapper>
         </Modal>
       ))}

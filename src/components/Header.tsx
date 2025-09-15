@@ -1,24 +1,19 @@
-import { useContext, useRef, CSSProperties } from "react";
+import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router-dom";
 import Toggle, { AntSwitch } from "./Toggle";
-import { Avatar, Backdrop, Box, Typography } from "@mui/material";
-import { useWindowDimensions, useMouse, useTheme } from "../hooks/index";
+import { Backdrop, Box, Typography } from "@mui/material";
+import { useWindowDimensions, useMouse } from "../hooks/index";
+import { Avatar } from "./Avatar";
 
 export default function Header() {
   const ref = useRef<HTMLDivElement>(null);
   const { user, signOutUser } = useContext(AuthContext);
   const { clicked, handleClick } = useMouse(ref);
-  const { theme, handleThemeChange } = useTheme();
   const { width } = useWindowDimensions();
-  const placeholder = user?.displayName?.[0].toUpperCase();
-  const avatarCSS = {
-    bgcolor: "#c62828",
-    cursor: "pointer",
-    fontSize: 16,
-    width: 32,
-    height: 32,
-  } as CSSProperties;
+  const avatarText = user?.displayName?.[0].toUpperCase();
+
+  if (!user) return null;
 
   return (
     <Box position="sticky" top={0} zIndex={10}>
@@ -27,7 +22,6 @@ export default function Header() {
         height={"64px"}
         paddingX={3}
         paddingY={2}
-        width="100%"
         sx={{ background: "#f2f2f3" }}
       >
         <Box display="flex" alignItems="center" justifyContent="space-between">
@@ -46,12 +40,8 @@ export default function Header() {
             Ontrack
           </Typography>
           <Box position="relative" ref={ref}>
-            <Avatar
-              onClick={handleClick}
-              alt={user?.displayName as string}
-              sx={avatarCSS}
-            >
-              {placeholder}
+            <Avatar onClick={handleClick} alt={`${user.displayName}`}>
+              {avatarText}
             </Avatar>
             <Box>
               <Backdrop open={clicked} onClick={handleClick} />
@@ -66,14 +56,12 @@ export default function Header() {
                 display={clicked ? "block" : "none"}
                 className="divide-y-[1px] min-w-64"
               >
-                <div className="p-4">
-                  <div className="flex flex-row items-center space-x-3">
-                    <Avatar alt={user?.displayName as string} sx={avatarCSS}>
-                      {placeholder}
-                    </Avatar>
-                    <span className="block">{user?.displayName}</span>
-                  </div>
-                </div>
+                <Box padding={2}>
+                  <Box display="flex" alignItems="center" gap={1.5}>
+                    <Avatar alt={`${user.displayName}`}>{avatarText}</Avatar>
+                    <span className="block">{user.displayName}</span>
+                  </Box>
+                </Box>
                 {width < 600 && (
                   <Box>
                     <NavLink
@@ -91,7 +79,14 @@ export default function Header() {
                   </Box>
                 )}
                 <Box>
-                  <div className="my-1 py-2 px-4 flex flex-row justify-between items-center">
+                  <Box
+                    my={0.5}
+                    py={1}
+                    px={2}
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
                     <span>Dark mode</span>
                     <Toggle
                       sx={{ m: 0 }}
@@ -102,7 +97,7 @@ export default function Header() {
                       // checked={theme === "dark"}
                       control={<AntSwitch />}
                     />
-                  </div>
+                  </Box>
                 </Box>
                 <Box>
                   <button
