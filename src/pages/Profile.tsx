@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Box, Button, Modal } from "@mui/material";
 import { useForm } from "react-hook-form";
-import EditUserForm from "../components/forms/EditUserForm";
+import EditUserForm from "../components/forms/auth/EditUserForm";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);

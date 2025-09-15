@@ -9,7 +9,7 @@ import {
   DataTable,
   CreateForm,
   EditForm,
-} from "../components/forms/Application";
+} from "../components/forms/application";
 import {
   Box,
   Button,
