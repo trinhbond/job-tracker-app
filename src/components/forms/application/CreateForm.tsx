@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   FormControl,
   Input,
   MenuItem,
@@ -18,6 +17,7 @@ import { Controller, useForm } from "react-hook-form";
 import { TextArea } from "../../TextArea";
 import { ModalContentWrapper } from "../../ModalContentWrapper";
 import { FormContainer } from "../../FormContainer";
+import { TextButton, BasicButton } from "../../buttons";
 
 export default function CreateForm({
   isModalOpen,
@@ -212,19 +212,9 @@ export default function CreateForm({
             </FormControl>
           </Box>
           <Box>
-            <Button variant="contained" type="submit">
-              Confirm
-            </Button>
+            <BasicButton type="submit">Confirm</BasicButton>
             <Box display="inline-block" ml={1} paddingX={1} paddingY={2}>
-              <Button
-                variant="text"
-                sx={{
-                  color: "#000",
-                }}
-                onClick={toggleModal}
-              >
-                Cancel
-              </Button>
+              <TextButton onClick={toggleModal}>Cancel</TextButton>
             </Box>
           </Box>
         </FormContainer>

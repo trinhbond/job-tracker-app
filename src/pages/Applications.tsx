@@ -12,14 +12,13 @@ import {
 } from "../components/forms/application";
 import {
   Box,
-  Button,
   capitalize,
-  FormControl,
   MenuItem,
   Select,
   SelectChangeEvent,
 } from "@mui/material";
 import { statusValues } from "../utils";
+import { BasicButton } from "../components/buttons";
 
 export default function Content() {
   const { user, loading } = useContext(AuthContext);
@@ -39,6 +38,7 @@ export default function Content() {
     location: "",
     status: "",
   });
+
   const toggleModal = () => setShowModal((showModal) => !showModal);
 
   const filteredData =
@@ -76,32 +76,25 @@ export default function Content() {
   return (
     <Box position="relative" paddingX={3} paddingY={4}>
       <Box display="flex" alignItems="center" gap={2}>
-        <Button variant="contained" onClick={toggleModal}>
-          Create
-        </Button>
+        <BasicButton onClick={toggleModal}>Create</BasicButton>
         <div className="h-9 border-l"></div>
-        <FormControl
-          sx={{
-            minWidth: 140,
+        <Select
+          sx={{ width: 140 }}
+          value={statusValues[statusIndex]}
+          onChange={(e: SelectChangeEvent) => {
+            setStatusIndex(statusValues.indexOf(e.target.value));
           }}
         >
-          <Select
-            value={statusValues[statusIndex]}
-            onChange={(e: SelectChangeEvent) => {
-              setStatusIndex(statusValues.indexOf(e.target.value));
-            }}
-          >
-            {statusValues.map((option, index) => (
-              <MenuItem
-                value={option}
-                key={index}
-                selected={index === statusIndex}
-              >
-                {capitalize(option)}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+          {statusValues.map((option, index) => (
+            <MenuItem
+              value={option}
+              key={index}
+              selected={index === statusIndex}
+            >
+              {capitalize(option)}
+            </MenuItem>
+          ))}
+        </Select>
       </Box>
       <CreateForm isModalOpen={showModal} setIsModalOpen={setShowModal} />
       <Box mt={4}>

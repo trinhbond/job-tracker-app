@@ -1,25 +1,14 @@
-.MuiInputBase-root.MuiOutlinedInput-root {
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  border-radius: 0.25rem !important;
-}
-
 .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
 .MuiOutlinedInput-notchedOutline {
   border: none !important;
 }
 
 .MuiSelect-select.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input {
-  padding: 8px 16px !important;
-  font-size: 14 !important;
-  font-weight: 400 !important;
   border: none !important;
-  border-radius: 0.25rem !important;
 }
 
 li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.MuiMenuItem-root.MuiMenuItem-gutters {
   font-size: 14px !important;
-  font-weight: 400 !important;
 }
 
 form.create-form .MuiFormControl-root div.Mui-error input,
@@ -31,15 +20,10 @@ form.edit-user-form div.Mui-error input {
   border: 1px solid #dc2626;
 }
 
-form.signup-form .MuiFormControl-root div input,
-form.login-form .MuiFormControl-root div input {
-  background: #fff;
-}
-
-label.MuiBox-root.css-0 {
-  margin-bottom: 4px;
-}
-
 label + .MuiInputBase-formControl {
   margin-top: 0 !important;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root {
+  font-size: 14px;
 }

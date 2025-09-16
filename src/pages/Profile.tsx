@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Box, Button, Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import { useForm } from "react-hook-form";
 import EditUserForm from "../components/forms/EditUserForm";
+import { BasicButton } from "../components/buttons";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
@@ -18,6 +19,8 @@ export default function Profile() {
     setValue("name", user.displayName);
     setIsOpen((isOpen) => !isOpen);
   };
+
+  const closeModal = () => setIsOpen((isOpen) => !isOpen);
 
   if (!user) return null;
 
@@ -42,11 +45,9 @@ export default function Profile() {
             <Box color="#95959D">{user.emailVerified ? "Yes" : "No"}</Box>
           </Box>
         </Box>
-        <Button variant="contained" onClick={handleUserChange}>
-          Edit
-        </Button>
+        <BasicButton onClick={handleUserChange}>Edit</BasicButton>
       </Box>
-      <Modal open={isOpen} onClose={() => setIsOpen((isOpen) => !isOpen)}>
+      <Modal open={isOpen} onClose={closeModal}>
         <Box>
           <EditUserForm onClick={handleUserChange} />
         </Box>

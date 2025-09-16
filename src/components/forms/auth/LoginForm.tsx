@@ -3,8 +3,9 @@ import { Controller, useForm } from "react-hook-form";
 import { auth } from "../../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { Box, Button, FormControl, Input, Typography } from "@mui/material";
+import { Box, FormControl, Input, Typography } from "@mui/material";
 import { FormContainer } from "../../FormContainer";
+import { BasicButton, TextButton } from "../../buttons";
 
 export default function LoginForm({
   handleToggle,
@@ -114,22 +115,14 @@ export default function LoginForm({
           )}
         </FormControl>
       </Box>
-      <Button
-        type="submit"
-        variant="contained"
-        sx={{ background: "#000", minWidth: "fit-content", width: "100px" }}
-      >
+      <BasicButton type="submit" sx={{ alignSelf: "baseline" }}>
         Continue
-      </Button>
+      </BasicButton>
       <Box>
         Don't have an account?{" "}
-        <Button
-          variant="text"
-          sx={{ color: "#0000EE", textDecoration: "underline" }}
-          onClick={handleToggle}
-        >
+        <TextButton sx={{ color: "#0000EE" }} onClick={handleToggle}>
           Sign up
-        </Button>
+        </TextButton>
       </Box>
     </FormContainer>
   );

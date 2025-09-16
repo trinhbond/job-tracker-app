@@ -1,10 +1,11 @@
-import { Typography, Input, Box, Button } from "@mui/material";
+import { Typography, Input, Box } from "@mui/material";
 import { updateProfile } from "firebase/auth";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AuthContext } from "../../context/AuthContext";
 import { ModalContentWrapper } from "../ModalContentWrapper";
 import { FormContainer } from "../FormContainer";
+import { BasicButton, TextButton } from "../buttons";
 
 export default function EditUserForm({ onClick }: { onClick: () => void }) {
   const { user } = useContext(AuthContext);
@@ -68,19 +69,9 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
           )}
         </Box>
         <Box>
-          <Button variant="contained" type="submit">
-            Confirm
-          </Button>
+          <BasicButton type="submit">Confirm</BasicButton>
           <Box display="inline-block" ml={1} paddingX={1} paddingY={2}>
-            <Button
-              variant="text"
-              sx={{
-                color: "#000",
-              }}
-              onClick={onClick}
-            >
-              Cancel
-            </Button>
+            <TextButton onClick={onClick}>Cancel</TextButton>
           </Box>
         </Box>
       </FormContainer>

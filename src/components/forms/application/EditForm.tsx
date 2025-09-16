@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Input,
   MenuItem,
   Modal,
@@ -19,6 +18,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { TextArea } from "../../TextArea";
 import { ModalContentWrapper } from "../../ModalContentWrapper";
 import { FormContainer } from "../../FormContainer";
+import { TextButton, BasicButton } from "../../buttons";
 
 export default function EditForm({
   data,
@@ -211,30 +211,17 @@ export default function EditForm({
                 gap={1}
               >
                 <Box>
-                  <Button type="submit" variant="contained">
-                    Confirm
-                  </Button>
+                  <BasicButton type="submit">Confirm</BasicButton>
                   <Box display="inline-block" ml={1} paddingX={1} paddingY={2}>
-                    <Button
-                      variant="text"
-                      sx={{
-                        color: "#000",
-                      }}
-                      onClick={handleToggle}
-                    >
-                      Cancel
-                    </Button>
+                    <TextButton onClick={handleToggle}>Cancel</TextButton>
                   </Box>
                 </Box>
-                <Button
-                  variant="contained"
+                <BasicButton
+                  startIcon={<DeleteIcon fontSize="small" />}
                   onClick={() => handleDelete(prevData.id)}
                 >
-                  <DeleteIcon fontSize="small" />
-                  <Box component="span" pl={0.5}>
-                    Delete
-                  </Box>
-                </Button>
+                  Delete
+                </BasicButton>
               </Box>
             </FormContainer>
           </ModalContentWrapper>

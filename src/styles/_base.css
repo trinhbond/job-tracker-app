@@ -17,16 +17,6 @@ body {
   padding: 0;
 }
 
-a,
-button {
-  cursor: pointer;
-}
-
-div.MuiInputBase-root.MuiOutlinedInput-root {
-  background: #fff;
-  border: 1px solid #c6c6c6;
-}
-
 p[role="alert"] {
   color: #dc2626;
   font-size: 14px;
@@ -36,4 +26,32 @@ p[role="alert"] {
 h1 {
   font-weight: 600;
   font-size: 26px;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+button,
+button.MuiButtonBase-root {
+  box-shadow: none;
+  line-height: normal;
+  min-width: auto;
+  text-transform: none;
+}
+
+input,
+.MuiInputBase-input.MuiInput-input,
+.MuiSelect-select.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input {
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #c6c6c6 !important;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 16px;
+}
+
+label {
+  margin-bottom: 4px;
 }
