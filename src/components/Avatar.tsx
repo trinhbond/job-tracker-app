@@ -8,6 +8,6 @@ const avatarCSS = {
   height: 32,
 } as React.CSSProperties;
 
-export const Avatar = (props: AvatarProps) => {
-  return <UserAvatar sx={{ ...avatarCSS }} {...props} />;
-};
+export const Avatar: React.FC<AvatarProps> = (props) => (
+  <UserAvatar sx={{ ...avatarCSS }} {...props} />
+);

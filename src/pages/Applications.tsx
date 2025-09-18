@@ -4,7 +4,7 @@ import { db } from "../config/firebase";
 import { AppForm } from "../types/form-types";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/AuthContext";
-import Loading from "../components/Loading";
+import { Loading } from "../components/Loading";
 import {
   DataTable,
   CreateForm,
@@ -13,6 +13,7 @@ import {
 import {
   Box,
   capitalize,
+  Divider,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -77,7 +78,7 @@ export default function Content() {
     <Box position="relative" paddingX={3} paddingY={4}>
       <Box display="flex" alignItems="center" gap={2}>
         <BasicButton onClick={toggleModal}>Create</BasicButton>
-        <div className="h-9 border-l"></div>
+        <Divider orientation="vertical" flexItem />
         <Select
           sx={{ width: 140 }}
           value={statusValues[statusIndex]}

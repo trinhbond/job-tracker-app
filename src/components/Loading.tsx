@@ -1,15 +1,14 @@
 import { CircularProgress, CircularProgressProps } from "@mui/material";
 
 interface LoadingProps extends CircularProgressProps {
-  theme: string | null;
+  theme?: string | null;
 }
 
-export default function Loading({ theme }: LoadingProps) {
-  return (
-    <CircularProgress
-      sx={{
-        color: theme === "dark" ? "#fff" : "#000",
-      }}
-    />
-  );
-}
+export const Loading: React.FC<LoadingProps> = ({ theme, ...props }) => (
+  <CircularProgress
+    sx={{
+      color: theme === "dark" ? "#fff" : "#000",
+    }}
+    {...props}
+  />
+);

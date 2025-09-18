@@ -2,10 +2,10 @@ import { Typography, Input, Box } from "@mui/material";
 import { updateProfile } from "firebase/auth";
 import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { AuthContext } from "../../context/AuthContext";
-import { ModalContentWrapper } from "../ModalContentWrapper";
-import { FormContainer } from "../FormContainer";
-import { BasicButton, TextButton } from "../buttons";
+import { AuthContext } from "../../../context/AuthContext";
+import { ModalContentWrapper } from "../../ModalContentWrapper";
+import { FormContainer } from "../../FormContainer";
+import { BasicButton, TextButton } from "../../buttons";
 
 export default function EditUserForm({ onClick }: { onClick: () => void }) {
   const { user } = useContext(AuthContext);

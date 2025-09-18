@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router-dom";
-import Toggle, { AntSwitch } from "./Toggle";
+import { Toggle, AntSwitch } from "./Toggle";
 import { Backdrop, Box, Typography } from "@mui/material";
 import { useWindowDimensions, useMouse } from "../hooks/index";
 import { Avatar } from "./Avatar";
@@ -52,14 +52,15 @@ export default function Header() {
                 top={0}
                 zIndex={40}
                 height="100%"
+                minWidth="256px"
                 width="auto"
                 display={clicked ? "block" : "none"}
-                className="divide-y-[1px] min-w-64"
+                className="divide-y-[1px]"
               >
                 <Box padding={2}>
                   <Box display="flex" alignItems="center" gap={1.5}>
                     <Avatar alt={`${user.displayName}`}>{avatarText}</Avatar>
-                    <span className="block">{user.displayName}</span>
+                    <Typography component="span">{user.displayName}</Typography>
                   </Box>
                 </Box>
                 {width < 600 && (
@@ -87,7 +88,7 @@ export default function Header() {
                     justifyContent="space-between"
                     alignItems="center"
                   >
-                    <span>Dark mode</span>
+                    Dark mode
                     <Toggle
                       sx={{ m: 0 }}
                       label={false}

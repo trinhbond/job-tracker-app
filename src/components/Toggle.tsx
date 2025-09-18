@@ -54,10 +54,8 @@ export const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function Toggle(props: FormControlLabelProps) {
-  return (
-    <FormGroup>
-      <FormControlLabel {...props} />
-    </FormGroup>
-  );
-}
+export const Toggle: React.FC<FormControlLabelProps> = (props) => (
+  <FormGroup>
+    <FormControlLabel {...props} />
+  </FormGroup>
+);

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Box, Modal } from "@mui/material";
 import { useForm } from "react-hook-form";
-import EditUserForm from "../components/forms/EditUserForm";
+import EditUserForm from "../components/forms/auth/EditUserForm";
 import { BasicButton } from "../components/buttons";
 
 export default function Profile() {

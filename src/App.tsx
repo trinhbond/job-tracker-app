@@ -2,22 +2,27 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { lazy, Suspense, useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import { Home, Applications, Profile } from "./pages";
-import { CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
+import { Loading } from "./components/Loading";
 const Layout = lazy(() => import("./components/Layout"));
 
 export default function App() {
   const { user } = useContext(AuthContext);
 
   const FallbackComponent = () => (
-    <div className="place-content-center text-center fixed left-0 right-0 top-0 bottom-0">
-      <CircularProgress
-        sx={{
-          color: document.documentElement.classList.contains("dark")
-            ? "#fff"
-            : "#000",
-        }}
-      />
-    </div>
+    <Box
+      sx={{
+        bottom: 0,
+        left: 0,
+        position: "fixed",
+        placeContent: "center",
+        right: 0,
+        textAlign: "center",
+        top: 0,
+      }}
+    >
+      <Loading />
+    </Box>
   );
 
   return (

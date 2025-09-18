@@ -69,9 +69,7 @@ export default function CreateForm({
         <FormContainer className="create-form" onSubmit={handleAddApplication}>
           <Box display="flex" flexDirection="column">
             <FormControl>
-              <Box component="label">
-                Role <span className="text-red-600">*</span>
-              </Box>
+              <Box component="label">Role</Box>
               <Controller
                 control={control}
                 name={"title"}
@@ -101,9 +99,7 @@ export default function CreateForm({
           </Box>
           <Box display="flex" flexDirection="column">
             <FormControl>
-              <Box component="label">
-                Company <span className="text-red-600">*</span>
-              </Box>
+              <Box component="label">Company</Box>
               <Controller
                 control={control}
                 name={"company"}

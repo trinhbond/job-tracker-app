@@ -31,6 +31,7 @@ export const createMuiTheme = () => {
   const theme = createTheme({
     typography: {
       fontFamily: "Poppins, sans-serif",
+      body1: { fontSize: 14 },
     },
     palette: {
       error: {

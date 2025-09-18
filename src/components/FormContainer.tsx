@@ -1,10 +1,14 @@
 import Box, { BoxProps } from "@mui/material/Box";
+import React from "react";
 
 interface FormContainerProps extends BoxProps {
   children: React.ReactNode;
 }
 
-export const FormContainer = ({ children, ...props }: FormContainerProps) => {
+export const FormContainer: React.FC<FormContainerProps> = ({
+  children,
+  ...props
+}) => {
   return (
     <Box
       component="form"

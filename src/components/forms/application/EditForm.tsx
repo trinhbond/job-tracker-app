@@ -91,9 +91,7 @@ export default function EditForm({
               onSubmit={(event) => handleEditApplication(props.id, event)}
             >
               <Box display="flex" flexDirection="column">
-                <Box component="label">
-                  Role <span className="text-red-600">*</span>
-                </Box>
+                <Box component="label">Role</Box>
                 <Input
                   error={!prevData.title.trim()}
                   placeholder="Role"
@@ -111,10 +109,7 @@ export default function EditForm({
                 )}
               </Box>
               <Box display="flex" flexDirection="column">
-                <Box component="label">
-                  Company
-                  <span className="text-red-600">*</span>
-                </Box>
+                <Box component="label">Company</Box>
                 <Input
                   error={!prevData.company.trim()}
                   placeholder="Company"
