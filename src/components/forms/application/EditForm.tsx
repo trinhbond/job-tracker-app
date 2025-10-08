@@ -7,7 +7,7 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import { AppForm } from "../../../types/form-types";
+import { AppForm } from "../../../lib/form-types";
 import { useForm } from "react-hook-form";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";

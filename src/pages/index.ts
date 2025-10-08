@@ -1,5 +1,3 @@
-import Applications from "./Applications";
-import Home from "./Home";
-import Profile from "./Profile";
-
-export { Applications, Home, Profile };
+export { default as Applications } from "./Applications";
+export { default as Home } from "./Home";
+export { default as Profile } from "./Profile";

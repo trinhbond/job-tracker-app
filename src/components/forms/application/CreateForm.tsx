@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../config/firebase";
-import { AppForm } from "../../../types/form-types";
+import { AppForm } from "../../../lib/form-types";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { notify, statusValues } from "../../../utils";

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { AppForm } from "../types/form-types";
+import { AppForm } from "../lib/form-types";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/AuthContext";
 import { Loading } from "../components/Loading";
@@ -40,12 +40,17 @@ export default function Content() {
     status: "",
   });
 
-  const toggleModal = () => setShowModal((showModal) => !showModal);
+  let filteredData;
 
-  const filteredData =
-    statusIndex > 0
-      ? data.filter((props) => props.status.includes(statusValues[statusIndex]))
-      : data;
+  if (statusIndex > 0) {
+    filteredData = data.filter((props) =>
+      props.status.includes(statusValues[statusIndex])
+    );
+  } else {
+    filteredData = data;
+  }
+
+  const toggleModal = () => setShowModal((showModal) => !showModal);
 
   useEffect(() => {
     const fetchApplications = async () => {

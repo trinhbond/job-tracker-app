@@ -1,5 +1,3 @@
-import useMouse from "./useMouse";
-import useTheme from "./useTheme";
-import useWindowDimensions from "./useWindowDimensions";
-
-export { useTheme, useMouse, useWindowDimensions };
+export { default as useMouse } from "./useMouse";
+export { default as useTheme } from "./useTheme";
+export { default as useWindowDimensions } from "./useWindowDimensions";
