@@ -27,7 +27,7 @@ export default function Header() {
         <Box display="flex" alignItems="center" justifyContent="space-between">
           {width >= 600 && (
             <Box display="flex" gap={3}>
-              <NavLink to="applications">Applications</NavLink>
+              <NavLink to="/">Applications</NavLink>
               <NavLink to="profile">Profile</NavLink>
             </Box>
           )}
@@ -72,7 +72,7 @@ export default function Header() {
                       Profile
                     </NavLink>
                     <NavLink
-                      to="applications"
+                      to="/"
                       className="inline-block w-full mb-1 py-2 px-4 hover:bg-[#f5f5f5]"
                     >
                       Applications

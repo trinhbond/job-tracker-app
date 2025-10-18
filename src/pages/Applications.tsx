@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { AppForm } from "../lib/form-types";
-import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/AuthContext";
 import { Loading } from "../components/Loading";
 import {
@@ -22,7 +21,7 @@ import { statusValues } from "../utils";
 import { BasicButton } from "../components/buttons";
 
 export default function Content() {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(false);

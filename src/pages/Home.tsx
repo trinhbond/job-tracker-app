@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as motion from "motion/react-client";
 import { Box, Typography } from "@mui/material";
 import { LoginForm, SignupForm } from "../components/forms/auth";
+import { AuthContext } from "../context/AuthContext";
+import { Applications } from ".";
 
 type User = {
   name: string;
@@ -12,12 +14,15 @@ type User = {
 
 export default function Home() {
   const [toggle, setToggle] = useState<boolean>(false);
+  const { user } = useContext(AuthContext);
   const { reset } = useForm<User>();
 
   const handleToggle = () => {
     setToggle((toggle) => !toggle);
     reset();
   };
+
+  if (user) return <Applications />;
 
   return (
     <Box

@@ -53,7 +53,7 @@ export default function EditForm({
       updateDoc(doc(db, "applications", "user/", user.uid, id), {
         ...prevData,
       });
-      notify("Application updated", "success", toastId);
+      notify("Your application has been updated", "success", toastId);
       setShowSelectedData({});
     } catch (e) {
       console.error(e);
@@ -63,7 +63,7 @@ export default function EditForm({
   const handleDelete = (id: string) => {
     if (!user) return;
     deleteDoc(doc(db, "applications", "user/", user.uid, id));
-    notify("Application deleted", "success", toastId);
+    notify("Your application has been deleted", "success", toastId);
   };
 
   const handleToggle = () => {

@@ -1,7 +1,6 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Controller, useForm } from "react-hook-form";
 import { auth } from "../../../config/firebase";
-import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { Box, FormControl, Input, Typography } from "@mui/material";
 import { FormContainer } from "../../FormContainer";
@@ -12,7 +11,6 @@ export default function LoginForm({
 }: {
   handleToggle: () => void;
 }) {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -31,7 +29,7 @@ export default function LoginForm({
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password).then(
         () => {
-          navigate("/profile");
+          //toast notification
         }
       );
       reset();

@@ -1,7 +1,6 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Controller, useForm } from "react-hook-form";
 import { auth } from "../../../config/firebase";
-import { useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { Box, FormControl, Input, Typography } from "@mui/material";
 import { FormContainer } from "../../FormContainer";
@@ -12,7 +11,6 @@ export default function SignupForm({
 }: {
   handleToggle: () => void;
 }) {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -37,7 +35,7 @@ export default function SignupForm({
         if (auth.currentUser)
           updateProfile(auth.currentUser, { displayName: data.name }).then(
             () => {
-              navigate("/profile");
+              //toast notification
             }
           );
       });

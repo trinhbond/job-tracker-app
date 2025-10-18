@@ -44,7 +44,7 @@ export default function CreateForm({
         ...data,
         date: new Date(),
       });
-      notify("Application added", "success", toastId);
+      notify("Your application has been added", "success", toastId);
       setIsModalOpen((isModalOpen) => !isModalOpen);
       reset();
     } catch (e) {

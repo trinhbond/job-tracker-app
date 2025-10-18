@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Box, Modal } from "@mui/material";
 import { useForm } from "react-hook-form";
 import EditUserForm from "../components/forms/auth/EditUserForm";
 import { BasicButton } from "../components/buttons";
+import { Navigate } from "react-router-dom";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
@@ -22,7 +23,9 @@ export default function Profile() {
 
   const closeModal = () => setIsOpen((isOpen) => !isOpen);
 
-  if (!user) return null;
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <Box paddingX={3} paddingY={4}>

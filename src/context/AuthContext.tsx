@@ -5,9 +5,9 @@ import { createContext, useState, useEffect, ReactNode } from "react";
 
 export const AuthContext = createContext({
   user: {} as User | null,
-  setUser: (_user: User) => {},
+  setUser: (_user: User | null) => {},
   signOutUser: () => {},
-  loading: {} as boolean,
+  loading: true as boolean,
 });
 
 export const AuthProvider = ({ children }: { children?: ReactNode }) => {
@@ -17,22 +17,17 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        setLoading(false);
-      } else {
-        navigate("/");
-      }
+      setUser(user);
+      setLoading(false);
     });
 
     return unsubscribe;
-  }, [user, setUser, navigate]);
+  }, []);
 
   const signOutUser = () => {
     signOut(auth);
     setUser(null);
     navigate("/");
-    window.location.reload();
   };
 
   const value = {
@@ -42,5 +37,9 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
     loading,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {loading ? null : children}
+    </AuthContext.Provider>
+  );
 };
