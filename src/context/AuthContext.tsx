@@ -1,7 +1,6 @@
-import { onAuthStateChanged, signOut, User } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../config/firebase";
 import { createContext, useState, useEffect, ReactNode } from "react";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 export const AuthContext = createContext({
   user: {} as User | null,
@@ -13,7 +12,6 @@ export const AuthContext = createContext({
 export const AuthProvider = ({ children }: { children?: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -27,18 +25,10 @@ export const AuthProvider = ({ children }: { children?: ReactNode }) => {
   const signOutUser = () => {
     signOut(auth);
     setUser(null);
-    navigate("/");
-  };
-
-  const value = {
-    user,
-    setUser,
-    signOutUser,
-    loading,
   };
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ user, setUser, signOutUser, loading }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

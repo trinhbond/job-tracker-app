@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createMuiTheme } from "./styles/theme";
 import { Fallback } from "./components/Fallback";
+import { NotFound } from "./pages";
 
 const Layout = lazy(() => import("./components/Layout"));
 const Home = lazy(() => import("./pages/Home"));
@@ -22,7 +23,7 @@ export default function App() {
               <Route element={<Layout />}>
                 <Route path="/" index element={<Home />} />
                 <Route path="profile" element={<Profile />} />
-                <Route path="*" element={<>Not Found</>} />
+                <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
           </ThemeProvider>

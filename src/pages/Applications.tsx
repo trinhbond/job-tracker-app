@@ -3,7 +3,6 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { AppForm } from "../lib/form-types";
 import { AuthContext } from "../context/AuthContext";
-import { Loading } from "../components/Loading";
 import {
   DataTable,
   CreateForm,
@@ -19,6 +18,7 @@ import {
 } from "@mui/material";
 import { statusValues } from "../utils";
 import { BasicButton } from "../components/buttons";
+import { Fallback } from "../components/Fallback";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
@@ -76,7 +76,7 @@ export default function Content() {
     fetchApplications();
   }, [user]);
 
-  if (isLoadingData) return null;
+  if (isLoadingData) return <Fallback />;
 
   return (
     <Box position="relative" paddingX={3} paddingY={4}>

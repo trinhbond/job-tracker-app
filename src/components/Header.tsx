@@ -2,15 +2,14 @@ import { useContext, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router-dom";
 import { Toggle, AntSwitch } from "./Toggle";
-import { Backdrop, Box, Typography } from "@mui/material";
-import { useWindowDimensions, useMouse } from "../hooks/index";
+import { Backdrop, Box, Button, Typography } from "@mui/material";
+import { useMouse } from "../hooks/index";
 import { Avatar } from "./Avatar";
 
 export default function Header() {
   const ref = useRef<HTMLDivElement>(null);
   const { user, signOutUser } = useContext(AuthContext);
   const { clicked, handleClick } = useMouse(ref);
-  const { width } = useWindowDimensions();
   const avatarText = user?.displayName?.[0].toUpperCase();
 
   if (!user) return null;
@@ -25,20 +24,16 @@ export default function Header() {
         sx={{ background: "#f2f2f3" }}
       >
         <Box display="flex" alignItems="center" justifyContent="space-between">
-          {width >= 600 && (
-            <Box display="flex" gap={3}>
-              <NavLink to="/">Applications</NavLink>
-              <NavLink to="profile">Profile</NavLink>
-            </Box>
-          )}
-          <Typography
-            variant="h1"
-            fontSize={18}
-            fontWeight={500}
-            sx={{ userSelect: "none" }}
-          >
-            Ontrack
-          </Typography>
+          <NavLink to="/">
+            <Typography
+              variant="h1"
+              fontSize={18}
+              fontWeight={500}
+              sx={{ userSelect: "none" }}
+            >
+              Ontrack
+            </Typography>
+          </NavLink>
           <Box position="relative" ref={ref}>
             <Avatar onClick={handleClick} alt={`${user.displayName}`}>
               {avatarText}
@@ -63,22 +58,24 @@ export default function Header() {
                     <Typography component="span">{user.displayName}</Typography>
                   </Box>
                 </Box>
-                {width < 600 && (
-                  <Box>
-                    <NavLink
-                      to="profile"
-                      className="inline-block w-full mt-1 py-2 px-4 hover:bg-[#f5f5f5]"
+                <Box>
+                  <NavLink to="profile">
+                    <Box
+                      display="inline-block"
+                      width="100%"
+                      my={0.5}
+                      py={1}
+                      px={2}
+                      sx={{
+                        ":hover": {
+                          background: "#f5f5f5",
+                        },
+                      }}
                     >
                       Profile
-                    </NavLink>
-                    <NavLink
-                      to="/"
-                      className="inline-block w-full mb-1 py-2 px-4 hover:bg-[#f5f5f5]"
-                    >
-                      Applications
-                    </NavLink>
-                  </Box>
-                )}
+                    </Box>
+                  </NavLink>
+                </Box>
                 <Box>
                   <Box
                     my={0.5}
@@ -101,12 +98,25 @@ export default function Header() {
                   </Box>
                 </Box>
                 <Box>
-                  <button
-                    className="inline-block w-full text-start mt-1 mb-2 py-2 px-4 hover:bg-[#f5f5f5]"
+                  <Button
+                    variant="text"
                     onClick={signOutUser}
+                    sx={{
+                      textAlign: "start",
+                      color: "#000",
+                      fontWeight: 400,
+                      display: "inline-block",
+                      width: "100%",
+                      my: 0.5,
+                      py: 1,
+                      px: 2,
+                      ":hover": {
+                        background: "#f5f5f5",
+                      },
+                    }}
                   >
                     Sign out
-                  </button>
+                  </Button>
                 </Box>
               </Box>
             </Box>
