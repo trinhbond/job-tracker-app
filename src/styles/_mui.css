@@ -27,3 +27,27 @@ label + .MuiInputBase-formControl {
 .MuiInputBase-root.MuiOutlinedInput-root {
   font-size: 14px;
 }
+
+th.MuiTableCell-head {
+  font-weight: 600 !important;
+}
+
+td.MuiTableCell-body,
+th.MuiTableCell-head {
+  padding: 0 !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  vertical-align: baseline;
+}
+
+td.MuiTableCell-body:not(.css-hfvc8t-MuiTableCell-root) {
+  vertical-align: baseline;
+  color: #7b7b7b;
+}
+
+table.MuiTable-root {
+  word-break: break-word;
+  overflow-x: scroll;
+  table-layout: fixed;
+  width: 100%;
+}

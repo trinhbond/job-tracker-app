@@ -2,6 +2,17 @@ import React from "react";
 import { AppForm } from "../../../lib/form-types";
 import { useWindowDimensions } from "../../../hooks";
 import { MoreHoriz } from "@mui/icons-material";
+import {
+  Typography,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Box,
+  Button,
+} from "@mui/material";
 
 export default function DataTable({
   data,
@@ -24,121 +35,79 @@ export default function DataTable({
   };
 
   return (
-    <div>
-      {width > 768 ? (
-        <table className="table-fixed w-full overflow-x-scroll border-b border-[#c6c6c6] text-sm">
-          <tbody>
-            <tr>
-              <th className="text-start font-medium py-2">ROLE</th>
-              <th className="text-start font-medium py-2">COMPANY</th>
-              <th className="text-start font-medium py-2">LOCATION</th>
-              <th className="text-start font-medium py-2">STATUS</th>
-              <th className="text-start font-medium py-2">SALARY</th>
-              <th className="text-start font-medium py-2">DATE</th>
-              <th className="text-start font-medium py-2 w-1/4">NOTES</th>
-              <th className="w-[30px]"></th>
-            </tr>
-            {data.map((props, index) => (
-              <tr className="border-t border-[#c6c6c6]" key={index}>
-                <td className="py-2 pr-2 align-top">
-                  <div className="text-black font-medium">{props.title}</div>
-                </td>
-                <td className="text-gray-payne py-2 pr-2 text-start align-top">
-                  {props.link ? (
-                    <a
-                      href={props.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline hover:no-underline inline-block"
-                    >
-                      {props.company}
-                    </a>
-                  ) : (
-                    <span className="inline-block">{props.company}</span>
-                  )}
-                </td>
-                <td className="text-gray-payne py-2 pr-2 text-start align-top">
-                  <div className="text-gray-payne">{props.location}</div>
-                </td>
-                <td className="text-gray-payne py-2 pr-2 text-start align-top">
-                  {props.status.toUpperCase()}
-                </td>
-                <td className="text-gray-payne py-2 pr-2 text-start align-top">
-                  {props.salary && <>&#36;{props.salary}</>}
-                </td>
-                <td className="text-gray-payne py-2 pr-2 text-start align-top">
-                  {new Date(props.date.seconds * 1000).toLocaleDateString(
-                    "en-NZ"
-                  )}
-                </td>
-                <td className="text-gray-payne py-2 pr-2 align-top w-1/4">
-                  <p>{props.notes}</p>
-                </td>
-                <td className="text-gray-payne text-end py-2 align-top w-[40px]">
-                  <button
-                    onClick={() => toggleEdit(props.id, props)}
-                    className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] rounded-full text-black p-1"
+    <TableContainer sx={{ overflowX: "auto" }}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>NAME</TableCell>
+            {width > 768 && <TableCell align="right">LOCATION</TableCell>}
+            <TableCell align="right">STATUS</TableCell>
+            {width > 768 && <TableCell align="right">SALARY</TableCell>}
+            <TableCell align="right">DATE</TableCell>
+            {width > 768 && <TableCell align="right">NOTES</TableCell>}
+            <TableCell align="right" width={40}></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((props) => (
+            <TableRow key={props.id}>
+              <TableCell>
+                <Typography color="#7b7b7b">{props.title}</Typography>
+                {props.link ? (
+                  <Typography
+                    component="a"
+                    href={props.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    sx={{
+                      textDecoration: "underline",
+                      "&:hover": { textDecoration: "none" },
+                    }}
                   >
-                    <MoreHoriz fontSize="small" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <table className="w-full table-fixed overflow-x-scroll border-b border-[#c6c6c6] text-[13px]">
-          <tbody>
-            {data.map((props, index) => (
-              <tr className="border-t border-[#c6c6c6]" key={index}>
-                <td className="py-2 pr-2 align-top">
-                  <div className="text-gray-payne">{props.title}</div>
-                </td>
-                <td className="text-gray-payne py-2 pr-2 text-start align-top">
-                  {props.link ? (
-                    <a
-                      href={props.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="underline hover:no-underline inline-block text-black font-medium"
-                    >
-                      {props.company}
-                    </a>
-                  ) : (
-                    <span className="inline-block text-black font-medium">
-                      {props.company}
-                    </span>
-                  )}
-                  {props.salary > 0 && (
-                    <div className="text-gray-payne pt-2">
-                      &#36;{props.salary}
-                    </div>
-                  )}
-                  {props.location && (
-                    <div className="text-gray-payne pt-2">{props.location}</div>
-                  )}
-                </td>
-                <td className="text-gray-payne py-2 pr-2 text-start align-top">
-                  {props.status.toUpperCase()}
-                </td>
-                <td className="text-gray-payne py-2 pr-2 text-start align-top">
-                  {new Date(props.date.seconds * 1000).toLocaleDateString(
-                    "en-NZ"
-                  )}
-                </td>
-                <td className="text-gray-payne text-end py-2 align-top w-[30px]">
-                  <button
-                    onClick={() => toggleEdit(props.id, props)}
-                    className="font-medium text-xs bg-[#f2f2f3] hover:bg-[#eaeaeb] rounded-full text-black p-1"
-                  >
-                    <MoreHoriz fontSize="small" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+                    {props.company}
+                  </Typography>
+                ) : (
+                  <Typography component="span">{props.company}</Typography>
+                )}
+              </TableCell>
+              {width > 768 && (
+                <TableCell align="right">{props.location}</TableCell>
+              )}
+              <TableCell align="right">{props.status.toUpperCase()}</TableCell>
+              {width > 768 && (
+                <TableCell align="right">
+                  {props.salary > 0 && <>&#36;{props.salary}</>}
+                </TableCell>
+              )}
+              <TableCell align="right">
+                {new Date(props.date.seconds * 1000).toLocaleDateString(
+                  "en-NZ"
+                )}
+              </TableCell>
+              {width > 768 && (
+                <TableCell align="right">{props.notes}</TableCell>
+              )}
+              <TableCell align="right">
+                <Button
+                  sx={{
+                    borderRadius: 32,
+                    padding: 0.4,
+                    color: "#000",
+                    textAlign: "center",
+                    width: "fit-content",
+                    "&:hover": {
+                      background: "#eaeaeb",
+                    },
+                  }}
+                  onClick={() => toggleEdit(props.id, props)}
+                >
+                  <MoreHoriz fontSize="small" />
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
