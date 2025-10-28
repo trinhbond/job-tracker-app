@@ -40,7 +40,7 @@ th.MuiTableCell-head {
   vertical-align: baseline;
 }
 
-td.MuiTableCell-body:not(.css-hfvc8t-MuiTableCell-root) {
+td.MuiTableCell-body {
   vertical-align: baseline;
   color: #7b7b7b;
 }

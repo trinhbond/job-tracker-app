@@ -52,7 +52,7 @@ export default function DataTable({
           {data.map((props) => (
             <TableRow key={props.id}>
               <TableCell>
-                <Typography color="#7b7b7b">{props.title}</Typography>
+                <Typography sx={{ color: "#000" }}>{props.title}</Typography>
                 {props.link ? (
                   <Typography
                     component="a"
