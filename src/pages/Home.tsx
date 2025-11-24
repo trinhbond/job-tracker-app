@@ -30,10 +30,10 @@ export default function Home() {
         height: "100dvh",
         overflowY: "auto",
         overflowX: "hidden",
-        padding: 3,
+        background: "#f2f2f3",
       }}
     >
-      <Box mb={6}>
+      <Box padding={3} mb={1} sx={{ background: "#fff" }}>
         <Typography variant="h1" mb={1} fontSize={36} fontWeight={500}>
           Ontrack
         </Typography>
@@ -42,7 +42,12 @@ export default function Home() {
           manage every application in one place.
         </Typography>
       </Box>
-      <Box display="flex" justifyItems="center" justifyContent="space-between">
+      <Box
+        display="flex"
+        justifyItems="center"
+        justifyContent="space-between"
+        padding={3}
+      >
         <Box
           width="100%"
           display="flex"
@@ -70,7 +75,7 @@ export default function Home() {
             initial={{ x: "100%" }}
             animate={{ x: "0" }}
           >
-            <Box width={{ xs: "100%", sm: "100%", md: "300px", lg: "300px" }}>
+            <Box width={{ xs: "100%", sm: "100%", md: "315px", lg: "315px" }}>
               <Box
                 component="img"
                 justifySelf="center"
