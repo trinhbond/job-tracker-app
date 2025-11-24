@@ -51,3 +51,11 @@ table.MuiTable-root {
   table-layout: fixed;
   width: 100%;
 }
+
+div.css-h5fkc8
+  div.MuiTablePagination-root
+  .MuiToolbar-root
+  div.MuiTablePagination-input {
+  background-color: #eaeaeb;
+  border-radius: 4px;
+}
