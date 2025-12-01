@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Toggle, AntSwitch } from "./Toggle";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { useMouse } from "../hooks/index";
@@ -117,6 +117,28 @@ export default function Header() {
                       Edit details
                     </Button>
                   </Box>
+                </Box>
+                <Box>
+                  <Link to="/dashboard">
+                    <Box
+                      sx={{
+                        borderRadius: 0,
+                        textAlign: "start",
+                        color: "#000",
+                        fontWeight: 400,
+                        display: "inline-block",
+                        width: "100%",
+                        my: 0.5,
+                        py: 1,
+                        px: 1.5,
+                        ":hover": {
+                          background: "#f5f5f5",
+                        },
+                      }}
+                    >
+                      Dashboard
+                    </Box>
+                  </Link>
                 </Box>
                 <Box>
                   <Box
