@@ -1,13 +1,13 @@
-import { Avatar as UserAvatar, AvatarProps } from "@mui/material";
+import { Avatar as MuiAvatar, AvatarProps, styled } from "@mui/material";
 
-const avatarCSS = {
-  bgcolor: "#c62828",
+const StyledAvatar = styled(MuiAvatar)(({ theme }) => ({
+  background: "#c62828",
+  color: theme.palette.primary.main,
   cursor: "pointer",
-  fontSize: 16,
-  width: 32,
   height: 32,
-} as React.CSSProperties;
+  width: 32,
+}));
 
 export const Avatar: React.FC<AvatarProps> = (props) => (
-  <UserAvatar sx={{ ...avatarCSS }} {...props} />
+  <StyledAvatar {...props} />
 );

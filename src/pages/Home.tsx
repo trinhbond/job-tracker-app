@@ -31,9 +31,10 @@ export default function Home() {
         overflowY: "auto",
         overflowX: "hidden",
         background: "#f2f2f3",
+        color: "#000",
       }}
     >
-      <Box padding={3} mb={1} sx={{ background: "#fff" }}>
+      <Box padding={3} mb={1}>
         <Typography variant="h1" mb={1} fontSize={36} fontWeight={500}>
           Ontrack
         </Typography>

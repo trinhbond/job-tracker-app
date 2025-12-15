@@ -2,9 +2,9 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Controller, useForm } from "react-hook-form";
 import { auth } from "../../../config/firebase";
 import { FirebaseError } from "firebase/app";
-import { Box, FormControl, Input, Typography } from "@mui/material";
+import { Box, FormControl, Input, Typography, useTheme } from "@mui/material";
 import { FormContainer } from "../../FormContainer";
-import { BasicButton, TextButton } from "../../buttons";
+import { BaseButton, TextButton } from "../../buttons";
 
 export default function SignupForm({
   handleToggle,
@@ -25,6 +25,7 @@ export default function SignupForm({
       password: "",
     },
   });
+  const theme = useTheme();
 
   const getError = (error: FirebaseError) => {
     switch (error.code) {
@@ -80,6 +81,10 @@ export default function SignupForm({
             name={"name"}
             render={() => (
               <Input
+                sx={{
+                  color: theme.palette.secondary.main,
+                  background: theme.palette.primary.main,
+                }}
                 error={!!errors.name}
                 placeholder="Name"
                 {...register("name", {
@@ -112,6 +117,10 @@ export default function SignupForm({
             name={"email"}
             render={() => (
               <Input
+                sx={{
+                  color: theme.palette.secondary.main,
+                  background: theme.palette.primary.main,
+                }}
                 error={!!errors.email}
                 placeholder="Email"
                 {...register("email", {
@@ -144,6 +153,10 @@ export default function SignupForm({
             name={"password"}
             render={() => (
               <Input
+                sx={{
+                  color: theme.palette.secondary.main,
+                  background: theme.palette.primary.main,
+                }}
                 error={!!errors.password}
                 type="password"
                 placeholder="Password (6 or more characters)"
@@ -167,9 +180,9 @@ export default function SignupForm({
           )}
         </FormControl>
       </Box>
-      <BasicButton type="submit" sx={{ alignSelf: "baseline" }}>
+      <BaseButton type="submit" sx={{ alignSelf: "baseline" }}>
         Continue
-      </BasicButton>
+      </BaseButton>
       <Box>
         Already have an account?{" "}
         <TextButton sx={{ color: "#0000EE" }} onClick={handleToggle}>

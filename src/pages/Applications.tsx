@@ -15,13 +15,15 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  useTheme,
 } from "@mui/material";
 import { statusValues } from "../utils";
-import { BasicButton } from "../components/buttons";
+import { BaseButton } from "../components/buttons";
 import { Fallback } from "../components/Fallback";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
+  const theme = useTheme();
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -79,12 +81,38 @@ export default function Content() {
   if (isLoadingData) return <Fallback />;
 
   return (
-    <Box position="relative" paddingX={3} paddingY={4}>
+    <Box
+      position="relative"
+      sx={{
+        paddingX: 3,
+        paddingY: 4,
+        color:
+          theme.palette.mode === "dark"
+            ? theme.palette.primary.main
+            : theme.palette.secondary.main,
+        background:
+          theme.palette.mode === "dark"
+            ? theme.palette.primary.dark
+            : theme.palette.primary.light,
+      }}
+    >
       <Box display="flex" alignItems="center" gap={2}>
-        <BasicButton onClick={toggleModal}>Create</BasicButton>
+        <BaseButton onClick={toggleModal}>Create</BaseButton>
         <Divider orientation="vertical" flexItem />
         <Select
-          sx={{ width: 140 }}
+          sx={{
+            borderRadius: "6px",
+            border:
+              theme.palette.mode === "dark"
+                ? "0.5px solid #272727"
+                : "0.5px solid #e5e7eb",
+            background:
+              theme.palette.mode === "dark"
+                ? "inherit"
+                : theme.palette.primary.main,
+            ":focus": { border: "none" },
+            width: 140,
+          }}
           value={statusValues[statusIndex]}
           onChange={(e: SelectChangeEvent) => {
             setStatusIndex(statusValues.indexOf(e.target.value));

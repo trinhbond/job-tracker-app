@@ -1,20 +1,23 @@
-import { Typography, Input, Box } from "@mui/material";
+import { Typography, Box, useTheme } from "@mui/material";
 import { updateProfile } from "firebase/auth";
 import { useContext, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { AuthContext } from "../../../context/AuthContext";
 import { ModalContentWrapper } from "../../ModalContentWrapper";
 import { FormContainer } from "../../FormContainer";
-import { BasicButton, TextButton } from "../../buttons";
+import { BaseButton, TextButton } from "../../buttons";
 import { notify } from "../../../utils";
+import { TextInput } from "../../TextInput";
 
 export default function EditUserForm({ onClick }: { onClick: () => void }) {
   const { user } = useContext(AuthContext);
   const toastId = useRef("toast");
+  const theme = useTheme();
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     control,
     formState: { errors },
   } = useForm({
@@ -22,6 +25,7 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
       name: user?.displayName,
     },
   });
+  const { name: username } = getValues();
 
   if (!user) return null;
 
@@ -34,7 +38,9 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
 
   return (
     <ModalContentWrapper
-      p={2}
+      sx={{
+        boxShadow: 1,
+      }}
       width={{ xs: "100%", sm: "384px", md: "384px", lg: "384px" }}
     >
       <Box fontSize={20} fontWeight={500} mb={3}>
@@ -47,7 +53,7 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
             control={control}
             name={"name"}
             render={() => (
-              <Input
+              <TextInput
                 error={!!errors.name}
                 {...register("name", {
                   pattern: {
@@ -59,6 +65,7 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
                     message: "Name is required",
                   },
                 })}
+                value={username}
                 onChange={(e) =>
                   setValue("name", e.target.value, { shouldValidate: true })
                 }
@@ -72,7 +79,7 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
           )}
         </Box>
         <Box>
-          <BasicButton type="submit">Confirm</BasicButton>
+          <BaseButton type="submit">Confirm</BaseButton>
           <Box display="inline-block" ml={1} paddingX={1} paddingY={2}>
             <TextButton onClick={onClick}>Cancel</TextButton>
           </Box>

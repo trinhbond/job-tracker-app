@@ -1,11 +1,11 @@
 import {
   Box,
-  Input,
   MenuItem,
   Modal,
   Select,
   SelectChangeEvent,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { AppForm } from "../../../lib/form-types";
 import { useForm } from "react-hook-form";
@@ -18,7 +18,8 @@ import { AuthContext } from "../../../context/AuthContext";
 import { TextArea } from "../../TextArea";
 import { ModalContentWrapper } from "../../ModalContentWrapper";
 import { FormContainer } from "../../FormContainer";
-import { TextButton, BasicButton } from "../../buttons";
+import { TextButton, BaseButton } from "../../buttons";
+import { TextInput } from "../../TextInput";
 
 export default function EditForm({
   data,
@@ -36,6 +37,7 @@ export default function EditForm({
   const { user } = useContext(AuthContext);
   const { reset } = useForm<AppForm>();
   const toastId = useRef("toast");
+  const theme = useTheme();
 
   const handleEditApplication = (
     id: string,
@@ -80,8 +82,10 @@ export default function EditForm({
           key={index}
         >
           <ModalContentWrapper
-            p={2}
-            width={{ xs: "100%", sm: 384, md: 384, lg: 384 }}
+            sx={{
+              boxShadow: 1,
+              width: { xs: "100%", sm: 384, md: 384, lg: 384 },
+            }}
           >
             <Box component="div" fontSize={20} fontWeight={500} mb={3}>
               Edit application
@@ -92,7 +96,7 @@ export default function EditForm({
             >
               <Box display="flex" flexDirection="column">
                 <Box component="label">Role</Box>
-                <Input
+                <TextInput
                   error={!prevData.title.trim()}
                   placeholder="Role"
                   name="title"
@@ -110,7 +114,7 @@ export default function EditForm({
               </Box>
               <Box display="flex" flexDirection="column">
                 <Box component="label">Company</Box>
-                <Input
+                <TextInput
                   error={!prevData.company.trim()}
                   placeholder="Company"
                   name="company"
@@ -128,7 +132,7 @@ export default function EditForm({
               </Box>
               <Box display="flex" flexDirection="column">
                 <Box component="label">Location</Box>
-                <Input
+                <TextInput
                   placeholder="Location"
                   name="location"
                   id="location"
@@ -150,6 +154,17 @@ export default function EditForm({
                   }}
                   displayEmpty
                   defaultValue=""
+                  sx={{
+                    border:
+                      theme.palette.mode === "dark"
+                        ? "0.5px solid #272727"
+                        : "0.5px solid #e5e7eb",
+                    background:
+                      theme.palette.mode === "dark"
+                        ? "inherit"
+                        : theme.palette.primary.main,
+                    ":focus": { border: "none" },
+                  }}
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -163,7 +178,7 @@ export default function EditForm({
               </Box>
               <Box display="flex" flexDirection="column">
                 <Box component="label">Link</Box>
-                <Input
+                <TextInput
                   placeholder="Link"
                   name="link"
                   id="link"
@@ -175,7 +190,7 @@ export default function EditForm({
               </Box>
               <Box display="flex" flexDirection="column">
                 <Box component="label">Salary</Box>
-                <Input
+                <TextInput
                   type="number"
                   placeholder="Salary"
                   name="salary"
@@ -189,6 +204,16 @@ export default function EditForm({
               <Box display="flex" flexDirection="column">
                 <Box component="label">Notes</Box>
                 <TextArea
+                  style={{
+                    border:
+                      theme.palette.mode === "dark"
+                        ? "0.5px solid #272727"
+                        : "0.5px solid #e5e7eb",
+                    background:
+                      theme.palette.mode === "dark"
+                        ? "inherit"
+                        : theme.palette.primary.main,
+                  }}
                   placeholder="Notes"
                   name="notes"
                   id="notes"
@@ -206,17 +231,17 @@ export default function EditForm({
                 gap={1}
               >
                 <Box>
-                  <BasicButton type="submit">Confirm</BasicButton>
+                  <BaseButton type="submit">Confirm</BaseButton>
                   <Box display="inline-block" ml={1} paddingX={1} paddingY={2}>
                     <TextButton onClick={handleToggle}>Cancel</TextButton>
                   </Box>
                 </Box>
-                <BasicButton
+                <BaseButton
                   startIcon={<DeleteIcon fontSize="small" />}
                   onClick={() => handleDelete(prevData.id)}
                 >
                   Delete
-                </BasicButton>
+                </BaseButton>
               </Box>
             </FormContainer>
           </ModalContentWrapper>

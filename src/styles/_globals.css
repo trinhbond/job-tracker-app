@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-  background: #f2f2f3;
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   margin: 0;
@@ -38,16 +37,10 @@ textarea,
 input,
 .MuiInputBase-input.MuiInput-input,
 .MuiSelect-select.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input {
-  background: #fff;
   border-radius: 6px;
-  border: 1px solid #c6c6c6 !important;
   font-size: 14px;
   font-weight: 400;
   padding: 8px 16px;
-}
-
-label {
-  margin-bottom: 4px;
 }
 
 textarea {
@@ -74,7 +67,7 @@ span.status.all {
   background: #64748b;
 }
 span.status.applied {
-  background: #3b82f6 !important;
+  background: #3b82f6;
 }
 
 span.status.screening {
@@ -95,4 +88,13 @@ span.status.offer {
 
 span.status.rejected {
   background: #ef4444;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
+.MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+div.css-oltlld-MuiResponsiveChart-container {
+  width: 100%;
 }

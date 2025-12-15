@@ -2,10 +2,12 @@ import {
   Box,
   FormControl,
   Input,
+  InputProps,
   MenuItem,
   Modal,
   Select,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../config/firebase";
@@ -17,7 +19,7 @@ import { Controller, useForm } from "react-hook-form";
 import { TextArea } from "../../TextArea";
 import { ModalContentWrapper } from "../../ModalContentWrapper";
 import { FormContainer } from "../../FormContainer";
-import { TextButton, BasicButton } from "../../buttons";
+import { TextButton, BaseButton } from "../../buttons";
 
 export default function CreateForm({
   isModalOpen,
@@ -34,6 +36,7 @@ export default function CreateForm({
     register,
     formState: { errors },
   } = useForm<AppForm>();
+  const theme = useTheme();
   const toastId = useRef("toast");
 
   const handleAddApplication = handleSubmit(async (data) => {
@@ -53,10 +56,24 @@ export default function CreateForm({
     reset();
   };
 
+  const inputCSS = {
+    background: theme.palette.mode === "dark" ? "inherit" : "#fff",
+    border:
+      theme.palette.mode === "dark"
+        ? "0.5px solid #272727"
+        : "0.5px solid #e5e7eb",
+  };
+
   return (
     <Modal open={isModalOpen} onClose={toggleModal}>
       <ModalContentWrapper
-        p={2}
+        boxShadow={1}
+        sx={{
+          background:
+            theme.palette.mode === "dark"
+              ? theme.palette.primary.dark
+              : theme.palette.primary.light,
+        }}
         width={{ xs: "100%", sm: 384, md: 384, lg: 384 }}
       >
         <Box component="div" fontSize={20} fontWeight={500} mb={3}>
@@ -71,6 +88,7 @@ export default function CreateForm({
                 name={"title"}
                 render={() => (
                   <Input
+                    sx={{ ...inputCSS }}
                     error={!!errors.title}
                     placeholder="Role"
                     {...register("title", {
@@ -101,6 +119,7 @@ export default function CreateForm({
                 name={"company"}
                 render={() => (
                   <Input
+                    sx={{ ...inputCSS }}
                     error={!!errors.company}
                     placeholder="Company"
                     {...register("company", {
@@ -130,7 +149,11 @@ export default function CreateForm({
                 control={control}
                 name={"location"}
                 render={() => (
-                  <Input placeholder="Location" {...register("location")} />
+                  <Input
+                    sx={{ ...inputCSS }}
+                    placeholder="Location"
+                    {...register("location")}
+                  />
                 )}
               />
             </FormControl>
@@ -147,6 +170,15 @@ export default function CreateForm({
                       {...register("status")}
                       displayEmpty
                       defaultValue=""
+                      sx={{
+                        border:
+                          theme.palette.mode === "dark"
+                            ? "0.5px solid #272727"
+                            : "0.5px solid #e5e7eb",
+                        background:
+                          theme.palette.mode === "dark" ? "inherit" : "#fff",
+                        ":focus": { border: "none" },
+                      }}
                     >
                       <MenuItem value="">
                         <em>None</em>
@@ -170,7 +202,11 @@ export default function CreateForm({
                 control={control}
                 name={"link"}
                 render={() => (
-                  <Input placeholder="Link" {...register("link")} />
+                  <Input
+                    sx={{ ...inputCSS }}
+                    placeholder="Link"
+                    {...register("link")}
+                  />
                 )}
               />
             </FormControl>
@@ -183,6 +219,7 @@ export default function CreateForm({
                 name={"salary"}
                 render={() => (
                   <Input
+                    sx={{ ...inputCSS }}
                     type="number"
                     placeholder="Salary"
                     {...register("salary")}
@@ -198,13 +235,24 @@ export default function CreateForm({
                 control={control}
                 name={"notes"}
                 render={() => (
-                  <TextArea placeholder="Notes" {...register("notes")} />
+                  <TextArea
+                    style={{
+                      border:
+                        theme.palette.mode === "dark"
+                          ? "0.5px solid #272727"
+                          : "0.5px solid #e5e7eb",
+                      background:
+                        theme.palette.mode === "dark" ? "inherit" : "#fff",
+                    }}
+                    placeholder="Notes"
+                    {...register("notes")}
+                  />
                 )}
               />
             </FormControl>
           </Box>
           <Box>
-            <BasicButton type="submit">Confirm</BasicButton>
+            <BaseButton type="submit">Confirm</BaseButton>
             <Box display="inline-block" ml={1} paddingX={1} paddingY={2}>
               <TextButton onClick={toggleModal}>Cancel</TextButton>
             </Box>

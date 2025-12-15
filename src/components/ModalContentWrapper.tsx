@@ -6,14 +6,22 @@ interface ModalContentWrapperProps extends BoxProps {
   children: React.ReactNode;
 }
 
-const ModalContentWrapperStyled = styled(Box)({
-  background: "#fff",
-  height: "100%",
-  overflowY: "scroll",
-  position: "fixed",
-  right: 0,
-  top: 0,
-  zIndex: 40,
+export const ModalContentWrapperStyled = styled(Box)(({ theme }) => {
+  const themeStyles =
+    theme.palette.mode === "dark"
+      ? theme.palette.primary.dark
+      : theme.palette.primary.light;
+
+  return {
+    background: themeStyles,
+    height: "100%",
+    overflowY: "scroll",
+    padding: 16,
+    position: "fixed",
+    right: 0,
+    top: 0,
+    zIndex: 40,
+  };
 });
 
 export const ModalContentWrapper = React.forwardRef<

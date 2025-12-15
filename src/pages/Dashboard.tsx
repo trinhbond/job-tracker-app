@@ -4,13 +4,14 @@ import { db } from "../config/firebase";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import { AppForm } from "../lib/form-types";
 import { AuthContext } from "../context/AuthContext";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { Fallback } from "../components/Fallback";
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
+  const theme = useTheme();
 
   const uniqueCompaniesCount = new Set(data.map((q) => q.company)).size;
   const jobCount = data.length;
@@ -102,7 +103,20 @@ export default function Dashboard() {
       flexDirection="column"
       gap={4}
     >
-      <Box sx={{ background: "#fff", borderRadius: 2, padding: 2 }}>
+      <Box
+        sx={{
+          background:
+            theme.palette.mode === "dark"
+              ? "inherit"
+              : theme.palette.primary.main,
+          border:
+            theme.palette.mode === "dark"
+              ? "0.5px solid #272727"
+              : "0.5px solid #e5e7eb",
+          borderRadius: 2,
+          padding: 2,
+        }}
+      >
         <Typography
           component="span"
           display="block"
@@ -128,7 +142,14 @@ export default function Dashboard() {
       <Box>
         <Box
           sx={{
-            background: "#fff",
+            background:
+              theme.palette.mode === "dark"
+                ? "inherit"
+                : theme.palette.primary.main,
+            border:
+              theme.palette.mode === "dark"
+                ? "0.5px solid #272727"
+                : "0.5px solid #e5e7eb",
             padding: 2,
             borderRadius: 2,
           }}
@@ -213,7 +234,14 @@ export default function Dashboard() {
       </Box>
       <Box
         sx={{
-          background: "#fff",
+          background:
+            theme.palette.mode === "dark"
+              ? "inherit"
+              : theme.palette.primary.main,
+          border:
+            theme.palette.mode === "dark"
+              ? "0.5px solid #272727"
+              : "0.5px solid #e5e7eb",
           borderRadius: 2,
           padding: 2,
         }}

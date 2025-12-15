@@ -12,6 +12,7 @@ import {
   TableBody,
   IconButton,
   TablePagination,
+  useTheme,
 } from "@mui/material";
 
 export default function DataTable({
@@ -28,6 +29,7 @@ export default function DataTable({
   const { width } = useWindowDimensions();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const theme = useTheme();
 
   const toggleEdit = (id: string, props: AppForm) => {
     setShowSelectedData({
@@ -75,7 +77,16 @@ export default function DataTable({
             {paginatedData.map((props) => (
               <TableRow key={props.id}>
                 <TableCell>
-                  <Typography sx={{ color: "#000" }}>{props.title}</Typography>
+                  <Typography
+                    sx={{
+                      color:
+                        theme.palette.mode === "dark"
+                          ? theme.palette.primary.light
+                          : theme.palette.secondary.main,
+                    }}
+                  >
+                    {props.title}
+                  </Typography>
                   {props.link ? (
                     <Typography
                       component="a"
@@ -121,7 +132,8 @@ export default function DataTable({
                   <IconButton
                     sx={{
                       padding: 0.75,
-                      background: "#eaeaeb",
+                      background:
+                        theme.palette.mode === "dark" ? "#707070" : "#eaeaeb",
                       ":hover": {
                         background: "#e7e7e8",
                       },
@@ -138,6 +150,23 @@ export default function DataTable({
       </TableContainer>
       {data.length > 0 && (
         <TablePagination
+          sx={{
+            borderRadius: "6px",
+            border: "none",
+            background: "none",
+            ":focus": { border: "none" },
+            ".MuiSelect-select": {
+              borderRadius: "4px",
+              background:
+                theme.palette.mode === "dark"
+                  ? theme.palette.primary.dark
+                  : "#fff",
+              border:
+                theme.palette.mode === "dark"
+                  ? "0.5px solid #272727"
+                  : "0.5px solid #e5e7eb",
+            },
+          }}
           labelRowsPerPage=""
           rowsPerPageOptions={[5, 15, 30]}
           component="div"
