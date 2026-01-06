@@ -4,8 +4,10 @@ import { db } from "../config/firebase";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import { AppForm } from "../lib/form-types";
 import { AuthContext } from "../context/AuthContext";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, styled, Typography, useTheme } from "@mui/material";
 import { Fallback } from "../components/Fallback";
+import { PieCenterLabel } from "../components/PieCenterLabel";
+import { legendClasses } from "@mui/x-charts/ChartsLegend";
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
@@ -13,11 +15,27 @@ export default function Dashboard() {
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
   const theme = useTheme();
 
-  const uniqueCompaniesCount = new Set(data.map((q) => q.company)).size;
-  const jobCount = data.length;
+  const getNumJobs = (data: AppForm[], daysCount: number) => {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - daysCount);
+
+    return data.filter((job) => {
+      const jobDate = job.date.toDate();
+      return jobDate >= oneWeekAgo;
+    });
+  };
+
   const dailyJobCount = getNumJobs(data, 1).length;
   const weeklyJobCount = getNumJobs(data, 7).length;
   const monthlyJobCount = getNumJobs(data, 21).length;
+
+  const total = data.length;
+  const rejected = data.filter((item) => item.status === "rejected").length;
+  const offers = data.filter((item) => item.status === "offer").length;
+  const applied = data.filter((item) => item.status === "applied").length;
+  const percentageRejected = (rejected / total) * 100;
+  const percentageApplied = (applied / total) * 100;
+  const percentageOffers = (offers / total) * 100;
 
   const settings = {
     margin: { right: 5 },
@@ -57,16 +75,6 @@ export default function Dashboard() {
     },
   ].filter((item) => item.value > 0);
 
-  function getNumJobs(data: AppForm[], daysCount: number) {
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - daysCount);
-
-    return data.filter((job) => {
-      const jobDate = job.date.toDate();
-      return jobDate >= oneWeekAgo;
-    });
-  }
-
   useEffect(() => {
     const fetchApplications = async () => {
       if (!user) return null;
@@ -94,6 +102,18 @@ export default function Dashboard() {
 
   if (isLoadingData) return <Fallback />;
 
+  const StyledContainer = styled("div")({
+    flexGrow: 1,
+    background:
+      theme.palette.mode === "dark" ? "inherit" : theme.palette.primary.main,
+    border:
+      theme.palette.mode === "dark"
+        ? "0.5px solid #272727"
+        : "0.5px solid #e5e7eb",
+    borderRadius: 8,
+    padding: 16,
+  });
+
   return (
     <Box
       position="relative"
@@ -103,45 +123,67 @@ export default function Dashboard() {
       flexDirection="column"
       gap={4}
     >
+      <Box>
+        <Typography variant="h1" fontSize={26} fontWeight={600}>
+          Dashboard
+        </Typography>
+        <Typography color="#7b7b7b">Track your applications here.</Typography>
+      </Box>
       <Box
         sx={{
-          background:
-            theme.palette.mode === "dark"
-              ? "inherit"
-              : theme.palette.primary.main,
-          border:
-            theme.palette.mode === "dark"
-              ? "0.5px solid #272727"
-              : "0.5px solid #e5e7eb",
-          borderRadius: 2,
-          padding: 2,
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 3,
         }}
       >
-        <Typography
-          component="span"
-          display="block"
-          fontWeight={500}
-          fontSize={16}
-          mb={2}
-        >
-          Summary
-        </Typography>
-        <Box mb={1}>
-          <Typography fontWeight={500}>Jobs applied</Typography>
-          <Box component="span" display="block" color="#7b7b7b">
-            {jobCount}
+        <StyledContainer>
+          <Box
+            sx={{
+              height: 160,
+              width: 160,
+            }}
+          >
+            <Typography fontWeight={500}>Total Applications</Typography>
+            <Box component="span" display="block" color="#7b7b7b">
+              {data.length}
+            </Box>
           </Box>
-        </Box>
-        <Box>
-          <Typography fontWeight={500}>Unique companies</Typography>
+        </StyledContainer>
+        <StyledContainer>
+          <Typography fontWeight={500}>Applied</Typography>
           <Box component="span" display="block" color="#7b7b7b">
-            {uniqueCompaniesCount}
+            {applied}
           </Box>
-        </Box>
-      </Box>
-      <Box>
+          <Box sx={{ height: 160, width: 160 }}>
+            <PieChart
+              margin={{ left: 10, right: 10 }}
+              series={[
+                {
+                  innerRadius: "80%",
+                  data: [
+                    {
+                      id: 0,
+                      value: applied,
+                      color: "yellow",
+                    },
+                    {
+                      id: 1,
+                      value: total - applied,
+                      color: "lightyellow",
+                    },
+                  ],
+                },
+              ]}
+            >
+              <PieCenterLabel>{`${Math.round(
+                percentageApplied
+              )}%`}</PieCenterLabel>
+            </PieChart>
+          </Box>
+        </StyledContainer>
         <Box
           sx={{
+            flexGrow: 1,
             background:
               theme.palette.mode === "dark"
                 ? "inherit"
@@ -150,19 +192,150 @@ export default function Dashboard() {
               theme.palette.mode === "dark"
                 ? "0.5px solid #272727"
                 : "0.5px solid #e5e7eb",
-            padding: 2,
             borderRadius: 2,
+            padding: 2,
           }}
         >
-          <Typography
-            component="span"
-            display="block"
-            fontWeight={500}
-            fontSize={16}
-            mb={2}
+          <Box>
+            <Typography fontWeight={500}>Rejections</Typography>
+            <Box component="span" display="block" color="#7b7b7b">
+              {rejected}
+            </Box>
+            <Box
+              sx={{
+                height: 160,
+                width: 160,
+              }}
+            >
+              <PieChart
+                margin={{ left: 10, right: 10 }}
+                series={[
+                  {
+                    innerRadius: "80%",
+                    data: [
+                      {
+                        id: 0,
+                        value: rejected,
+                        color: "blue",
+                      },
+                      {
+                        id: 1,
+                        value: total - rejected,
+                        color: "lightblue",
+                      },
+                    ],
+                  },
+                ]}
+              >
+                <PieCenterLabel>{`${Math.round(
+                  percentageRejected
+                )}%`}</PieCenterLabel>
+              </PieChart>
+            </Box>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            flexGrow: 1,
+            background:
+              theme.palette.mode === "dark"
+                ? "inherit"
+                : theme.palette.primary.main,
+            border:
+              theme.palette.mode === "dark"
+                ? "0.5px solid #272727"
+                : "0.5px solid #e5e7eb",
+            borderRadius: 2,
+            padding: 2,
+          }}
+        >
+          <Typography fontWeight={500}>Offers</Typography>
+          <Box component="span" display="block" color="#7b7b7b">
+            {offers == 0 ? "None" : offers}
+          </Box>
+          <Box sx={{ height: 160, width: 160 }}>
+            <PieChart
+              margin={{ left: 10, right: 10 }}
+              series={[
+                {
+                  innerRadius: "80%",
+                  data: [
+                    {
+                      id: 0,
+                      value: offers,
+                      color: "green",
+                    },
+                    {
+                      id: 1,
+                      value: total - offers,
+                      color: "lightgreen",
+                    },
+                  ],
+                },
+              ]}
+            >
+              <PieCenterLabel>{`${Math.round(
+                percentageOffers
+              )}%`}</PieCenterLabel>
+            </PieChart>
+          </Box>
+        </Box>
+      </Box>
+      <Box>
+        <Typography
+          component="span"
+          display="block"
+          fontWeight={600}
+          fontSize={16}
+          mb={1}
+        >
+          Applications by status
+        </Typography>
+        <StyledContainer>
+          <Box
+            sx={{
+              width: "100%",
+              display: "inline-block",
+            }}
           >
-            Frequency of applications
-          </Typography>
+            <PieChart
+              slotProps={{
+                legend: {
+                  direction: "row",
+                  padding: 4,
+                  labelStyle: { fontSize: 14 },
+                  position: { vertical: "bottom", horizontal: "middle" },
+                },
+              }}
+              series={[
+                {
+                  innerRadius: 50,
+                  outerRadius: 100,
+                  data: pieData,
+                  arcLabel: "value",
+                },
+              ]}
+              sx={{
+                [`.${legendClasses.mark}`]: {
+                  ry: 10,
+                },
+              }}
+              {...settings}
+            />
+          </Box>
+        </StyledContainer>
+      </Box>
+      <Box>
+        <Typography
+          component="span"
+          display="block"
+          fontWeight={600}
+          fontSize={16}
+          mb={1}
+        >
+          Frequency of applications
+        </Typography>
+        <StyledContainer>
           <Box
             sx={{
               display: "flex",
@@ -174,7 +347,10 @@ export default function Dashboard() {
               sx={{
                 display: "inline-block",
                 padding: 2,
-                borderRight: "1px solid #e5e7eb",
+                borderRight:
+                  theme.palette.mode === "dark"
+                    ? "0.5px solid #272727"
+                    : "0.5px solid #e5e7eb",
                 width: "100%",
               }}
             >
@@ -195,7 +371,10 @@ export default function Dashboard() {
                 display: "inline-block",
                 padding: 2,
                 width: "100%",
-                borderRight: "1px solid #e5e7eb",
+                borderRight:
+                  theme.palette.mode === "dark"
+                    ? "0.5px solid #272727"
+                    : "0.5px solid #e5e7eb",
               }}
             >
               <Typography textAlign="center" fontSize={24} fontWeight={500}>
@@ -230,63 +409,7 @@ export default function Dashboard() {
               </Typography>
             </Box>
           </Box>
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          background:
-            theme.palette.mode === "dark"
-              ? "inherit"
-              : theme.palette.primary.main,
-          border:
-            theme.palette.mode === "dark"
-              ? "0.5px solid #272727"
-              : "0.5px solid #e5e7eb",
-          borderRadius: 2,
-          padding: 2,
-        }}
-      >
-        <Typography
-          component="span"
-          display="block"
-          fontWeight={500}
-          fontSize={16}
-          mb={2}
-        >
-          Applications by status
-        </Typography>
-        <Box
-          sx={{
-            width: "100%",
-            alignSelf: "start",
-            display: "inline-block",
-          }}
-        >
-          <PieChart
-            slotProps={{
-              legend: {
-                hidden: true,
-                direction: "column",
-                position: { vertical: "top", horizontal: "right" },
-              },
-            }}
-            series={[
-              {
-                innerRadius: 50,
-                outerRadius: 100,
-                data: pieData,
-                arcLabel: "value",
-              },
-            ]}
-            sx={{
-              [`& .${pieArcLabelClasses.root}`]: {
-                fill: "white",
-                fontSize: 14,
-              },
-            }}
-            {...settings}
-          />
-        </Box>
+        </StyledContainer>
       </Box>
     </Box>
   );
