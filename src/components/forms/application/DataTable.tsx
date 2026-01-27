@@ -124,7 +124,8 @@ export default function DataTable({
                     </TableCell>
                   )}
                   <TableCell align="right">
-                    {new Date(seconds * 1000).toLocaleDateString("en-NZ")}
+                    {seconds &&
+                      new Date(seconds * 1000).toLocaleDateString("en-NZ")}
                   </TableCell>
                   {width > 768 && (
                     <TableCell align="right">{props.notes}</TableCell>
