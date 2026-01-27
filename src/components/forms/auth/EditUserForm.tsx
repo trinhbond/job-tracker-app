@@ -38,9 +38,7 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
 
   return (
     <ModalContentWrapper
-      sx={{
-        boxShadow: 1,
-      }}
+      boxShadow={1}
       width={{ xs: "100%", sm: "384px", md: "384px", lg: "384px" }}
     >
       <Box fontSize={20} fontWeight={500} mb={3}>

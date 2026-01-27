@@ -27,6 +27,13 @@ export const ThemeProvider = ({ children }: { children?: ReactNode }) => {
 
   useEffect(() => {
     localStorage.setItem("themeMode", mode);
+    const root = document.documentElement;
+
+    if (mode === "dark") {
+      root.classList.remove("dark");
+    } else {
+      root.classList.add("dark");
+    }
   }, [mode]);
 
   const themeOptions = createTheme({

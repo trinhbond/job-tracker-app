@@ -59,7 +59,7 @@ export default function SignupForm({
           updateProfile(auth.currentUser, { displayName: data.name }).then(
             () => {
               //toast notification
-            }
+            },
           );
         reset();
       })
