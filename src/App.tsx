@@ -7,6 +7,8 @@ import { Fallback } from "./components/Fallback";
 import { Dashboard, NotFound } from "./pages";
 import { ThemeProvider } from "./context/ThemeContext";
 import { CssBaseline, GlobalStyles } from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const Layout = lazy(() => import("./components/Layout"));
 const Home = lazy(() => import("./pages/Home"));
@@ -15,29 +17,31 @@ export default function App() {
   return (
     <Suspense fallback={<Fallback />}>
       <Router>
-        <ThemeProvider>
-          <CssBaseline />
-          <GlobalStyles
-            styles={(theme) => ({
-              body: {
-                background:
-                  theme.palette.mode === "dark"
-                    ? theme.palette.primary.dark
-                    : theme.palette.primary.light,
-              },
-            })}
-          />
-          <AuthProvider>
-            <ToastContainer limit={10} />
-            <Routes>
-              <Route element={<Layout />}>
-                <Route path="/" index element={<Home />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </AuthProvider>
-        </ThemeProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <ThemeProvider>
+            <CssBaseline />
+            <GlobalStyles
+              styles={(theme) => ({
+                body: {
+                  background:
+                    theme.palette.mode === "dark"
+                      ? theme.palette.primary.dark
+                      : theme.palette.primary.light,
+                },
+              })}
+            />
+            <AuthProvider>
+              <ToastContainer limit={10} />
+              <Routes>
+                <Route element={<Layout />}>
+                  <Route path="/" index element={<Home />} />
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="*" element={<NotFound />} />
+                </Route>
+              </Routes>
+            </AuthProvider>
+          </ThemeProvider>
+        </LocalizationProvider>
       </Router>
     </Suspense>
   );
