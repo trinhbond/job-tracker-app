@@ -1,0 +1,67 @@
+.create-form .MuiFormControl-root.MuiPickersTextField-root fieldset,
+.edit-form .MuiFormControl-root.MuiPickersTextField-root fieldset,
+.create-form .MuiFormControl-root.MuiPickersTextField-root,
+.edit-form .MuiFormControl-root.MuiPickersTextField-root {
+  border-radius: 6px;
+}
+
+html:has(.create-form):not(.dark)
+  .MuiFormControl-root
+  .MuiPickersTextField-root {
+  background: #fff;
+  color: #000;
+}
+
+html:has(.create-form):not(.dark)
+  .MuiPickersTextField-root
+  .MuiPickersInputBase-root
+  fieldset,
+html:has(.edit-form):not(.dark)
+  .MuiPickersTextField-root
+  .MuiPickersInputBase-root
+  fieldset {
+  border: 0.5px solid #e5e7eb;
+}
+
+html.dark:has(.create-form)
+  .MuiFormControl-root
+  .MuiPickersTextField-root
+  .MuiPickersInputBase-root
+  fieldset,
+html.dark:has(.edit-form)
+  .MuiFormControl-root
+  .MuiPickersInputBase-root
+  fieldset {
+  border: 0.5px solid #272727 !important;
+}
+
+html:not(.dark) button[role="gridcell"].MuiPickersDay-root:hover {
+  background-color: #f4f5f6;
+}
+
+html:has(.create-form):not(.dark) .MuiPickersDay-root.Mui-selected {
+  background-color: #d1d5db;
+  color: #4b5563;
+}
+
+html.dark:has(.create-form) .MuiPickersDay-root.Mui-selected {
+  background-color: #fff;
+  color: #000;
+}
+
+html:has(.create-form):not(.dark) .MuiPickersDay-root.Mui-selected {
+  background-color: #eaeaeb;
+  color: #000;
+}
+
+html:has(.create-form):not(.dark)
+  button[role="radio"].MuiYearCalendar-button.Mui-selected {
+  background-color: #000;
+  color: #fff;
+}
+
+html.dark:has(.create-form)
+  button[role="radio"].MuiYearCalendar-button.Mui-selected {
+  background-color: #fff;
+  color: #000;
+}

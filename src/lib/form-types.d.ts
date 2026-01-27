@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface AppForm {
   id: string;
   company: string;
@@ -15,5 +17,6 @@ export interface AppForm {
     | "assessment";
   notes: string;
   date?: Date | Timestamp;
+  date_applied: Date | Timestamp;
   location?: string;
 }

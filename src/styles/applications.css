@@ -1,0 +1,30 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+  padding: 32px 24px;
+}
+
+.dashboard-container .job-num-count-label {
+  color: #7b7b7b;
+  display: block;
+  text-align: center;
+}
+
+.dashboard-container .job-num-count {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.dashboard-container .subheading {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.dashboard-container h1 {
+  font-size: 26px;
+  font-weight: 600;
+}

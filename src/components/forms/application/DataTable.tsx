@@ -14,6 +14,7 @@ import {
   TablePagination,
   useTheme,
 } from "@mui/material";
+import { Timestamp } from "firebase/firestore";
 
 export default function DataTable({
   data,
@@ -41,18 +42,18 @@ export default function DataTable({
 
   const paginatedData = data.slice(
     page * rowsPerPage,
-    page * rowsPerPage + rowsPerPage
+    page * rowsPerPage + rowsPerPage,
   );
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
+    newPage: number,
   ) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -74,77 +75,78 @@ export default function DataTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedData.map((props) => (
-              <TableRow key={props.id}>
-                <TableCell>
-                  <Typography
-                    sx={{
-                      color:
-                        theme.palette.mode === "dark"
-                          ? theme.palette.primary.light
-                          : theme.palette.secondary.main,
-                    }}
-                  >
-                    {props.title}
-                  </Typography>
-                  {props.link ? (
+            {paginatedData.map((props) => {
+              const { seconds } = props.date_applied as Timestamp;
+              return (
+                <TableRow key={props.id}>
+                  <TableCell>
                     <Typography
-                      component="a"
-                      href={props.link}
-                      target="_blank"
-                      rel="noreferrer"
                       sx={{
-                        textDecoration: "underline",
-                        "&:hover": { textDecoration: "none" },
+                        color:
+                          theme.palette.mode === "dark"
+                            ? theme.palette.primary.light
+                            : theme.palette.secondary.main,
                       }}
                     >
-                      {props.company}
+                      {props.title}
                     </Typography>
-                  ) : (
-                    <Typography component="span">{props.company}</Typography>
-                  )}
-                </TableCell>
-                {width > 768 && (
-                  <TableCell align="right">{props.location}</TableCell>
-                )}
-                <TableCell align="right">
-                  <Typography
-                    component="span"
-                    className={`status ${props.status}`}
-                  >
-                    {props.status.toUpperCase()}
-                  </Typography>
-                </TableCell>
-                {width > 768 && (
-                  <TableCell align="right">
-                    {props.salary > 0 && <>&#36;{props.salary}</>}
+                    {props.link ? (
+                      <Typography
+                        component="a"
+                        href={props.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        sx={{
+                          textDecoration: "underline",
+                          "&:hover": { textDecoration: "none" },
+                        }}
+                      >
+                        {props.company}
+                      </Typography>
+                    ) : (
+                      <Typography component="span">{props.company}</Typography>
+                    )}
                   </TableCell>
-                )}
-                <TableCell align="right">
-                  {new Date(props.date.seconds * 1000).toLocaleDateString(
-                    "en-NZ"
+                  {width > 768 && (
+                    <TableCell align="right">{props.location}</TableCell>
                   )}
-                </TableCell>
-                {width > 768 && (
-                  <TableCell align="right">{props.notes}</TableCell>
-                )}
-                <TableCell align="right">
-                  <IconButton
-                    sx={{
-                      padding: 0.75,
-                      background:
-                        theme.palette.mode === "dark" ? "#707070" : "#eaeaeb",
-                      ":hover": {
-                        background: "#e7e7e8",
-                      },
-                    }}
-                    onClick={() => toggleEdit(props.id, props)}
-                  >
-                    <MoreHoriz fontSize="small" />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
+                  <TableCell align="right">
+                    <Typography
+                      component="span"
+                      className={`status ${props.status}`}
+                    >
+                      {props.status.toUpperCase()}
+                    </Typography>
+                  </TableCell>
+                  {width > 768 && (
+                    <TableCell align="right">
+                      {props.salary > 0 && <>&#36;{props.salary}</>}
+                    </TableCell>
+                  )}
+                  <TableCell align="right">
+                    {new Date(seconds * 1000).toLocaleDateString("en-NZ")}
+                  </TableCell>
+                  {width > 768 && (
+                    <TableCell align="right">{props.notes}</TableCell>
+                  )}
+                  <TableCell align="right">
+                    <IconButton
+                      sx={{
+                        padding: 0.75,
+                        background:
+                          theme.palette.mode === "dark" ? "#707070" : "#eaeaeb",
+                        ":hover": {
+                          background: "#e7e7e8",
+                        },
+                      }}
+                      onClick={() => toggleEdit(props.id, props)}
+                    >
+                      <MoreHoriz fontSize="small" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>

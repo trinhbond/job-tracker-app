@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot, query, Timestamp } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { AppForm } from "../lib/form-types";
 import { AuthContext } from "../context/AuthContext";
@@ -37,6 +37,7 @@ export default function Content() {
     salary: 0,
     notes: "",
     date: new Date(),
+    date_applied: new Date(),
     location: "",
     status: "",
   });
@@ -45,10 +46,14 @@ export default function Content() {
 
   if (statusIndex > 0) {
     filteredData = data.filter((props) =>
-      props.status.includes(statusValues[statusIndex])
+      props.status.includes(statusValues[statusIndex]),
     );
   } else {
-    filteredData = data.sort((a, b) => b.date - a.date);
+    filteredData = data.sort((a, b) => {
+      const { seconds: secondsA } = a.date_applied as Timestamp;
+      const { seconds: secondsB } = b.date_applied as Timestamp;
+      return secondsB - secondsA;
+    });
   }
 
   const toggleModal = () => setShowModal(!showModal);
@@ -82,6 +87,7 @@ export default function Content() {
 
   return (
     <Box
+      className="applications"
       position="relative"
       sx={{
         paddingX: 3,

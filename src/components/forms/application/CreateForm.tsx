@@ -2,7 +2,6 @@ import {
   Box,
   FormControl,
   Input,
-  InputProps,
   MenuItem,
   Modal,
   Select,
@@ -12,7 +11,7 @@ import {
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import { AppForm } from "../../../lib/form-types";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { notify, statusValues } from "../../../utils";
 import { Controller, useForm } from "react-hook-form";
@@ -20,6 +19,8 @@ import { TextArea } from "../../TextArea";
 import { ModalContentWrapper } from "../../ModalContentWrapper";
 import { FormContainer } from "../../FormContainer";
 import { TextButton, BaseButton } from "../../buttons";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs, { Dayjs } from "dayjs";
 
 export default function CreateForm({
   isModalOpen,
@@ -29,6 +30,7 @@ export default function CreateForm({
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { user } = useContext(AuthContext);
+  const [date, setDate] = useState<Dayjs | null>();
   const {
     handleSubmit,
     reset,
@@ -44,7 +46,7 @@ export default function CreateForm({
 
     await addDoc(collection(db, "applications", "user/", user.uid), {
       ...data,
-      date: new Date(),
+      date_applied: date?.toDate(),
     }).catch((error) => console.log(error));
     notify("Your application has been added", "success", toastId);
     setIsModalOpen(!isModalOpen);
@@ -153,6 +155,26 @@ export default function CreateForm({
                     sx={{ ...inputCSS }}
                     placeholder="Location"
                     {...register("location")}
+                  />
+                )}
+              />
+            </FormControl>
+          </Box>
+          <Box display="flex" flexDirection="column">
+            <FormControl>
+              <Box component="label">Date</Box>
+              <Controller
+                control={control}
+                name={"date_applied"}
+                render={({ field }) => (
+                  <DatePicker
+                    {...field}
+                    format="DD/MM/YYYY"
+                    value={dayjs(field.value as Date)}
+                    onChange={(date) => {
+                      field.onChange(date);
+                      return setDate(date);
+                    }}
                   />
                 )}
               />

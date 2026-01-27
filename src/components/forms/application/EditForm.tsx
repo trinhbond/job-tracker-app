@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { AppForm } from "../../../lib/form-types";
 import { useForm } from "react-hook-form";
-import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
 import { handleChange, notify, statusValues } from "../../../utils";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,6 +20,8 @@ import { ModalContentWrapper } from "../../ModalContentWrapper";
 import { FormContainer } from "../../FormContainer";
 import { TextButton, BaseButton } from "../../buttons";
 import { TextInput } from "../../TextInput";
+import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 export default function EditForm({
   data,
@@ -38,10 +40,12 @@ export default function EditForm({
   const { reset } = useForm<AppForm>();
   const toastId = useRef("toast");
   const theme = useTheme();
+  const { seconds } = prevData.date_applied as Timestamp;
+  const dateValue = dayjs(new Date(seconds * 1000));
 
   const handleEditApplication = (
     id: string,
-    event: React.BaseSyntheticEvent
+    event: React.BaseSyntheticEvent,
   ) => {
     event.preventDefault();
     setPrevData(prevData);
@@ -82,10 +86,8 @@ export default function EditForm({
           key={index}
         >
           <ModalContentWrapper
-            sx={{
-              boxShadow: 1,
-              width: { xs: "100%", sm: 384, md: 384, lg: 384 },
-            }}
+            boxShadow={1}
+            width={{ xs: "100%", sm: 384, md: 384, lg: 384 }}
           >
             <Box component="div" fontSize={20} fontWeight={500} mb={3}>
               Edit application
@@ -141,6 +143,10 @@ export default function EditForm({
                     handleChange(event, prevData, setPrevData)
                   }
                 />
+              </Box>
+              <Box display="flex" flexDirection="column">
+                <Box component="label">Date</Box>
+                <DatePicker format="DD/MM/YYYY" value={dateValue} disabled />
               </Box>
               <Box display="flex" flexDirection="column">
                 <Box component="label">Status</Box>
