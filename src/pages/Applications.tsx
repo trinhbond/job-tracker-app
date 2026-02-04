@@ -20,6 +20,7 @@ import {
 import { statusValues } from "../utils";
 import { BaseButton } from "../components/buttons";
 import { Fallback } from "../components/Fallback";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
@@ -103,7 +104,9 @@ export default function Content() {
       }}
     >
       <Box display="flex" alignItems="center" gap={2}>
-        <BaseButton onClick={toggleModal}>Create</BaseButton>
+        <BaseButton startIcon={<AddIcon />} onClick={toggleModal}>
+          New
+        </BaseButton>
         <Divider orientation="vertical" flexItem />
         <Select
           sx={{
