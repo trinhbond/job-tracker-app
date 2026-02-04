@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import * as motion from "motion/react-client";
 import { Box, Typography } from "@mui/material";
 import { LoginForm, SignupForm } from "../components/forms/auth";
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { Applications } from ".";
 
 type User = {
   name: string;
@@ -22,7 +22,9 @@ export default function Home() {
     reset();
   };
 
-  if (user) return <Applications />;
+  if (user) {
+    return <Navigate to="/applications" replace />;
+  }
 
   return (
     <Box

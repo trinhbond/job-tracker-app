@@ -1,13 +1,33 @@
-import { Suspense } from "react";
-import { Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import Header from "./Header";
-import { Fallback } from "./Fallback";
+import { AuthContext } from "../context/AuthContext";
+import { GlobalStyles } from "@mui/material";
+import { ThemeProvider } from "../context/ThemeContext";
 
 export default function Layout() {
+  const { user } = useContext(AuthContext);
+
+  if (!user) return <Navigate to="/" replace />;
+
   return (
-    <Suspense fallback={<Fallback />}>
+    <ThemeProvider>
       <Header />
       <Outlet />
-    </Suspense>
+      <GlobalStyles
+        styles={(theme) => ({
+          body: {
+            background:
+              theme.palette.mode === "dark"
+                ? theme.palette.primary.dark
+                : theme.palette.primary.light,
+            color:
+              theme.palette.mode === "dark"
+                ? theme.palette.primary.light
+                : theme.palette.primary.dark,
+          },
+        })}
+      />
+    </ThemeProvider>
   );
 }

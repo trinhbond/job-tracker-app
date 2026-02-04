@@ -49,6 +49,7 @@ export default function LoginForm({
     await signInWithEmailAndPassword(auth, data.email, data.password)
       .then(() => {
         //toast notification
+        window.location.href = "/applications";
         reset();
       })
       .catch((error) => {

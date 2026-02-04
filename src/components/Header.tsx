@@ -55,7 +55,7 @@ export default function Header() {
         }}
       >
         <Box display="flex" alignItems="center" justifyContent="space-between">
-          <NavLink to="/">
+          <NavLink to="/applications">
             <Typography
               variant="h1"
               fontSize={18}

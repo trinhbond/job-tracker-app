@@ -59,6 +59,7 @@ export default function SignupForm({
           updateProfile(auth.currentUser, { displayName: data.name }).then(
             () => {
               //toast notification
+              window.location.href = "/applications";
             },
           );
         reset();
