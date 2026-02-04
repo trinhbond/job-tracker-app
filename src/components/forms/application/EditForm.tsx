@@ -11,7 +11,7 @@ import { AppForm } from "../../../lib/form-types";
 import { useForm } from "react-hook-form";
 import { deleteDoc, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../../config/firebase";
-import { handleChange, notify, statusValues } from "../../../utils";
+import { handleChange, toastMessage, statusValues } from "../../../utils";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
@@ -59,7 +59,7 @@ export default function EditForm({
       updateDoc(doc(db, "applications", "user/", user.uid, id), {
         ...prevData,
       });
-      notify("Your application has been updated", "success", toastId);
+      toastMessage("Your application has been updated", "success", toastId);
       setShowSelectedData({});
     } catch (e) {
       console.error(e);
@@ -69,7 +69,7 @@ export default function EditForm({
   const handleDelete = (id: string) => {
     if (!user) return;
     deleteDoc(doc(db, "applications", "user/", user.uid, id));
-    notify("Your application has been deleted", "success", toastId);
+    toastMessage("Your application has been deleted", "success", toastId);
   };
 
   const handleToggle = () => {

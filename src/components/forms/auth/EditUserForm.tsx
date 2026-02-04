@@ -6,7 +6,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { ModalContentWrapper } from "../../ModalContentWrapper";
 import { FormContainer } from "../../FormContainer";
 import { BaseButton, TextButton } from "../../buttons";
-import { notify } from "../../../utils";
+import { toastMessage } from "../../../utils";
 import { TextInput } from "../../TextInput";
 
 export default function EditUserForm({ onClick }: { onClick: () => void }) {
@@ -32,7 +32,7 @@ export default function EditUserForm({ onClick }: { onClick: () => void }) {
   const handleUserChange = handleSubmit(async (data) => {
     updateProfile(user, { displayName: data.name }).then(() => {
       user.reload();
-      notify("Your change has been updated", "success", toastId);
+      toastMessage("Your change has been updated", "success", toastId);
     });
   });
 

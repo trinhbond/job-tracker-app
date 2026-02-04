@@ -13,7 +13,7 @@ import { db } from "../../../config/firebase";
 import { AppForm } from "../../../lib/form-types";
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import { notify, statusValues } from "../../../utils";
+import { toastMessage, statusValues } from "../../../utils";
 import { Controller, useForm } from "react-hook-form";
 import { TextArea } from "../../TextArea";
 import { ModalContentWrapper } from "../../ModalContentWrapper";
@@ -48,7 +48,7 @@ export default function CreateForm({
       ...data,
       date_applied: date?.toDate(),
     }).catch((error) => console.log(error));
-    notify("Your application has been added", "success", toastId);
+    toastMessage("Your application has been added", "success", toastId);
     setIsModalOpen(!isModalOpen);
     reset();
   });

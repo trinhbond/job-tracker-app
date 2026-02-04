@@ -7,16 +7,16 @@ export const handleChange = (
     HTMLTextAreaElement | HTMLSelectElement | HTMLInputElement
   >,
   data: any,
-  setData: React.Dispatch<React.SetStateAction<AppForm>>
+  setData: React.Dispatch<React.SetStateAction<AppForm>>,
 ) => {
   const { name, value } = event.target;
   setData({ ...data, [name]: value });
 };
 
-export const notify = (
+export const toastMessage = (
   message: string,
   type: TypeOptions,
-  toastId: React.RefObject<Id | null>
+  toastId: React.RefObject<Id | null>,
 ) => {
   if (!toast.isActive(toastId.current || "")) {
     toast(message, {
