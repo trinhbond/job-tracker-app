@@ -30,7 +30,7 @@ export default function CreateForm({
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { user } = useContext(AuthContext);
-  const [date, setDate] = useState<Dayjs | null>();
+  const [date, setDate] = useState<Dayjs | null>(dayjs(new Date()));
   const {
     handleSubmit,
     reset,
