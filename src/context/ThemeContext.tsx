@@ -3,8 +3,7 @@ import {
   PaletteMode,
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material/styles";
-import React, { ReactNode, useContext, useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
+import React, { ReactNode, useEffect, useState } from "react";
 import { globalTheme, themePalette } from "../styles/globalTheme";
 
 type ThemeContextType = {

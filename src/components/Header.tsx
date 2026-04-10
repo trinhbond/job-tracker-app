@@ -41,12 +41,9 @@ export default function Header() {
   };
 
   return (
-    <Box position="sticky" top={0} zIndex={10}>
+    <Box className="header-wrapper">
       <Box
         component="header"
-        height={"64px"}
-        paddingX={3}
-        paddingY={2}
         sx={{
           backgroundColor:
             theme.palette.mode === "dark"
@@ -56,19 +53,17 @@ export default function Header() {
       >
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <NavLink to="/applications">
-            <Typography
-              variant="h1"
-              fontSize={18}
-              fontWeight={500}
-              sx={{
-                color:
+            <Box width={100}>
+              <Box
+                component="img"
+                src={
                   theme.palette.mode === "dark"
-                    ? theme.palette.primary.main
-                    : theme.palette.secondary.main,
-              }}
-            >
-              Ontrack
-            </Typography>
+                    ? `${process.env.PUBLIC_URL}/assets/ontrack_white.png`
+                    : `${process.env.PUBLIC_URL}/assets/ontrack.png`
+                }
+                alt="Ontrack logo"
+              />
+            </Box>
           </NavLink>
           <Box position="relative" ref={ref}>
             <Avatar onClick={handleClick} alt={`${user.displayName}`}>
@@ -76,27 +71,9 @@ export default function Header() {
             </Avatar>
             {clicked && (
               <Box
+                className="menu"
                 sx={{
-                  border:
-                    theme.palette.mode === "dark"
-                      ? "0.5px solid #272727"
-                      : "none",
                   boxShadow: 3,
-                  borderRadius: 2,
-                  background:
-                    theme.palette.mode === "dark"
-                      ? theme.palette.primary.dark
-                      : theme.palette.primary.main,
-                  color:
-                    theme.palette.mode === "dark"
-                      ? theme.palette.primary.main
-                      : theme.palette.secondary.main,
-                  minWidth: "225px",
-                  position: "fixed",
-                  right: "24px",
-                  top: "52px",
-                  width: "auto",
-                  zIndex: 9999,
                   "&>*:not(:last-child)": {
                     borderBottom:
                       theme.palette.mode === "dark"
@@ -112,17 +89,21 @@ export default function Header() {
                     gap={1}
                     px={1.5}
                     pt={2}
+                    pb={1}
                   >
                     <Avatar alt={`${user.displayName}`}>{avatarText}</Avatar>
                     <Box>
-                      <Typography component="span">
+                      <Typography
+                        component="span"
+                        display="block"
+                        lineHeight={1.15}
+                      >
                         {user.displayName}
                       </Typography>
                       <Typography
                         component="span"
                         display="block"
-                        fontSize={12}
-                        lineHeight="10px"
+                        lineHeight={1.15}
                       >
                         {user.email}
                       </Typography>
@@ -130,19 +111,13 @@ export default function Header() {
                   </Box>
                   <Box mt={1} mb={0.5}>
                     <Button
+                      className="menu-button-link"
                       onClick={handleUserChange}
                       sx={{
                         color:
                           theme.palette.mode === "dark"
                             ? theme.palette.primary.main
                             : theme.palette.secondary.main,
-                        borderRadius: 0,
-                        textAlign: "start",
-                        fontWeight: 400,
-                        display: "inline-block",
-                        width: "100%",
-                        pb: 1,
-                        px: 1.5,
                         ":hover": {
                           background:
                             theme.palette.mode === "dark"
@@ -158,19 +133,13 @@ export default function Header() {
                 <Box>
                   <Link to="/dashboard">
                     <Box
+                      className="menu-button-link"
                       sx={{
                         color:
                           theme.palette.mode === "dark"
                             ? theme.palette.primary.main
                             : theme.palette.secondary.main,
-                        borderRadius: 0,
-                        textAlign: "start",
-                        fontWeight: 400,
-                        display: "inline-block",
-                        width: "100%",
                         my: 0.5,
-                        py: 1,
-                        px: 1.5,
                         ":hover": {
                           background:
                             theme.palette.mode === "dark"
@@ -211,6 +180,7 @@ export default function Header() {
                 </Box>
                 <Box>
                   <Button
+                    className="menu-button-link"
                     variant="text"
                     onClick={logOut}
                     sx={{
@@ -218,14 +188,7 @@ export default function Header() {
                         theme.palette.mode === "dark"
                           ? theme.palette.primary.main
                           : theme.palette.secondary.main,
-                      borderRadius: 0,
-                      textAlign: "start",
-                      fontWeight: 400,
-                      display: "inline-block",
-                      width: "100%",
                       my: 0.5,
-                      py: 1,
-                      px: 1.5,
                       ":hover": {
                         background:
                           theme.palette.mode === "dark" ? "#707070" : "#f5f5f5",

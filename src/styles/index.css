@@ -1,3 +1,6 @@
 @import "_globals.css";
-@import "applications.css";
+@import "_applications.css";
+@import "_dashboard.css";
+@import "_home.css";
+@import "_header.css";
 @import "_calendar.css";

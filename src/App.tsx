@@ -9,7 +9,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Fallback } from "./components/Fallback";
-import { Applications, Dashboard } from "./pages";
+import { Applications, Dashboard, GetStarted } from "./pages";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { createTheme, ThemeProvider } from "@mui/material";
@@ -33,7 +33,8 @@ export default function App() {
           <AuthProvider>
             <Router>
               <Routes>
-                <Route path="/" index element={<Home />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/get-started" index element={<GetStarted />} />
                 <Route element={<Layout />}>
                   <Route path="applications" element={<Applications />} />
                   <Route path="dashboard" element={<Dashboard />} />

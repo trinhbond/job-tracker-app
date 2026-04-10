@@ -82,8 +82,8 @@ export default function CreateForm({
           New application
         </Box>
         <FormContainer className="create-form" onSubmit={handleAddApplication}>
-          <Box display="flex" flexDirection="column">
-            <FormControl>
+          <FormControl>
+            <Box display="flex" flexDirection="column" gap={0.5}>
               <Box component="label">Role</Box>
               <Controller
                 control={control}
@@ -111,10 +111,10 @@ export default function CreateForm({
                   {errors.title.message}
                 </Typography>
               )}
-            </FormControl>
-          </Box>
-          <Box display="flex" flexDirection="column">
-            <FormControl>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <Box display="flex" flexDirection="column" gap={0.5}>
               <Box component="label">Company</Box>
               <Controller
                 control={control}
@@ -142,10 +142,10 @@ export default function CreateForm({
                   {errors.company.message}
                 </Typography>
               )}
-            </FormControl>
-          </Box>
-          <Box display="flex" flexDirection="column">
-            <FormControl>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <Box display="flex" flexDirection="column" gap={0.5}>
               <Box component="label">Location</Box>
               <Controller
                 control={control}
@@ -158,10 +158,10 @@ export default function CreateForm({
                   />
                 )}
               />
-            </FormControl>
-          </Box>
-          <Box display="flex" flexDirection="column">
-            <FormControl>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <Box display="flex" flexDirection="column" gap={0.5}>
               <Box component="label">Date</Box>
               <Controller
                 control={control}
@@ -178,10 +178,10 @@ export default function CreateForm({
                   />
                 )}
               />
-            </FormControl>
-          </Box>
-          <Box display="flex" flexDirection="column">
-            <FormControl>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <Box display="flex" flexDirection="column" gap={0.5}>
               <Box component="label">Status</Box>
               <Controller
                 control={control}
@@ -215,10 +215,10 @@ export default function CreateForm({
                   </FormControl>
                 )}
               />
-            </FormControl>
-          </Box>
-          <Box display="flex" flexDirection="column">
-            <FormControl>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <Box display="flex" flexDirection="column" gap={0.5}>
               <Box component="label">Link</Box>
               <Controller
                 control={control}
@@ -231,10 +231,10 @@ export default function CreateForm({
                   />
                 )}
               />
-            </FormControl>
-          </Box>
-          <Box display="flex" flexDirection="column">
-            <FormControl>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <Box display="flex" flexDirection="column" gap={0.5}>
               <Box component="label">Salary</Box>
               <Controller
                 control={control}
@@ -243,15 +243,20 @@ export default function CreateForm({
                   <Input
                     sx={{ ...inputCSS }}
                     type="number"
+                    // slotProps={{
+                    //   input: {
+                    //     step: "0.01",
+                    //   },
+                    // }}
                     placeholder="Salary"
                     {...register("salary")}
                   />
                 )}
               />
-            </FormControl>
-          </Box>
-          <Box display="flex" flexDirection="column">
-            <FormControl>
+            </Box>
+          </FormControl>
+          <FormControl>
+            <Box display="flex" flexDirection="column" gap={0.5}>
               <Box component="label">Notes</Box>
               <Controller
                 control={control}
@@ -271,8 +276,8 @@ export default function CreateForm({
                   />
                 )}
               />
-            </FormControl>
-          </Box>
+            </Box>
+          </FormControl>
           <Box>
             <BaseButton type="submit">Confirm</BaseButton>
             <Box display="inline-block" ml={1} paddingX={1} paddingY={2}>

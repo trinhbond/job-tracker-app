@@ -2,14 +2,27 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { Controller, useForm } from "react-hook-form";
 import { auth } from "../../../config/firebase";
 import { FirebaseError } from "firebase/app";
-import { Box, FormControl, Input, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  IconButton,
+  Input,
+  InputAdornment,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { FormContainer } from "../../FormContainer";
 import { BaseButton, TextButton } from "../../buttons";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function LoginForm({
   handleToggle,
+  showPassword,
+  setShowPassword,
 }: {
   handleToggle: () => void;
+  showPassword: boolean;
+  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const {
     register,
@@ -59,7 +72,7 @@ export default function LoginForm({
   });
 
   return (
-    <FormContainer className="login-form" onSubmit={handleLogin}>
+    <FormContainer width="100%" className="login-form" onSubmit={handleLogin}>
       <Box display="flex" flexDirection="column" gap={0.5}>
         <FormControl>
           <Box component="label" mb={0.5}>
@@ -111,7 +124,17 @@ export default function LoginForm({
                   background: theme.palette.primary.main,
                 }}
                 error={!!errors.password}
-                type="password"
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
                 placeholder="Password (6 or more characters)"
                 {...register("password", {
                   required: {
@@ -133,10 +156,18 @@ export default function LoginForm({
           )}
         </FormControl>
       </Box>
-      <BaseButton type="submit" sx={{ alignSelf: "baseline" }}>
-        Continue
+      <BaseButton
+        type="submit"
+        sx={{
+          fontWeight: 600,
+          fontSize: 18,
+          padding: "12px 32px",
+          alignSelf: "center",
+        }}
+      >
+        Sign in
       </BaseButton>
-      <Box>
+      <Box alignSelf="center">
         Don't have an account?{" "}
         <TextButton sx={{ color: "#0000EE" }} onClick={handleToggle}>
           Sign up

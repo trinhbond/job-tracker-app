@@ -8,15 +8,7 @@ import {
   CreateForm,
   EditForm,
 } from "../components/forms/application";
-import {
-  Box,
-  capitalize,
-  Divider,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  useTheme,
-} from "@mui/material";
+import { Box, capitalize, Divider, MenuItem, Select } from "@mui/material";
 import { statusValues } from "../utils";
 import { BaseButton } from "../components/buttons";
 import { Fallback } from "../components/Fallback";
@@ -24,7 +16,6 @@ import AddIcon from "@mui/icons-material/Add";
 
 export default function Content() {
   const { user } = useContext(AuthContext);
-  const theme = useTheme();
   const [data, setData] = useState<AppForm[]>([]);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -87,45 +78,15 @@ export default function Content() {
   if (isLoadingData) return <Fallback />;
 
   return (
-    <Box
-      className="applications"
-      position="relative"
-      sx={{
-        paddingX: 3,
-        paddingY: 4,
-        color:
-          theme.palette.mode === "dark"
-            ? theme.palette.primary.main
-            : theme.palette.secondary.main,
-        background:
-          theme.palette.mode === "dark"
-            ? theme.palette.primary.dark
-            : theme.palette.primary.light,
-      }}
-    >
+    <Box className="applications">
       <Box display="flex" alignItems="center" gap={2}>
         <BaseButton startIcon={<AddIcon />} onClick={toggleModal}>
           New
         </BaseButton>
         <Divider orientation="vertical" flexItem />
         <Select
-          sx={{
-            borderRadius: "6px",
-            border:
-              theme.palette.mode === "dark"
-                ? "0.5px solid #272727"
-                : "0.5px solid #e5e7eb",
-            background:
-              theme.palette.mode === "dark"
-                ? "inherit"
-                : theme.palette.primary.main,
-            ":focus": { border: "none" },
-            width: 140,
-          }}
           value={statusValues[statusIndex]}
-          onChange={(e: SelectChangeEvent) => {
-            setStatusIndex(statusValues.indexOf(e.target.value));
-          }}
+          onChange={(e) => setStatusIndex(statusValues.indexOf(e.target.value))}
         >
           {statusValues.map((option, index) => (
             <MenuItem

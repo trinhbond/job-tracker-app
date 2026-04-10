@@ -1,26 +1,13 @@
-import { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import * as motion from "motion/react-client";
-import { Box, Typography } from "@mui/material";
-import { LoginForm, SignupForm } from "../components/forms/auth";
-import { Navigate } from "react-router-dom";
+import { Box, Fade, Modal, Typography } from "@mui/material";
+import { BaseButton } from "../components/buttons";
+import { Link, Navigate } from "react-router-dom";
+import { useWindowDimensions } from "../hooks";
 import { AuthContext } from "../context/AuthContext";
-
-type User = {
-  name: string;
-  email: string;
-  password: string;
-};
+import { useContext, useState } from "react";
 
 export default function Home() {
-  const [toggle, setToggle] = useState<boolean>(false);
+  const { width } = useWindowDimensions();
   const { user } = useContext(AuthContext);
-  const { reset } = useForm<User>();
-
-  const handleToggle = () => {
-    setToggle(!toggle);
-    reset();
-  };
 
   if (user) {
     return <Navigate to="/applications" replace />;
@@ -28,57 +15,78 @@ export default function Home() {
 
   return (
     <Box
+      height="100dvh"
       sx={{
-        height: "100dvh",
+        background: "#fff",
         overflowY: "auto",
-        overflowX: "hidden",
-        background: "#f2f2f3",
-        color: "#000",
       }}
     >
-      <Box padding={3} mb={1}>
-        <Typography variant="h1" mb={1} fontSize={36} fontWeight={500}>
-          Ontrack
-        </Typography>
-        <Typography>
-          Stay organized and in control of your job hunt — Ontrack lets you
-          manage every application in one place.
-        </Typography>
-      </Box>
-      <Box
-        display="flex"
-        justifyItems="center"
-        justifyContent="space-between"
-        padding={3}
-      >
+      <Box className="header" position="fixed" top={0} zIndex={1} width="100%">
         <Box
-          width="100%"
-          display="flex"
-          justifyItems="center"
-          justifyContent="space-between"
-          flexDirection={{ xs: "column", sm: "column", md: "row", lg: "row" }}
-          gap={{ xs: 6 }}
+          component="header"
+          padding="24px 48px"
+          sx={{
+            background: "#fff",
+          }}
+        >
+          <Box width={125} margin="auto">
+            <Box
+              component="img"
+              sx={{ userSelect: "none" }}
+              src={`${process.env.PUBLIC_URL}/assets/ontrack.png`}
+              alt="Ontrack graphic"
+            />
+          </Box>
+        </Box>
+      </Box>
+      {width >= 1200 ? (
+        <Box
+          className="relative"
+          height="inherit"
+          textAlign="center"
+          padding="0px 96px"
+          sx={{
+            placeContent: "center",
+          }}
         >
           <Box
-            sx={{
-              placeSelf: "center",
-              width: { xs: "100%", sm: "100%", md: "400px", lg: "400px" },
-            }}
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
           >
-            {toggle ? (
-              <LoginForm handleToggle={handleToggle} />
-            ) : (
-              <SignupForm handleToggle={handleToggle} />
-            )}
-          </Box>
-          <motion.div
-            transition={{
-              duration: 0.3,
-            }}
-            initial={{ x: "100%" }}
-            animate={{ x: "0" }}
-          >
-            <Box width={{ xs: "100%", sm: "100%", md: "315px", lg: "315px" }}>
+            <Box width="60%" alignSelf="center">
+              <Typography
+                component="h1"
+                color="#000"
+                fontSize={56}
+                lineHeight={"56px"}
+                fontWeight={600}
+                marginBottom={3.5}
+              >
+                Stay organized and in control of your job hunt
+              </Typography>
+              <Typography
+                textAlign="center"
+                fontSize={18}
+                marginBottom={3.5}
+                color="#8f8f8f"
+              >
+                Ontrack lets you manage every application in one place.
+              </Typography>
+              <Link to="/get-started">
+                <BaseButton
+                  sx={{
+                    fontWeight: 600,
+                    fontSize: 18,
+                    padding: "12px 32px",
+                    marginBottom: 3.5,
+                  }}
+                >
+                  Get started
+                </BaseButton>
+              </Link>
+            </Box>
+            <Box width={350}>
               <Box
                 component="img"
                 justifySelf="center"
@@ -86,9 +94,60 @@ export default function Home() {
                 alt="Ontrack graphic"
               />
             </Box>
-          </motion.div>
+          </Box>
         </Box>
-      </Box>
+      ) : (
+        <Box
+          className="relative"
+          textAlign="center"
+          padding="96px 0px 24px 0px"
+        >
+          <Box
+            maxWidth={750}
+            margin="auto"
+            padding={{ xs: "0px 8px", sm: "8px" }}
+          >
+            <Typography
+              component="h1"
+              color="#000"
+              fontSize={{ xs: "32px", sm: "44px" }}
+              lineHeight={{ xs: "32px", sm: "44px" }}
+              fontWeight={600}
+              marginBottom={3.5}
+            >
+              Stay organized and in control of your job hunt
+            </Typography>
+            <Typography
+              textAlign="center"
+              fontSize={18}
+              marginBottom={3.5}
+              color="#8f8f8f"
+            >
+              Ontrack lets you manage every application in one place.
+            </Typography>
+            <Link to="/get-started">
+              <BaseButton
+                sx={{
+                  fontWeight: 600,
+                  fontSize: 18,
+                  padding: "12px 32px",
+                  marginBottom: 3.5,
+                }}
+              >
+                Get started
+              </BaseButton>
+            </Link>
+          </Box>
+          <Box>
+            <Box
+              component="img"
+              justifySelf="center"
+              src={`${process.env.PUBLIC_URL}/assets/mobile-wireframe.png`}
+              alt="Ontrack graphic"
+            />
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }

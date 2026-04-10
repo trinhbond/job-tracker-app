@@ -96,7 +96,7 @@ export default function EditForm({
               className="edit-form"
               onSubmit={(event) => handleEditApplication(props.id, event)}
             >
-              <Box display="flex" flexDirection="column">
+              <Box display="flex" flexDirection="column" gap={0.5}>
                 <Box component="label">Role</Box>
                 <TextInput
                   error={!prevData.title.trim()}
@@ -114,7 +114,7 @@ export default function EditForm({
                   </Typography>
                 )}
               </Box>
-              <Box display="flex" flexDirection="column">
+              <Box display="flex" flexDirection="column" gap={0.5}>
                 <Box component="label">Company</Box>
                 <TextInput
                   error={!prevData.company.trim()}
@@ -132,7 +132,7 @@ export default function EditForm({
                   </Typography>
                 )}
               </Box>
-              <Box display="flex" flexDirection="column">
+              <Box display="flex" flexDirection="column" gap={0.5}>
                 <Box component="label">Location</Box>
                 <TextInput
                   placeholder="Location"
@@ -144,11 +144,11 @@ export default function EditForm({
                   }
                 />
               </Box>
-              <Box display="flex" flexDirection="column">
+              <Box display="flex" flexDirection="column" gap={0.5}>
                 <Box component="label">Date</Box>
                 <DatePicker format="DD/MM/YYYY" value={dateValue} disabled />
               </Box>
-              <Box display="flex" flexDirection="column">
+              <Box display="flex" flexDirection="column" gap={0.5}>
                 <Box component="label">Status</Box>
                 <Select
                   name="status"
@@ -182,7 +182,7 @@ export default function EditForm({
                   ))}
                 </Select>
               </Box>
-              <Box display="flex" flexDirection="column">
+              <Box display="flex" flexDirection="column" gap={0.5}>
                 <Box component="label">Link</Box>
                 <TextInput
                   placeholder="Link"
@@ -194,7 +194,7 @@ export default function EditForm({
                   }
                 />
               </Box>
-              <Box display="flex" flexDirection="column">
+              <Box display="flex" flexDirection="column" gap={0.5}>
                 <Box component="label">Salary</Box>
                 <TextInput
                   type="number"
@@ -207,7 +207,7 @@ export default function EditForm({
                   }
                 />
               </Box>
-              <Box display="flex" flexDirection="column">
+              <Box display="flex" flexDirection="column" gap={0.5}>
                 <Box component="label">Notes</Box>
                 <TextArea
                   style={{
